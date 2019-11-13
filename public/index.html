@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sistema Medico</title>
+    <!--CSS-->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/inventario.css">
+    <!--BOOTSTRAP-->
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!--FONT AWESOME-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!--ANGULAR JS-->
+    <script src="./lib/angular.js"></script>
+    <script src="./lib/angularRouting.js"></script>
+    <script src="./lib/jquery.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="./css/menu.css" />
+	<link rel="stylesheet" type="text/css" href="./css/menuEstilo.css" />
+</head>
+<body ng-controller="indexController">
+    
+    <div class="row">
+        <div class="col-sm-2 textoNegro navbarColor nav-menu pl-3 pr-3 pt-3 pb-5 mb-5" align="center">
+            
+            <a href="#!categoria">
+                <i class="fas fa-bookmark fa-3x"></i> <br>
+                Categorias
+            </a> <br>
+            <a href="#!marca">
+                <i class="fas fa-tag fa-3x"></i> <br>
+                Marcas
+            </a> <br>
+            <a href="#!cte">
+                <i class="fas fa-warehouse fa-3x"></i> <br>
+                Inventario
+            </a> <br>
+            <a href="#!venta">
+                <i class="fas fa-shopping-cart fa-3x"></i> <br>
+                Ventas
+            </a> <br>
+            <a href="#!usuario">
+                <i class="fas fa-users fa-3x"></i> <br>
+                Usuarios
+            </a> <br>
+        </div>    
+        <div class="col-sm-10">
+            <div ng-view>
+
+            </div>
+        </div>
+    </div>    
+    <script src="./lib/jquery/jquery.min.js"></script>
+    <script src="./lib/jquery/jquery-migrate.min.js"></script>
+    <script src="./lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+   
+    <script src="routing.js"></script>
+
+</body>
+</html>
