@@ -27,6 +27,10 @@ app.config(function ($routeProvider) {
             templateUrl: './components/masajes/masajes.html',
             controller: 'masajesCtrl'
         })
+        .when('/exp', {
+            templateUrl: './components/clientes/expediente.html',
+            controller: 'expedienteCtrl'
+        })
         .otherwise({
             templateUrl: 'components/inicio/inicio.html',
             controller: 'indexController'
@@ -40,9 +44,11 @@ app.controller('indexController', function ($scope) {
 app.controller('inicioCtrl',  function($scope){
 
 });
-app.controller('clientesCtrl', function($scope){
+app.controller('clientesCtrl', function($scope, $http, $location){
    $scope.titulo = "Altas";
    $scope.altas = true;
+   $scope.res = false;
+   $scope.$location = $location;
    $scope.elegirOpcion = function (opc){
         if(opc == 'alta'){
             $scope.altas = true;
@@ -76,14 +82,36 @@ app.controller('clientesCtrl', function($scope){
         numero: 0,
         calle: '',
         sangre: '',
-        estatura: 0,
-        enTratamiento: 0
+        estatura: 0
     };
     $scope.Enviar = function (){
         console.log(JSON.stringify($scope.valores));
+        $http.post("https://first12354.herokuapp.com/user/add-user",
+            $scope.valores
+        )
+        .then(function (respuesta) {
+            console.log(respuesta.data);
+            if(respuesta.data.status == 1){
+                $scope.res = true;
+                $location.path('exp');
+            }
+            else{
+                $scope.res = false;
+            }
+        })
+        .catch(function (error){
+            console.log(error.data);
+        });
+
+    }
+    $scope.abrir = function (){
+        $location.path('exp');
     }
 
 });
+app.controller('expedienteCtrl', function($scope){
+    $scope.m = "Expediente";
+ });
 app.controller('empleadosCtrl', function($scope){
     $scope.m = "Empleados";
  });
