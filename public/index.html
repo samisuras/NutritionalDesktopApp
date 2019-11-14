@@ -1,63 +1,112 @@
 <!DOCTYPE html>
 <html lang="es" ng-app="app">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sistema Medico</title>
     <!--CSS-->
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/inventario.css">
+    <link rel="stylesheet" type="text/css" href="css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="css/style2.css" />
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800" rel="stylesheet">
+
     <!--BOOTSTRAP-->
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cerulean/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-C++cugH8+Uf86JbNOnQoBweHHAe/wVKN/mb0lTybu/NZ9sEYbd+BbbYtNpWYAsNP" crossorigin="anonymous">
     <!--FONT AWESOME-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!--ANGULAR JS-->
     <script src="./lib/angular.js"></script>
     <script src="./lib/angularRouting.js"></script>
     <script src="./lib/jquery.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="./css/menu.css" />
-	<link rel="stylesheet" type="text/css" href="./css/menuEstilo.css" />
 </head>
-<body ng-controller="indexController">
-    
-    <div class="row">
-        <div class="col-sm-2 textoNegro navbarColor nav-menu pl-3 pr-3 pt-3 pb-5 mb-5" align="center">
-            
-            <a href="#!categoria">
-                <i class="fas fa-bookmark fa-3x"></i> <br>
-                Categorias
-            </a> <br>
-            <a href="#!marca">
-                <i class="fas fa-tag fa-3x"></i> <br>
-                Marcas
-            </a> <br>
-            <a href="#!cte">
-                <i class="fas fa-warehouse fa-3x"></i> <br>
-                Inventario
-            </a> <br>
-            <a href="#!venta">
-                <i class="fas fa-shopping-cart fa-3x"></i> <br>
-                Ventas
-            </a> <br>
-            <a href="#!usuario">
-                <i class="fas fa-users fa-3x"></i> <br>
-                Usuarios
-            </a> <br>
-        </div>    
-        <div class="col-sm-10">
-            <div ng-view>
 
+<body ng-controller="indexController">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+            <h3 class="h3 text-center ml-5">Sistema de Nutricion</h3>
+        </a>
+        <img src="img/linea.png" class="img-fluid" width="350px">
+        <img src="img/linea.png" class="img-fluid" width="350px">
+        <img src="img/linea.png" class="img-fluid" width="350px">
+
+
+
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="content fixed col-xl-3">
+                <ul class="ca-menu">
+                    <li class="marco">
+                        <a href="#!cte">
+                            <span class="ca-icon"><i class="fas fa-users"></i></span>
+                            <div class="ca-content">
+                                <h2 class="ca-main">Clientes</h2>
+                                <h3 class="ca-sub">Altas-Bajas-Cambios</h3>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="marco">
+                        <a href="#!emp">
+                            <span class="ca-icon"><i class="fa fa-book"></i></span>
+                            <div class="ca-content">
+                                <h2 class="ca-main">Empleados</h2>
+                                <h3 class="ca-sub">shfdbsdbdsbd</h3>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="marco">
+                        <a href="#!con">
+                            <span class="ca-icon"><i class="fas fa-user-nurse"></i></span>
+                            <div class="ca-content">
+                                <h2 class="ca-main">Consultas</h2>
+                                <h3 class="ca-sub">akakasasfas</h3>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="marco">
+                        <a href="#!cit">
+                            <span class="ca-icon"><i class="fas fa-hospital-alt"></i></span>
+                            <div class="ca-content">
+                                <h2 class="ca-main">Citas</h2>
+                                <h3 class="ca-sub">jajajajajajaj</h3>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="marco">
+                        <a href="#!mas">
+                            <span class="ca-icon"><i class="fas fa-apple-alt"></i></span>
+                            <div class="ca-content">
+                                <h2 class="ca-main">Masajes</h2>
+                                <h3 class="ca-sub">jejejejejeje</h3>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div><!-- content -->
+            <div class="col-xl-9">
+                <div ng-view>
+
+                </div>
             </div>
         </div>
-    </div>    
+
+    </div>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
     <script src="./lib/jquery/jquery.min.js"></script>
     <script src="./lib/jquery/jquery-migrate.min.js"></script>
     <script src="./lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-   
+    <script src="js/animate.js"></script>
+    <script src="js/custom.js"></script>
     <script src="routing.js"></script>
 
 </body>
+
 </html>

@@ -1,0 +1,133 @@
+<h1 class="h1">{{titulo}}
+     <i class="fas fa-user-plus ml-3" ng-show="altas"></i>
+     <i class="fas fa-user-minus  ml-3" ng-show="bajas"></i>
+     <i class="fa fa-pencil  ml-3" ng-show="cambios"></i>
+</h1>
+
+<div class="container-fluid">
+    <label class="control-label">Selecciona una opción:</label>
+    <form class="row border border-info text-center">
+        <label class="col-xl-4 mt-1 mb-1">
+            <input type="radio" ng-model="opcion.name" value="alta" ng-click="elegirOpcion('alta')">
+            Altas
+        </label><br />
+        <label class="col-xl-4 mt-1 mb-1">
+            <input type="radio" ng-model="opcion.name" value="baja" ng-click="elegirOpcion('baja')">
+            Bajas
+        </label><br />
+        <label class="col-xl-4 mt-1 mb-1">
+            <input type="radio" ng-model="opcion.name" value="cambio" ng-click="elegirOpcion('cambio')">
+            Cambios
+        </label><br />
+    </form>
+    <form class="well form-horizontal pt-4 pb-4" ng-show="altas">
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="form-group">
+                    <label class="control-label">Nombre</label>
+                    <div class="inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input ng-model="valores.nombre" class="form-control" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="form-group">
+                    <label class="control-label">Apellido Paterno</label>
+                    <div class="inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input ng-model="valores.apellidoPaterno" class="form-control" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="form-group">
+                    <label class="control-label">Apellido Materno</label>
+                    <div class="inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input ng-model="valores.apellidoMaterno"  class="form-control" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="form-group">
+                    <label class="control-label">Correo</label>
+                    <div class="inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input ng-model="valores.correo"  class="form-control" type="email">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="form-group">
+                    <label class="control-label">Código Postal</label>
+                    <div class="inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input ng-model="valores.cp"  class="form-control" type="number">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="form-group">
+                    <label class="control-label">Número</label>
+                    <div class="inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input ng-model="valores.numero"  class="form-control" type="number">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="form-group">
+                    <label class="control-label">Calle</label>
+                    <div class="inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input ng-model="valores.calle"  class="form-control" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="form-group">
+                    <label class="control-label">Sangre</label>
+                    <div class="inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input ng-model="valores.sangre" class="form-control" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="form-group">
+                    <label class="control-label">Estatura (metros)</label>
+                    <div class="inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input ng-model="valores.estatura" class="form-control" type="number">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4"></div>
+            <div class="col-xl-4 pt-4">
+                <button type="button" class="btn btn-info btn-block" ng-click="Enviar()">Enviar</button>
+            </div>
+            <div class="col-xl-4"></div>
+        </div>
+    </form>
+</div>
+
+</div><!-- /.container -->
