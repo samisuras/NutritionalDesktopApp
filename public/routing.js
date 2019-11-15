@@ -120,6 +120,27 @@ app.controller('expedienteCtrl', function($scope){
         actividadFisica: [],
         estres: [],
         medicamentoDC: [],
+        nombreMedicamentoDC: '',
+        finMedicamentoDC: '',
+        anticonceptivo: '',
+        sobrepeso: 0,
+        diabetes: 0,
+        cancer: 0,
+        hipertension: 0,
+        cardiovascular: 0,
+        tipoAF: '',
+        frecuenciaAF: '',
+        tiempoAF: '',
+        adiccion: '',
+        comida: [],
+        formaAlimentacion: '',
+        edadSobrepeso: 0,
+        eventoRelacionado: '',
+        motivoReduccion: '',
+        familia: 0,
+        pesoDeseado: 0
+
+
     }
     $scope.verificarDolorDeCabeza = function (){
         if($scope.datos.dolorCabeza == 1){
