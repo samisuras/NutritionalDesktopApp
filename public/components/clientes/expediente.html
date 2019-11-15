@@ -1,31 +1,38 @@
 <h1 class="h1">{{m}}</h1>
 
 <div class="container-fluid">
-    <form class="well form-horizontal pt-4 pb-4"  ng-submit="">
+    <form class="well form-horizontal pt-4 pb-4" ng-submit="">
         <div class="row">
-            <div class="col-xl-4">
+            <div class="col-xl-12">
                 <div class="form-group">
                     <label class="control-label">Dolor de Cabeza:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="valores.nombre" class="form-control" type="text" required>
+                            <select name="multipleSelect" ng-model="datos.dolorCabeza"
+                                ng-click="verificarDolorDeCabeza()">
+                                <option value="1">SI</option>
+                                <option value="0">NO</option>
+                            </select>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4">
+            <div class="col-xl-12" ng-show="dolordecabeza">
                 <div class="form-group">
                     <label class="control-label">Medicamento:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="valores.apellidoPaterno" class="form-control" type="text" required>
+                            <select name="multipleSelect" ng-model="datos.medicamentoDC" ng-click="verificarMedicamento()">
+                                <option value="1">SI</option>
+                                <option value="0">NO</option>
+                            </select>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4">
+            <div class="col-xl-4" ng-show="Medicamento">
                 <div class="form-group">
                     <label class="control-label">Nombre del Medicamento:</label>
                     <div class="inputGroupContainer">
@@ -36,7 +43,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4">
+            <div class="col-xl-4" ng-show="Medicamento">
                 <div class="form-group">
                     <label class="control-label">Finalidad:</label>
                     <div class="inputGroupContainer">
@@ -47,7 +54,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4">
+            <div class="col-xl-4" ng-show="Medicamento">
                 <div class="form-group">
                     <label class="control-label">Anticonceptivo:</label>
                     <div class="inputGroupContainer">
@@ -58,6 +65,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-xl-4">
                 <div class="form-group">
                     <label class="control-label">Sobrepeso:</label>
@@ -113,18 +121,22 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4">
+            <div class="col-xl-12">
                 <div class="form-group">
                     <label class="control-label">Actividad Fisica:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="valores.estatura" class="form-control" type="number" required>
+                            <select name="multipleSelect" ng-model="datos.actividadFisica"
+                                ng-click="verificarActividadFisica()">
+                                <option value="1">SI</option>
+                                <option value="0">NO</option>
+                            </select>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4">
+            <div class="col-xl-4" ng-show="actividadfisica">
                 <div class="form-group">
                     <label class="control-label">Tipo:</label>
                     <div class="inputGroupContainer">
@@ -135,7 +147,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4">
+            <div class="col-xl-4" ng-show="actividadfisica">
                 <div class="form-group">
                     <label class="control-label">Frecuencia:</label>
                     <div class="inputGroupContainer">
@@ -146,7 +158,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4">
+            <div class="col-xl-4" ng-show="actividadfisica">
                 <div class="form-group">
                     <label class="control-label">Tiempo:</label>
                     <div class="inputGroupContainer">
@@ -179,18 +191,21 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4">
+            <div class="col-xl-12">
                 <div class="form-group">
                     <label class="control-label">Estres:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="valores.estatura" class="form-control" type="number" required>
+                            <select name="multipleSelect" ng-model="datos.estres" ng-click="verificarEstres()">
+                                <option value="1">SI</option>
+                                <option value="0">NO</option>
+                            </select>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4">
+            <div class="col-xl-4" ng-show="Estres">
                 <div class="form-group">
                     <label class="control-label">Forma de Alimentacion:</label>
                     <div class="inputGroupContainer">

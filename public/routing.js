@@ -111,6 +111,48 @@ app.controller('clientesCtrl', function($scope, $http, $location){
 });
 app.controller('expedienteCtrl', function($scope){
     $scope.m = "Expediente";
+    $scope.dolordecabeza = false;
+    $scope.actividadfisica = false;
+    $scope.Estres = false;
+    $scope.Medicamento = false;
+    $scope.datos={
+        dolorCabeza: [],
+        actividadFisica: [],
+        estres: [],
+        medicamentoDC: [],
+    }
+    $scope.verificarDolorDeCabeza = function (){
+        if($scope.datos.dolorCabeza == 1){
+            $scope.dolordecabeza = true;
+        }
+        else{
+            $scope.dolordecabeza = false;
+        }
+    }
+    $scope.verificarActividadFisica = function (){
+        if($scope.datos.actividadFisica == 1){
+            $scope.actividadfisica = true;
+        }
+        else{
+            $scope.actividadfisica = false;
+        }
+    }
+    $scope.verificarEstres = function (){
+        if($scope.datos.estres == 1){
+            $scope.Estres = true;
+        }
+        else{
+            $scope.Estres = false;
+        }
+    }
+    $scope.verificarMedicamento = function (){
+        if($scope.datos.medicamentoDC == 1){
+            $scope.Medicamento = true;
+        }
+        else{
+            $scope.Medicamento = false;
+        }
+    }
  });
 app.controller('empleadosCtrl', function($scope){
     $scope.m = "Empleados";
