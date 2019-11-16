@@ -1,7 +1,10 @@
 <h1 class="h1">{{m}}</h1>
-
+<div class="alert alert-dismissible alert-success mt-3" ng-show="res">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Exito!</strong> Se agrego el expediente <a href="#" class="alert-link">correctamente</a>.
+</div>
 <div class="container-fluid">
-    <form class="well form-horizontal pt-4 pb-4" ng-submit="">
+    <form class="well form-horizontal pt-4 pb-4"  ng-submit="EnviarExp()">
         <div class="row">
             <div class="col-xl-12">
                 <div class="form-group">
@@ -39,7 +42,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="datos.nombreMedicamentoDC" class="form-control" type="text" required>
+                            <input ng-model="datos.nombreMedicamentoDC" class="form-control" type="text" >
                         </div>
                     </div>
                 </div>
@@ -50,7 +53,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <textarea ng-model="valores.finMedicamentoDC" class="form-control" required></textarea>
+                            <textarea ng-model="valores.finMedicamentoDC" class="form-control"></textarea>
                         </div>
                     </div>
                 </div>
@@ -61,7 +64,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <textarea ng-model="valores.anticonceptivo" class="form-control" required></textarea>
+                            <textarea ng-model="valores.anticonceptivo" class="form-control"></textarea>
                         </div>
                     </div>
                 </div>
@@ -158,7 +161,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <textarea ng-model="datos.tipoAF" class="form-control" required></textarea>
+                            <textarea ng-model="datos.tipoAF" class="form-control" ></textarea>
                         </div>
                     </div>
                 </div>
@@ -169,7 +172,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <textarea ng-model="datos.frecuenciaAF" class="form-control" required></textarea>
+                            <textarea ng-model="datos.frecuenciaAF" class="form-control" ></textarea>
                         </div>
                     </div>
                 </div>
@@ -180,7 +183,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <textarea ng-model="datos.tiempoAF" class="form-control" required></textarea>
+                            <textarea ng-model="datos.tiempoAF" class="form-control" ></textarea>
                         </div>
                     </div>
                 </div>
@@ -191,7 +194,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <textarea ng-model="datos.adiccion" class="form-control" required></textarea>
+                            <textarea ng-model="datos.adiccion" class="form-control" ></textarea>
                         </div>
                     </div>
                 </div>
@@ -230,7 +233,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <textarea ng-model="datos.formaAlimentacion" class="form-control" required></textarea>
+                            <textarea ng-model="datos.formaAlimentacion" class="form-control" ></textarea>
                         </div>
                     </div>
                 </div>
@@ -241,7 +244,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="datos.edadSobrepeso" class="form-control" type="number" required>
+                            <input ng-model="datos.edadSobrepeso" class="form-control" type="number">
                         </div>
                     </div>
                 </div>
@@ -252,7 +255,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <textarea ng-model="datos.eventoRelacionado" class="form-control" required></textarea>
+                            <textarea ng-model="datos.eventoRelacionado" class="form-control" ></textarea>
                         </div>
                     </div>
                 </div>
@@ -263,7 +266,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <textarea ng-model="datos.motivoReduccion" class="form-control" required></textarea>
+                            <textarea ng-model="datos.motivoReduccion" class="form-control" ></textarea>
                         </div>
                     </div>
                 </div>
@@ -288,7 +291,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="datos.pesoDeseado" class="form-control" type="number" required>
+                            <input ng-model="datos.pesoDeseado" class="form-control" type="number" >
                         </div>
                     </div>
                 </div>

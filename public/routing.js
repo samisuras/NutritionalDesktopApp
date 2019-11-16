@@ -110,6 +110,7 @@ app.controller('clientesCtrl', function($scope, $http, $location){
 });
 app.controller('expedienteCtrl', function($scope){
     $scope.m = "Expediente";
+    $scope.res = false;
     $scope.dolordecabeza = false;
     $scope.actividadfisica = false;
     $scope.Estres = false;
@@ -139,6 +140,26 @@ app.controller('expedienteCtrl', function($scope){
         familia: 0,
         pesoDeseado: 0
 
+
+    }
+    $scope.EnviarExp = function (){
+        console.log(JSON.stringify($scope.valores));
+        $http.post("https://first12354.herokuapp.com/user/add-expediente",
+            $scope.datos
+        )
+        .then(function (respuesta) {
+            console.log(respuesta.data);
+            if(respuesta.data.status == 1){
+                $scope.res = true;
+                $location.path('cte');
+            }
+            else{
+                $scope.res = false;
+            }
+        })
+        .catch(function (error){
+            console.log(error.data);
+        });
 
     }
     $scope.verificarDolorDeCabeza = function (){
