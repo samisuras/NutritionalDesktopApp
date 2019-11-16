@@ -31,6 +31,10 @@ app.config(function ($routeProvider) {
             templateUrl: './components/clientes/expediente.html',
             controller: 'expedienteCtrl'
         })
+        .when('/verCte', {
+            templateUrl: './components/clientes/verClientes.html',
+            controller: 'verCteCtrl'
+        })
         .otherwise({
             templateUrl: 'components/inicio/inicio.html',
             controller: 'indexController'
@@ -42,6 +46,9 @@ app.controller('indexController', function ($scope) {
 }); 
 //Separar los controllers
 app.controller('inicioCtrl',  function($scope){
+});
+app.controller('verCteCtrl',  function($scope){
+    $scope.titulo = "Ver Clientes";
 
 });
 app.controller('clientesCtrl', function($scope, $http, $location){
@@ -52,21 +59,13 @@ app.controller('clientesCtrl', function($scope, $http, $location){
    $scope.elegirOpcion = function (opc){
         if(opc == 'alta'){
             $scope.altas = true;
-            $scope.bajas = false;
-            $scope.cambios = false;
-            $scope.titulo = "Altas";
         }
-        else if(opc == 'baja'){
-            $scope.altas = false;
-            $scope.bajas = true;
-            $scope.cambios = false;
-            $scope.titulo = "Bajas";
+        else if (opc == 'verCte') {
+            $scope.true = false;
+            $location.path('verCte');
         }
         else{
-            $scope.titulo = "Cambios";
-            $scope.altas = false;
-            $scope.bajas = false;
-            $scope.cambios = true;
+
         }
    }
    $scope.opcion = {
@@ -116,27 +115,27 @@ app.controller('expedienteCtrl', function($scope){
     $scope.Estres = false;
     $scope.Medicamento = false;
     $scope.datos={
-        dolorCabeza: [],
-        actividadFisica: [],
-        estres: [],
-        medicamentoDC: [],
-        nombreMedicamentoDC: '',
-        finMedicamentoDC: '',
-        anticonceptivo: '',
+        dolorCabeza: 0,
+        actividadFisica: 0,
+        estres: 0,
+        medicamentoDC: 0,
+        nombreMedicamentoDC: "",
+        finMedicamentoDC: "",
+        anticonceptivo: "",
         sobrepeso: 0,
         diabetes: 0,
         cancer: 0,
         hipertension: 0,
         cardiovascular: 0,
-        tipoAF: '',
-        frecuenciaAF: '',
+        tipoAF: "",
+        frecuenciaAF: "",
         tiempoAF: '',
         adiccion: '',
-        comida: [],
-        formaAlimentacion: '',
+        comida: 0,
+        formaAlimentacion: "",
         edadSobrepeso: 0,
-        eventoRelacionado: '',
-        motivoReduccion: '',
+        eventoRelacionado: "",
+        motivoReduccion: "",
         familia: 0,
         pesoDeseado: 0
 
