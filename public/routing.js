@@ -108,7 +108,7 @@ app.controller('clientesCtrl', function($scope, $http, $location){
     }
 
 });
-app.controller('expedienteCtrl', function($scope){
+app.controller('expedienteCtrl', function($scope, $http, $location){
     $scope.m = "Expediente";
     $scope.res = false;
     $scope.dolordecabeza = false;
@@ -143,7 +143,7 @@ app.controller('expedienteCtrl', function($scope){
 
     }
     $scope.EnviarExp = function (){
-        console.log(JSON.stringify($scope.valores));
+        console.log(JSON.stringify($scope.datos));
         $http.post("https://first12354.herokuapp.com/user/add-expediente",
             $scope.datos
         )
