@@ -7,28 +7,22 @@
         <thead class="thead bg-info text-white">
             <tr>
                 <th scope="col">ID Usuario</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Apellido Paterno</th>
-                <th scope="col">Apellido Materno</th>
+                <th scope="col">Nombre Completo</th>
                 <th scope="col">Correo Electronico</th>
                 <th scope="col">ID Direccion</th>
                 <th scope="col">ID Cliente</th>
-                <th scope="col">Modificar</th>
-                <th scope="col">Borrar</th>
+                <th scope="col">Ver mas</th>
                 
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Juan</td>
-                <td>El vergas</td>
-                <td>Cornejo</td>
-                <td>Juan100_americ@hotmail.com</td>
-                <td scope="row">2</td>
-                <td scope="row">3</td>
-                <td><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></td>
-                <td><button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></td>
+            <tr ng-repeat="x in users">
+                <th scope="row">{{x.idUsuario}}</th>
+                <td>{{x.nombre + ' '+ x.apellidoPaterno+' '+ x.apellidoMaterno}}</td>
+                <td>{{x.correo}}</td>
+                <td scope="row">{{x.idDireccion}}</td>
+                <td scope="row">{{x.idCliente}}</td>
+                <td><a href="#!detallesCTE">Detalles</a></td>
             </tr>
            
         </tbody>

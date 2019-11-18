@@ -35,6 +35,10 @@ app.config(function ($routeProvider) {
             templateUrl: './components/clientes/verClientes.html',
             controller: 'verCteCtrl'
         })
+        .when('/detallesCTE', {
+            templateUrl: './components/clientes/detallesCte.html',
+            controller: 'detallesCteCtrl'
+        })
         .otherwise({
             templateUrl: 'components/inicio/inicio.html',
             controller: 'indexController'
@@ -47,8 +51,16 @@ app.controller('indexController', function ($scope) {
 //Separar los controllers
 app.controller('inicioCtrl',  function($scope){
 });
-app.controller('verCteCtrl',  function($scope){
+app.controller('verCteCtrl',  function($scope, $http){
     $scope.titulo = "Ver Clientes";
+    
+    $http.get("https://first12354.herokuapp.com/user/clientes", {
+
+    })
+    .then(function (respuesta) {
+        $scope.users = respuesta.data.usuarios;
+        console.log($scope.users);
+    });
 
 });
 app.controller('clientesCtrl', function($scope, $http, $location){
@@ -197,6 +209,19 @@ app.controller('expedienteCtrl', function($scope, $http, $location){
  });
 app.controller('empleadosCtrl', function($scope){
     $scope.m = "Alta de Empleado";
+ });
+ app.controller('detallesCteCtrl', function($scope, $http){
+    $scope.m = "Informacion de Cliente";
+
+    $http.get("https://first12354.herokuapp.com/user/cliente/11", {
+
+    })
+    .then(function (respuesta) {
+        console.log(respuesta.data);
+
+
+    });
+
  });
  app.controller('consultasCtrl',  function($scope){
     $scope.m = "Consultas";
