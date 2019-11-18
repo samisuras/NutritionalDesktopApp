@@ -196,7 +196,7 @@ app.controller('expedienteCtrl', function($scope, $http, $location){
     }
  });
 app.controller('empleadosCtrl', function($scope){
-    $scope.m = "Empleados";
+    $scope.m = "Alta de Empleado";
  });
  app.controller('consultasCtrl',  function($scope){
     $scope.m = "Consultas";
