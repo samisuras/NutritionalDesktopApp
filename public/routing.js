@@ -197,6 +197,42 @@ app.controller('expedienteCtrl', function($scope, $http, $location){
  });
 app.controller('empleadosCtrl', function($scope){
     $scope.m = "Alta de Empleado";
+    $scope.valores = {
+        nombre: '',
+        apellidoPaterno: '',
+        apellidoMaterno: '',
+        correo: '',
+        cp: '',
+        numero: 0,
+        calle: '',
+        nss: 0,
+        puesto: "",
+        cedula: "",
+        area: "",
+        descripcion: "",
+        horarioInicio: "",
+        horarioTermino: ""
+    };
+    $scope.Enviar = function (){
+        console.log(JSON.stringify($scope.valores));
+        /*$http.post("https://first12354.herokuapp.com/user/add-user",
+            $scope.valores
+        )
+        .then(function (respuesta) {
+            console.log(respuesta.data);
+            if(respuesta.data.status == 1){
+                $scope.res = true;
+                $location.path('exp');
+            }
+            else{
+                $scope.res = false;
+            }
+        })
+        .catch(function (error){
+            console.log(error.data);
+        });*/
+
+    }
  });
  app.controller('consultasCtrl',  function($scope){
     $scope.m = "Consultas";
