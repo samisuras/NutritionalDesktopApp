@@ -212,7 +212,7 @@ app.controller('expedienteCtrl', function($scope, $http, $location){
         }
     }
  });
-app.controller('empleadosCtrl', function($scope){
+app.controller('empleadosCtrl', function($scope,$http){
     $scope.m = "Alta de Empleado";
     $scope.valores = {
         nombre: '',
@@ -224,30 +224,29 @@ app.controller('empleadosCtrl', function($scope){
         calle: '',
         nss: 0,
         puesto: "",
-        cedula: "",
+        noCedula: "",
         area: "",
         descripcion: "",
         horarioInicio: "",
         horarioTermino: ""
     };
     $scope.Enviar = function (){
+        let tiempoI = document.getElementById('horarioInicio');
+        let tiempoF = document.getElementById('horarioTermino');
+
+        $scope.valores.horarioInicio = tiempoI.value;
+        $scope.valores.horarioTermino = tiempoF.value;
+
         console.log(JSON.stringify($scope.valores));
-        /*$http.post("https://first12354.herokuapp.com/user/add-user",
+        $http.post("https://first12354.herokuapp.com/emplado/add-empleado",
             $scope.valores
         )
         .then(function (respuesta) {
             console.log(respuesta.data);
-            if(respuesta.data.status == 1){
-                $scope.res = true;
-                $location.path('exp');
-            }
-            else{
-                $scope.res = false;
-            }
         })
         .catch(function (error){
             console.log(error.data);
-        });*/
+        });
 
     }
  });
@@ -266,7 +265,6 @@ app.controller('empleadosCtrl', function($scope){
     $scope.return = function (){
         $location.path('verCte');
     }
-8
  });
  app.controller('consultasCtrl',  function($scope){
     $scope.m = "Consultas";

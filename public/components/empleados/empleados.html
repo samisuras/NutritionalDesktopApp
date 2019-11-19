@@ -113,7 +113,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="valores.cedula" class="form-control" type="text">
+                            <input ng-model="valores.noCedula" class="form-control" type="text">
                         </div>
                     </div>
                 </div>
@@ -146,7 +146,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="valores.horarioInicio" class="form-control" type="text" required>
+                            <input  id="horarioInicio" class="form-control" type="time" required>
                         </div>
                     </div>
                 </div>
@@ -157,8 +157,8 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="valores.horarioTermino" class="form-control" type="text" required>
-                        </div>
+                            <input type="time" class="form-control" id="horarioTermino" name="input" 
+                            placeholder="HH:mm" min="00:00" max="23:59" required />                        </div>
                     </div>
                 </div>
             </div>
