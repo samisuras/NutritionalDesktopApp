@@ -230,7 +230,6 @@ app.controller('empleadosCtrl', function($scope){
     $scope.return = function (){
         $location.path('verCte');
     }
-8
  });
  app.controller('consultasCtrl',  function($scope){
     $scope.m = "Consultas";
