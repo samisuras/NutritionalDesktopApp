@@ -35,6 +35,10 @@ app.config(function ($routeProvider) {
             templateUrl: './components/clientes/verClientes.html',
             controller: 'verCteCtrl'
         })
+        .when('/detallesCTE/:idcte', {
+            templateUrl: './components/clientes/detallesCte.html',
+            controller: 'detallesCteCtrl'
+        })
         .otherwise({
             templateUrl: 'components/inicio/inicio.html',
             controller: 'indexController'
@@ -47,9 +51,25 @@ app.controller('indexController', function ($scope) {
 //Separar los controllers
 app.controller('inicioCtrl',  function($scope){
 });
-app.controller('verCteCtrl',  function($scope){
+app.controller('verCteCtrl',  function($scope, $http, $location){
     $scope.titulo = "Ver Clientes";
+    
+    $http.get("https://first12354.herokuapp.com/user/clientes", {
 
+    })
+    .then(function (respuesta) {
+        $scope.users = respuesta.data.usuarios;
+       
+    });
+
+    $scope.Detalles = function (data){
+        //console.log(data.x);
+        $location.url('/detallesCTE/' + data.x.idCliente);
+    }
+
+    $scope.return = function (){
+        $location.path('cte');
+    }
 });
 app.controller('clientesCtrl', function($scope, $http, $location){
    $scope.titulo = "Altas";
@@ -102,9 +122,6 @@ app.controller('clientesCtrl', function($scope, $http, $location){
             console.log(error.data);
         });
 
-    }
-    $scope.abrir = function (){
-        $location.path('exp');
     }
 
 });
@@ -233,6 +250,23 @@ app.controller('empleadosCtrl', function($scope){
         });*/
 
     }
+ });
+ app.controller('detallesCteCtrl', function($scope, $http, $location, $routeParams){
+    $scope.m = "Informacion de Cliente";
+    $scope.cte = $routeParams.idcte;
+    var ruta = "https://first12354.herokuapp.com/user/cliente/"+$scope.cte;
+
+    $http.get(ruta, {
+    })
+    .then(function (respuesta) {
+        $scope.Cliente = respuesta.data.usuario[0];
+        console.log($scope.Cliente);
+    });
+
+    $scope.return = function (){
+        $location.path('verCte');
+    }
+8
  });
  app.controller('consultasCtrl',  function($scope){
     $scope.m = "Consultas";
