@@ -1,7 +1,10 @@
 <h1 class="h1">{{m}}  <i class="fas fa-user ml-3"></i></h1>
 <div class="container py-3">
     <div class="row">
-        <div class="mx-auto col-xl-6">
+        <div class="mx-auto col-xl-2 text-center">
+            <button class="btn btn-success btn-block" ng-click="return()">Regresar<i class="fas fa-undo ml-3"></i></button>
+        </div>
+        <div class="mx-auto col-xl-10">
             <div class="card">
                 <div class="card-header">
                     <h4 class="mb-0 text-info">{{Cliente.nombre+' '+Cliente.apellidoPaterno+' '+Cliente.apellidoMaterno}}</h4>
@@ -35,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <div class="mx-auto col-xl-12">
+        <div class="mx-auto col-xl-12 pt-3">
             <div class="card">
                 <div class="card-header text-center">
                     <h4 class="mb-0 text-info">{{'ID Expediente: '+Cliente.idExpediente}}</h4>

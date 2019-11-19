@@ -67,6 +67,9 @@ app.controller('verCteCtrl',  function($scope, $http, $location){
         $location.url('/detallesCTE/' + data.x.idCliente);
     }
 
+    $scope.return = function (){
+        $location.path('cte');
+    }
 });
 app.controller('clientesCtrl', function($scope, $http, $location){
    $scope.titulo = "Altas";
@@ -119,9 +122,6 @@ app.controller('clientesCtrl', function($scope, $http, $location){
             console.log(error.data);
         });
 
-    }
-    $scope.abrir = function (){
-        $location.path('exp');
     }
 
 });
@@ -227,6 +227,10 @@ app.controller('empleadosCtrl', function($scope){
         console.log($scope.Cliente);
     });
 
+    $scope.return = function (){
+        $location.path('verCte');
+    }
+8
  });
  app.controller('consultasCtrl',  function($scope){
     $scope.m = "Consultas";
