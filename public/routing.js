@@ -212,8 +212,43 @@ app.controller('expedienteCtrl', function($scope, $http, $location){
         }
     }
  });
-app.controller('empleadosCtrl', function($scope){
+app.controller('empleadosCtrl', function($scope,$http){
     $scope.m = "Alta de Empleado";
+    $scope.valores = {
+        nombre: '',
+        apellidoPaterno: '',
+        apellidoMaterno: '',
+        correo: '',
+        cp: '',
+        numero: 0,
+        calle: '',
+        nss: 0,
+        puesto: "",
+        noCedula: "",
+        area: "",
+        descripcion: "",
+        horarioInicio: "",
+        horarioTermino: ""
+    };
+    $scope.Enviar = function (){
+        let tiempoI = document.getElementById('horarioInicio');
+        let tiempoF = document.getElementById('horarioTermino');
+
+        $scope.valores.horarioInicio = tiempoI.value;
+        $scope.valores.horarioTermino = tiempoF.value;
+
+        console.log(JSON.stringify($scope.valores));
+        $http.post("https://first12354.herokuapp.com/emplado/add-empleado",
+            $scope.valores
+        )
+        .then(function (respuesta) {
+            console.log(respuesta.data);
+        })
+        .catch(function (error){
+            console.log(error.data);
+        });
+
+    }
  });
  app.controller('detallesCteCtrl', function($scope, $http, $location, $routeParams){
     $scope.m = "Informacion de Cliente";
