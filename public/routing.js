@@ -35,9 +35,17 @@ app.config(function ($routeProvider) {
             templateUrl: './components/clientes/verClientes.html',
             controller: 'verCteCtrl'
         })
+        .when('/verEmp', {
+            templateUrl: './components/empleados/verEmpleados.html',
+            controller: 'verEmpCtrl'
+        })
         .when('/detallesCTE/:idcte', {
             templateUrl: './components/clientes/detallesCte.html',
             controller: 'detallesCteCtrl'
+        })
+        .when('/detallesEMP/:idemp', {
+            templateUrl: './components/empleados/detallesEmp.html',
+            controller: 'detallesEmpCtrl'
         })
         .otherwise({
             templateUrl: 'components/inicio/inicio.html',
@@ -46,50 +54,71 @@ app.config(function ($routeProvider) {
 
 });
 app.controller('indexController', function ($scope) {
-   $scope.nombreUsuario = sessionStorage.getItem('nombreUsuario');
-}); 
-//Separar los controllers
-app.controller('inicioCtrl',  function($scope){
+    $scope.nombreUsuario = sessionStorage.getItem('nombreUsuario');
 });
-app.controller('verCteCtrl',  function($scope, $http, $location){
+app.controller('inicioCtrl', function ($scope) {
+});
+app.controller('verEmpCtrl', function ($scope, $http, $location) {
+    $scope.m = "Ver Empleados";
+
+    $http.get("https://first12354.herokuapp.com/empleado/getEmpleados", {
+
+    })
+        .then(function (respuesta) {
+            $scope.users = respuesta.data.status;
+            console.log(respuesta.data.status);
+
+        })
+        .catch(function (error) {
+            console.log(error.data);
+        });
+    $scope.Detalles = function (data) {
+        //console.log(data.x);
+        $location.url('/detallesEMP/' + data.x.idEmpleado);
+    }
+    $scope.return = function () {
+        $location.path('emp');
+    }
+});
+app.controller('verCteCtrl', function ($scope, $http, $location) {
     $scope.titulo = "Ver Clientes";
-    
+
     $http.get("https://first12354.herokuapp.com/user/clientes", {
 
     })
-    .then(function (respuesta) {
-        $scope.users = respuesta.data.usuarios;
-       
-    });
+        .then(function (respuesta) {
+            $scope.users = respuesta.data.usuarios;
 
-    $scope.Detalles = function (data){
+        });
+
+    $scope.Detalles = function (data) {
         //console.log(data.x);
         $location.url('/detallesCTE/' + data.x.idCliente);
     }
 
-    $scope.return = function (){
+    $scope.return = function () {
         $location.path('cte');
     }
 });
-app.controller('clientesCtrl', function($scope, $http, $location){
-   $scope.titulo = "Altas";
-   $scope.altas = true;
-   $scope.res = false;
-   $scope.$location = $location;
-   $scope.elegirOpcion = function (opc){
-        if(opc == 'alta'){
+app.controller('clientesCtrl', function ($scope, $http, $location) {
+    $scope.titulo = "Altas";
+    $scope.altas = true;
+    $scope.res = false;
+    $scope.$location = $location;
+    $scope.elegirOpcion = function (opc) {
+        if (opc == 'alta') {
             $scope.altas = true;
         }
         else if (opc == 'verCte') {
-            $scope.true = false;
+            $scope.altas = false;
             $location.path('verCte');
         }
-        else{
+        else {
 
         }
-   }
-   $scope.opcion = {
-    name: 'alta'
+    }
+    $scope.opcion = {
+        name: 'alta'
     };
 
     $scope.valores = {
@@ -103,36 +132,36 @@ app.controller('clientesCtrl', function($scope, $http, $location){
         sangre: '',
         estatura: 0
     };
-    $scope.Enviar = function (){
+    $scope.Enviar = function () {
         console.log(JSON.stringify($scope.valores));
         $http.post("https://first12354.herokuapp.com/user/add-user",
             $scope.valores
         )
-        .then(function (respuesta) {
-            console.log(respuesta.data);
-            if(respuesta.data.status == 1){
-                $scope.res = true;
-                $location.path('exp');
-            }
-            else{
-                $scope.res = false;
-            }
-        })
-        .catch(function (error){
-            console.log(error.data);
-        });
+            .then(function (respuesta) {
+                console.log(respuesta.data);
+                if (respuesta.data.status == 1) {
+                    $scope.res = true;
+                    $location.path('exp');
+                }
+                else {
+                    $scope.res = false;
+                }
+            })
+            .catch(function (error) {
+                console.log(error.data);
+            });
 
     }
 
 });
-app.controller('expedienteCtrl', function($scope, $http, $location){
+app.controller('expedienteCtrl', function ($scope, $http, $location) {
     $scope.m = "Expediente";
     $scope.res = false;
     $scope.dolordecabeza = false;
     $scope.actividadfisica = false;
     $scope.Estres = false;
     $scope.Medicamento = false;
-    $scope.datos={
+    $scope.datos = {
         dolorCabeza: 0,
         actividadFisica: 0,
         estres: 0,
@@ -159,61 +188,65 @@ app.controller('expedienteCtrl', function($scope, $http, $location){
 
 
     }
-    $scope.EnviarExp = function (){
+    $scope.EnviarExp = function () {
         console.log(JSON.stringify($scope.datos));
         $http.post("https://first12354.herokuapp.com/user/add-expediente",
             $scope.datos
         )
-        .then(function (respuesta) {
-            console.log(respuesta.data);
-            if(respuesta.data.status == 1){
-                $scope.res = true;
-                $location.path('cte');
-            }
-            else{
-                $scope.res = false;
-            }
-        })
-        .catch(function (error){
-            console.log(error.data);
-        });
+            .then(function (respuesta) {
+                console.log(respuesta.data);
+                if (respuesta.data.status == 1) {
+                    $scope.res = true;
+                    $location.path('cte');
+                }
+                else {
+                    $scope.res = false;
+                }
+            })
+            .catch(function (error) {
+                console.log(error.data);
+            });
 
     }
-    $scope.verificarDolorDeCabeza = function (){
-        if($scope.datos.dolorCabeza == 1){
+    $scope.verificarDolorDeCabeza = function () {
+        if ($scope.datos.dolorCabeza == 1) {
             $scope.dolordecabeza = true;
         }
-        else{
+        else {
             $scope.dolordecabeza = false;
         }
     }
-    $scope.verificarActividadFisica = function (){
-        if($scope.datos.actividadFisica == 1){
+    $scope.verificarActividadFisica = function () {
+        if ($scope.datos.actividadFisica == 1) {
             $scope.actividadfisica = true;
         }
-        else{
+        else {
             $scope.actividadfisica = false;
         }
     }
-    $scope.verificarEstres = function (){
-        if($scope.datos.estres == 1){
+    $scope.verificarEstres = function () {
+        if ($scope.datos.estres == 1) {
             $scope.Estres = true;
         }
-        else{
+        else {
             $scope.Estres = false;
         }
     }
-    $scope.verificarMedicamento = function (){
-        if($scope.datos.medicamentoDC == 1){
+    $scope.verificarMedicamento = function () {
+        if ($scope.datos.medicamentoDC == 1) {
             $scope.Medicamento = true;
         }
-        else{
+        else {
             $scope.Medicamento = false;
         }
     }
- });
-app.controller('empleadosCtrl', function($scope,$http){
+});
+app.controller('empleadosCtrl', function ($scope, $http, $location) {
     $scope.m = "Alta de Empleado";
+    $scope.altas = true;
+    $scope.opcion = {
+        name: 'alta'
+    };
     $scope.valores = {
         nombre: '',
         apellidoPaterno: '',
@@ -230,7 +263,8 @@ app.controller('empleadosCtrl', function($scope,$http){
         horarioInicio: "",
         horarioTermino: ""
     };
-    $scope.Enviar = function (){
+    $scope.Enviar = function () {
+
         let tiempoI = document.getElementById('horarioInicio');
         let tiempoF = document.getElementById('horarioTermino');
 
@@ -238,40 +272,132 @@ app.controller('empleadosCtrl', function($scope,$http){
         $scope.valores.horarioTermino = tiempoF.value;
 
         console.log(JSON.stringify($scope.valores));
-        $http.post("https://first12354.herokuapp.com/emplado/add-empleado",
+        $http.post("https://first12354.herokuapp.com/empleado/add-empleado",
             $scope.valores
         )
-        .then(function (respuesta) {
-            console.log(respuesta.data);
-        })
-        .catch(function (error){
-            console.log(error.data);
-        });
+            .then(function (respuesta) {
+                console.log(respuesta.data);
+            })
+            .catch(function (error) {
+                console.log(error.data);
+            });
+        $location.path('verEmp');
 
     }
- });
- app.controller('detallesCteCtrl', function($scope, $http, $location, $routeParams){
+
+    $scope.elegirOpcion = function (opc) {
+        if (opc == 'alta') {
+            $scope.altas = true;
+        }
+        else if (opc == 'verEmp') {
+            $scope.altas = false;
+            $location.path('verEmp');
+        }
+        else {
+
+        }
+    }
+});
+app.controller('detallesCteCtrl', function ($scope, $http, $location, $routeParams) {
     $scope.m = "Informacion de Cliente";
     $scope.cte = $routeParams.idcte;
-    var ruta = "https://first12354.herokuapp.com/user/cliente/"+$scope.cte;
+    var ruta = "https://first12354.herokuapp.com/user/cliente/" + $scope.cte;
 
     $http.get(ruta, {
     })
-    .then(function (respuesta) {
-        $scope.Cliente = respuesta.data.usuario[0];
-        console.log($scope.Cliente);
-    });
+        .then(function (respuesta) {
+            $scope.Cliente = respuesta.data.usuario[0];
+            console.log($scope.Cliente);
+        });
 
-    $scope.return = function (){
+    $scope.return = function () {
         $location.path('verCte');
     }
- });
- app.controller('consultasCtrl',  function($scope){
+});
+app.controller('detallesEmpCtrl', function ($scope, $http, $location, $routeParams) {
+    $scope.m = "Informacion de Empleado";
+    $scope.emp = $routeParams.idemp;
+
+    var ruta = "https://first12354.herokuapp.com/empleado/" + $scope.emp;
+
+    $http.get(ruta, {
+    })
+        .then(function (respuesta) {
+            $scope.Empleado = respuesta.data.empleado[0];
+            console.log($scope.Empleado);
+        });
+
+    $scope.return = function () {
+        $location.path('verEmp');
+    }
+});
+app.controller('consultasCtrl', function ($scope, $http, $location) {
     $scope.m = "Consultas";
+    $scope.msjError = false;
+    $scope.msjError2 = false;
+    $scope.tablaConsultas = false;
+    $http.get("https://first12354.herokuapp.com/user/clientes", {
+
+    })
+    .then(function (respuesta) {
+        $scope.clientes = respuesta.data.usuarios;
+    });
+
+    $http.get("https://first12354.herokuapp.com/empleado/getEmpleados", {
+
+    })
+    .then(function (respuesta) {
+        $scope.empleados = respuesta.data.status;
+    });
+
+    $scope.horarios = [
+        "9:00 - 10:00",
+        "10:00 - 11:00",
+        "11:00 - 12:00",
+        "12:00 - 13:00",
+        "13:00 - 14:00",
+        "14:00 - 15:00",
+        "15:00 - 16:00"
+    ];
+
+    $scope.datosConsulta = {
+        horario: "",
+        fecha: "",
+        idCliente: "",
+        idEmpleado:""
+    }
+
+    $scope.Enviar = function (data){
+        if(data.search1 != null && data.search2 != null){
+            var CTEstr = data.search1;
+            var CTEres = CTEstr.split('|');
+            var EMPstr = data.search2;
+            var EMPres = EMPstr.split('|');
+            $scope.datosConsulta.horario = data.horario;
+            $scope.datosConsulta.idCliente = CTEres[0];
+            $scope.datosConsulta.idEmpleado = EMPres[0];
+            $scope.msjError = false;
+        }
+        else{
+            $scope.msjError = true;
+        }
+
+    }
+
+    $scope.verificarFecha = function (){
+        if($scope.datosConsulta.fecha != ""){
+            $scope.msjError2 = false;
+            $scope.tablaConsultas = true;
+        }
+        else{
+            $scope.msjError2 = true;
+            $scope.tablaConsultas = false;
+        }
+    }
 });
-app.controller('citasCtrl', function($scope){
-   $scope.m = "Citas";
+app.controller('citasCtrl', function ($scope) {
+    $scope.m = "Citas";
 });
-app.controller('masajesCtrl', function($scope){
+app.controller('masajesCtrl', function ($scope) {
     $scope.m = "Masajes";
- });
+});

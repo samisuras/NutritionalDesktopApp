@@ -1,1 +1,57 @@
 <h1 class="h1">{{m}}</h1>
+
+<div class="container">
+    <div class="alert alert-dismissible alert-danger" ng-show="msjError">
+        <strong>Campos Vacíos! Antes de reservar rellena los campos correspondientes.</strong>  
+    </div>
+    <div class="alert alert-dismissible alert-danger" ng-show="msjError2">
+            <strong>Inserta una fecha!</strong>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-4">
+                <input id="date" type="date" ng-model="datosConsulta.fecha" class="mb-3 ml-3 form-control">
+            </div>
+            <div class="col-xl-4">
+                <button type="button" class="btn btn-info btn-sm" ng-click="verificarFecha()">Verificar</button>
+            </div>
+        </div>
+    </div>
+   
+    <table class="table text-center table-striped table-hover" ng-show="tablaConsultas">
+        <thead class="thead bg-info text-white">
+            <tr>
+                <th scope="col">Horario</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Empleado</th>
+                <th scope="col">Reservar</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="horario in horarios">
+                <th scope="row"><input class="text-center form-control" type="text" ng-model="horario"
+                        value="{{horario}}" disabled></th>
+                <td>Libre</td>
+                <td>
+                    <input class="form-control" type="text" placeholder="Nombre de Cliente" ng-model="search1"
+                        list="nombresCTE">
+                    <datalist id="nombresCTE">
+                        <option ng-repeat="x in clientes | filter:search1" 
+                            value="{{x.idCliente}}|{{x.nombre + ' '+ x.apellidoPaterno+' '+ x.apellidoMaterno}}"></option>
+                    </datalist>
+                </td>
+                <td>
+                    <input class="form-control" type="text" placeholder="Nombre de Empleado" ng-model="search2"
+                        list="nombresEMP">
+                    <datalist id="nombresEMP">
+                        <option ng-repeat="x in empleados | filter:search2" 
+                            value="{{x.idEmpleado}}|{{x.nombre + ' '+ x.apellidoPaterno+' '+ x.apellidoMaterno}}"></option>
+                    </datalist>
+                </td>
+                <td><button class="btn btn-success btn-small" ng-click="Enviar(this)">Reservar</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
