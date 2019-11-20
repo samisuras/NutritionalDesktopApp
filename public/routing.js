@@ -336,6 +336,7 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
     $scope.index = -1;
     $scope.msjError = false;
     $scope.msjError2 = false;
+    $scope.msj = false;
     $scope.tablaConsultas = false;
     $http.get("https://first12354.herokuapp.com/user/clientes", {
 
@@ -366,7 +367,8 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
         fecha: "",
         notas: "",
         idCliente: "",
-        idEmpleado:""
+        idEmpleado:"",
+        fechaFormato:""
     }
 
     $scope.Enviar = function (data){
@@ -380,16 +382,22 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
             $scope.datosConsulta.idEmpleado = EMPres[0];
             $scope.datosConsulta.notas = data.nota;
             $scope.msjError = false;
-            
-            $http.post("",
+            var formatDate = ($scope.datosConsulta.fecha.getFullYear()+"-"+($scope.datosConsulta.fecha.getMonth()+1)+"-"+$scope.datosConsulta.fecha.getDate()).toString();
+            $scope.datosConsulta.fechaFormato = formatDate;
+            console.log(data);
+            $scope.ReiniciarDatos();
+            /*$http.post("https://first12354.herokuapp.com/citas/addCita",
                 $scope.datosConsulta
             )
             .then(function (respuesta) {
                 console.log(respuesta.data);
+                if(respuesta.data.status == 1){
+                    $scope.ReiniciarDatos();
+                }
             })
             .catch(function (error) {
                 console.log(error.data);
-            });
+            });*/
         }
         else{
             $scope.msjError = true;
@@ -399,6 +407,7 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
 
     $scope.verificarFecha = function (){
         //Checar elejibilidad de fecha
+        $scope.msj = false;
         if($scope.datosConsulta.fecha != ""){
             //Checar fechas mayores no puede ser menor
             if($scope.datosConsulta.fecha.getTime() >= (new Date().getTime() - 51840000)){
@@ -414,6 +423,16 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
             $scope.tablaConsultas = false;
         }
         
+    }
+    
+    $scope.ReiniciarDatos =  function (){
+        document.getElementById('clean').value = "";
+        document.getElementById('clean2').value = "";
+        document.getElementById('clean3').value = "";
+        $scope.datosConsulta.fecha = "";
+        $scope.tablaConsultas = false;
+        $scope.msj = true;
+
     }
 });
 app.controller('consultasCtrl', function ($scope) {

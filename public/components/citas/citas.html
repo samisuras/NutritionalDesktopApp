@@ -1,11 +1,13 @@
 <h1 class="h1">{{m}}</h1>
-{{datosConsulta}}
 <div class="container">
     <div class="alert alert-dismissible alert-danger" ng-show="msjError">
         <strong>Campos Vacíos! Antes de reservar rellena los campos correspondientes.</strong>  
     </div>
     <div class="alert alert-dismissible alert-danger" ng-show="msjError2">
             <strong>La fecha debe ser igual o mayor al dia actual!</strong>
+    </div>
+    <div class="alert alert-dismissible alert-success" ng-show="msj">
+            <strong>Se registro la cita correctamente!</strong>
     </div>
     <div class="container">
         <div class="row">
@@ -36,7 +38,7 @@
                 <td>Libre</td>
                 <td>
                     <input class="form-control" type="text" placeholder="Nombre de Cliente" ng-model="search1"
-                        list="nombresCTE">
+                        list="nombresCTE" id="clean">
                     <datalist id="nombresCTE">
                         <option ng-repeat="x in clientes | filter:search1" 
                             value="{{x.idCliente}}|{{x.nombre + ' '+ x.apellidoPaterno+' '+ x.apellidoMaterno}}"></option>
@@ -44,14 +46,14 @@
                 </td>
                 <td>
                     <input class="form-control" type="text" placeholder="Nombre de Empleado" ng-model="search2"
-                        list="nombresEMP">
+                        list="nombresEMP"  id="clean2">
                     <datalist id="nombresEMP">
                         <option ng-repeat="x in empleados | filter:search2" 
                             value="{{x.idEmpleado}}|{{x.nombre + ' '+ x.apellidoPaterno+' '+ x.apellidoMaterno}}"></option>
                     </datalist>
                 </td>
                 <td>
-                    <input class="form-control" type="text" placeholder="Notas extra" ng-model="nota">
+                    <input class="form-control" type="text" placeholder="Notas extra" ng-model="nota" id="clean3">
                 </td>
                 <td><button class="btn btn-success btn-small" ng-click="Enviar(this)">Reservar</button></td>
             </tr>
