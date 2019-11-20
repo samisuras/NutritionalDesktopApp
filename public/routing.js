@@ -332,7 +332,7 @@ app.controller('detallesEmpCtrl', function ($scope, $http, $location, $routePara
     }
 });
 app.controller('consultasCtrl', function ($scope, $http, $location) {
-    $scope.m = "Consultas";
+    $scope.m = "Citas Nutricionales";
     $scope.msjError = false;
     $scope.msjError2 = false;
     $scope.tablaConsultas = false;
