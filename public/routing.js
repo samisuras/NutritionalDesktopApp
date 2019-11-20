@@ -385,14 +385,22 @@ app.controller('consultasCtrl', function ($scope, $http, $location) {
     }
 
     $scope.verificarFecha = function (){
+        //Checar elejibilidad de fecha
         if($scope.datosConsulta.fecha != ""){
-            $scope.msjError2 = false;
-            $scope.tablaConsultas = true;
+            //Checar fechas mayores no puede ser menor
+            if($scope.datosConsulta.fecha.getTime() >= (new Date().getTime() - 51840000)){
+                $scope.msjError2 = false;
+                $scope.tablaConsultas = true;
+            }else{
+                $scope.msjError2 = true;
+                $scope.tablaConsultas = false;
+            }
         }
         else{
             $scope.msjError2 = true;
             $scope.tablaConsultas = false;
         }
+        
     }
 });
 app.controller('citasCtrl', function ($scope) {
