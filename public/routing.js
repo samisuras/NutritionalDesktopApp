@@ -331,7 +331,7 @@ app.controller('detallesEmpCtrl', function ($scope, $http, $location, $routePara
         $location.path('verEmp');
     }
 });
-app.controller('consultasCtrl', function ($scope, $http, $location) {
+app.controller('citasCtrl', function ($scope, $http, $location) {
     $scope.m = "Citas Nutricionales";
     $scope.index = -1;
     $scope.msjError = false;
@@ -378,7 +378,18 @@ app.controller('consultasCtrl', function ($scope, $http, $location) {
             $scope.datosConsulta.horario = data.horario;
             $scope.datosConsulta.idCliente = CTEres[0];
             $scope.datosConsulta.idEmpleado = EMPres[0];
+            $scope.datosConsulta.notas = data.nota;
             $scope.msjError = false;
+            
+            $http.post("",
+                $scope.datosConsulta
+            )
+            .then(function (respuesta) {
+                console.log(respuesta.data);
+            })
+            .catch(function (error) {
+                console.log(error.data);
+            });
         }
         else{
             $scope.msjError = true;
@@ -405,8 +416,8 @@ app.controller('consultasCtrl', function ($scope, $http, $location) {
         
     }
 });
-app.controller('citasCtrl', function ($scope) {
-    $scope.m = "Citas";
+app.controller('consultasCtrl', function ($scope) {
+    $scope.m = "Consultas";
 });
 app.controller('masajesCtrl', function ($scope) {
     $scope.m = "Masajes";
