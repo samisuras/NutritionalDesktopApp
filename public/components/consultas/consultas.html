@@ -25,12 +25,12 @@
                 <th scope="col">Estado</th>
                 <th scope="col">Cliente</th>
                 <th scope="col">Empleado</th>
+                <th scope="col">Notas</th>
                 <th scope="col">Reservar</th>
-
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="horario in horarios">
+            <tr ng-repeat="horario in horarios" >
                 <th scope="row"><input class="text-center form-control" type="text" ng-model="horario"
                         value="{{horario}}" disabled></th>
                 <td>Libre</td>
@@ -50,7 +50,10 @@
                             value="{{x.idEmpleado}}|{{x.nombre + ' '+ x.apellidoPaterno+' '+ x.apellidoMaterno}}"></option>
                     </datalist>
                 </td>
-                <td><button class="btn btn-success btn-small" ng-click="Enviar(this)">Reservar</button></td>
+                <td>
+                    <input class="form-control" type="text" placeholder="Notas extra" id="{{horario}}" >
+                </td>
+                <td><button class="btn btn-success btn-small" id="{{$index}}" ng-click="Enviar(this)">Reservar</button></td>
             </tr>
         </tbody>
     </table>

@@ -333,6 +333,7 @@ app.controller('detallesEmpCtrl', function ($scope, $http, $location, $routePara
 });
 app.controller('consultasCtrl', function ($scope, $http, $location) {
     $scope.m = "Citas Nutricionales";
+    $scope.index = -1;
     $scope.msjError = false;
     $scope.msjError2 = false;
     $scope.tablaConsultas = false;
@@ -363,6 +364,7 @@ app.controller('consultasCtrl', function ($scope, $http, $location) {
     $scope.datosConsulta = {
         horario: "",
         fecha: "",
+        notas: "",
         idCliente: "",
         idEmpleado:""
     }
