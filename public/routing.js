@@ -460,6 +460,9 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
                     $scope.horarios[j].status = "Libre";
                     $scope.horarios[j].color = "success";
                     $scope.horarios[j].btn = false; 
+                    $scope.horarios[j].cte = ""
+                    $scope.horarios[j].emp = ""
+                    $scope.horarios[j].nota = ""
                 }
                 
             }
