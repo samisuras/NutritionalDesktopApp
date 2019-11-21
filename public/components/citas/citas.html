@@ -1,13 +1,13 @@
 <h1 class="h1">{{m}}</h1>
 <div class="container">
     <div class="alert alert-dismissible alert-danger" ng-show="msjError">
-        <strong>Campos Vacíos! Antes de reservar rellena los campos correspondientes.</strong>  
+        <strong>Campos Vacíos! Antes de reservar rellena los campos correspondientes.</strong>
     </div>
     <div class="alert alert-dismissible alert-danger" ng-show="msjError2">
-            <strong>La fecha debe ser igual o mayor al dia actual!</strong>
+        <strong>La fecha debe ser igual o mayor al dia actual!</strong>
     </div>
     <div class="alert alert-dismissible alert-success" ng-show="msj">
-            <strong>Se registro la cita correctamente!</strong>
+        <strong>Se registro la cita correctamente!</strong>
     </div>
     <div class="container">
         <div class="row">
@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-   
+
     <table class="table text-center table-striped table-hover" ng-show="tablaConsultas">
         <thead class="thead bg-info text-white">
             <tr>
@@ -32,30 +32,37 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="horario in horarios" >
-                <th scope="row"><input class="text-center form-control" type="text" ng-model="horario"
-                        value="{{horario}}" disabled></th>
-                <td>Libre</td>
+            <tr ng-repeat="horario in horarios">
+                <th scope="row"><input class="text-center form-control" type="text" ng-model="horario.hor"
+                        value="{{horario.hor}}" disabled></th>
+                <td class="text-{{horario.color}}"><strong>{{horario.status}}</strong></td>
                 <td>
                     <input class="form-control" type="text" placeholder="Nombre de Cliente" ng-model="search1"
-                        list="nombresCTE" id="clean">
+                        list="nombresCTE" id="clean" ng-disabled="horario.btn" ng-hide="horario.btn">
+                        <span ng-show="horario.btn">{{horario.cte}}</span>
                     <datalist id="nombresCTE">
-                        <option ng-repeat="x in clientes | filter:search1" 
-                            value="{{x.idCliente}}|{{x.nombre + ' '+ x.apellidoPaterno+' '+ x.apellidoMaterno}}"></option>
+                        <option ng-repeat="x in clientes | filter:search1"
+                            value="{{x.idCliente}}|{{x.nombre + ' '+ x.apellidoPaterno+' '+ x.apellidoMaterno}}">
+                        </option>
                     </datalist>
                 </td>
                 <td>
                     <input class="form-control" type="text" placeholder="Nombre de Empleado" ng-model="search2"
-                        list="nombresEMP"  id="clean2">
+                        list="nombresEMP" id="clean2" ng-disabled="horario.btn" ng-hide="horario.btn"> 
+                        <span ng-show="horario.btn">{{horario.emp}}</span>
                     <datalist id="nombresEMP">
-                        <option ng-repeat="x in empleados | filter:search2" 
-                            value="{{x.idEmpleado}}|{{x.nombre + ' '+ x.apellidoPaterno+' '+ x.apellidoMaterno}}"></option>
+                        <option ng-repeat="x in empleados | filter:search2"
+                            value="{{x.idEmpleado}}|{{x.nombre + ' '+ x.apellidoPaterno+' '+ x.apellidoMaterno}}">
+                        </option>
                     </datalist>
                 </td>
                 <td>
-                    <input class="form-control" type="text" placeholder="Notas extra" ng-model="nota" id="clean3">
+                    <input class="form-control" type="text" placeholder="Notas extra" ng-model="nota" id="clean3"
+                        ng-disabled="horario.btn" ng-hide="horario.btn">
+                    <span ng-show="horario.btn">{{horario.nota}}</span>
                 </td>
-                <td><button class="btn btn-success btn-small" ng-click="Enviar(this)">Reservar</button></td>
+                <td><button class="btn btn-success btn-small" ng-click="Enviar(this)"
+                        ng-disabled="horario.btn">Reservar</button></td>
             </tr>
         </tbody>
     </table>

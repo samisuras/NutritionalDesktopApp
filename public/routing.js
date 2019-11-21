@@ -338,6 +338,7 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
     $scope.msjError2 = false;
     $scope.msj = false;
     $scope.tablaConsultas = false;
+    var nombreCte = ""
     $http.get("https://first12354.herokuapp.com/user/clientes", {
 
     })
@@ -350,20 +351,22 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
     })
     .then(function (respuesta) {
         $scope.empleados = respuesta.data.status;
+
     });
 
-    $scope.horarios = [
-        "9:00 - 10:00",
-        "10:00 - 11:00",
-        "11:00 - 12:00",
-        "12:00 - 13:00",
-        "13:00 - 14:00",
-        "14:00 - 15:00",
-        "15:00 - 16:00"
-    ];
+
+    $scope.horarios=[
+        {hor:"9:00 - 10:00",status:"Libre",color:"success",btn:false,cte: "", emp: "", nota:""},
+        {hor:"10:00 - 11:00",status:"Libre",color:"success",btn:false,cte: "", emp: "",nota:""},
+        {hor:"11:00 - 12:00",status:"Libre",color:"success",btn:false,cte: "", emp: "",nota:""},
+        {hor:"12:00 - 13:00",status:"Libre",color:"success",btn:false,cte: "", emp: "",nota:""},
+        {hor:"13:00 - 14:00",status:"Libre",color:"success",btn:false,cte: "", emp: "",nota:""},
+        {hor:"14:00 - 15:00",status:"Libre",color:"success",btn:false,cte: "", emp: "",nota:""},
+        {hor:"15:00 - 16:00",status:"Libre",color:"success",btn:false,cte: "", emp: "",nota:""}
+    ]; 
 
     $scope.datosConsulta = {
-        horario: "",
+        hora: "",
         fecha: "",
         notas: "",
         idCliente: "",
@@ -373,20 +376,20 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
 
     $scope.Enviar = function (data){
         if(data.search1 != null && data.search2 != null){
+            
             var CTEstr = data.search1;
             var CTEres = CTEstr.split('|');
             var EMPstr = data.search2;
             var EMPres = EMPstr.split('|');
-            $scope.datosConsulta.horario = data.horario;
+            $scope.datosConsulta.hora = data.horario.hor;
             $scope.datosConsulta.idCliente = CTEres[0];
             $scope.datosConsulta.idEmpleado = EMPres[0];
             $scope.datosConsulta.notas = data.nota;
             $scope.msjError = false;
             var formatDate = ($scope.datosConsulta.fecha.getFullYear()+"-"+($scope.datosConsulta.fecha.getMonth()+1)+"-"+$scope.datosConsulta.fecha.getDate()).toString();
             $scope.datosConsulta.fechaFormato = formatDate;
-            console.log(data);
-            $scope.ReiniciarDatos();
-            /*$http.post("https://first12354.herokuapp.com/citas/addCita",
+            //console.log($scope.datosConsulta);
+            $http.post("https://first12354.herokuapp.com/citas/addCita",
                 $scope.datosConsulta
             )
             .then(function (respuesta) {
@@ -397,21 +400,23 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
             })
             .catch(function (error) {
                 console.log(error.data);
-            });*/
+            });
         }
         else{
             $scope.msjError = true;
         }
 
     }
-
+    
     $scope.verificarFecha = function (){
         //Checar elejibilidad de fecha
+
         $scope.msj = false;
         if($scope.datosConsulta.fecha != ""){
             //Checar fechas mayores no puede ser menor
             if($scope.datosConsulta.fecha.getTime() >= (new Date().getTime() - 51840000)){
                 $scope.msjError2 = false;
+                $scope.filtrarFechas($scope.datosConsulta.fecha);
                 $scope.tablaConsultas = true;
             }else{
                 $scope.msjError2 = true;
@@ -424,6 +429,63 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
         }
         
     }
+
+    $scope.filtrarFechas = function (formatDate){
+        var mesAux = "";
+        var diaAux = "";
+        var fecha = "";
+        if(formatDate.getMonth()+1 < 10){
+            mesAux = "0"+(formatDate.getMonth()+1).toString();
+            fecha = (formatDate.getFullYear()+"-"+(mesAux)+"-"+formatDate.getDate()).toString();
+        }
+        else if(formatDate.getDate() < 10){
+            diaAux = "0"+(formatDate.getDate()).toString();
+            fecha = (formatDate.getFullYear()+"-"+(formatDate.getMonth()+1)+"-"+diaAux).toString();
+        }
+        else{
+            fecha = (formatDate.getFullYear()+"-"+(formatDate.getMonth()+1)+"-"+formatDate.getDate()).toString();
+
+        }
+        var ruta = "https://first12354.herokuapp.com/citas/citasOcupadas/"+fecha;
+        //console.log(ruta);
+        $http.get(ruta, {
+
+        })
+        .then(function (respuesta) {
+            $scope.fechasOcupadas = respuesta.data.fechas;
+            //console.log($scope.fechasOcupadas);
+            if(respuesta.data.fechas.length == 0){
+                console.log("No hay coincidencias BD");
+                for(var j=0; j<$scope.horarios.length;j++){
+                    $scope.horarios[j].status = "Libre";
+                    $scope.horarios[j].color = "success";
+                    $scope.horarios[j].btn = false; 
+                }
+                
+            }
+            else{
+                
+                for(var i=0; i<$scope.fechasOcupadas.length;i++){
+                    for(var j=0; j<$scope.horarios.length;j++){
+                        if($scope.fechasOcupadas[i].hora == $scope.horarios[j].hor){
+
+                            $scope.horarios[j].status = "Ocupado";
+                            $scope.horarios[j].color = "danger";
+                            $scope.horarios[j].btn = true;
+                            $scope.horarios[j].cte = $scope.fechasOcupadas[i].nombreCliente;
+                            $scope.horarios[j].emp = $scope.fechasOcupadas[i].nombreEmpleado;
+                            $scope.horarios[j].nota = $scope.fechasOcupadas[i].notas;
+
+                        }
+                    }
+                }
+                //console.log($scope.horarios)
+
+            }
+
+        });
+    
+    }
     
     $scope.ReiniciarDatos =  function (){
         document.getElementById('clean').value = "";
@@ -434,6 +496,8 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
         $scope.msj = true;
 
     }
+
+ 
 });
 app.controller('consultasCtrl', function ($scope) {
     $scope.m = "Consultas";
