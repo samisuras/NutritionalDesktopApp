@@ -447,13 +447,13 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
 
         }
         var ruta = "https://first12354.herokuapp.com/citas/citasOcupadas/"+fecha;
-        //console.log(ruta);
+        console.log(ruta);
         $http.get(ruta, {
 
         })
         .then(function (respuesta) {
             $scope.fechasOcupadas = respuesta.data.fechas;
-            //console.log($scope.fechasOcupadas);
+            console.log(respuesta.data);
             if(respuesta.data.fechas.length == 0){
                 console.log("No hay coincidencias BD");
                 for(var j=0; j<$scope.horarios.length;j++){
