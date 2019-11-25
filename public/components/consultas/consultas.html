@@ -1,1 +1,78 @@
 <h1 class="h1">{{m}}</h1>
+<div class="alert alert-dismissible alert-success mt-3" ng-show="res">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Exito!</strong> Se agrego el registro <a href="#" class="alert-link">correctamente</a>.
+    </div>
+<div class="container">
+    <label class="control-label">Selecciona una opción:</label>
+    <form class="row border border-info text-center">
+        <label class="col-xl-6 mt-1 mb-1">
+            <input type="radio" ng-model="opcion.name" value="registrar" ng-click="Accion('reg')">
+            Registrar Consulta
+        </label><br />
+        <label class="col-xl-6 mt-1 mb-1">
+            <input type="radio" ng-model="opcion.name" value="ver" ng-click="Accion('ver')">
+            Ver Consultas
+        </label><br />
+    </form>
+    <form class="well form-horizontal pt-4 pb-4" ng-submit="Enviar(this)" ng-show="RegistrarConsultas">
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="form-group">
+                    <label class="control-label">Nombre de Cliente:</label>
+                    <input class="form-control" type="text" ng-model="search1" list="nombresCTE" id="clean" required>
+                    <datalist id="nombresCTE">
+                        <option ng-repeat="x in clientes | filter:search1"
+                            value="{{x.idCliente}}|{{x.nombre + ' '+ x.apellidoPaterno+' '+ x.apellidoMaterno}}">
+                        </option>
+                    </datalist>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="form-group">
+                    <label class="control-label">Nombre de Empleado:</label>
+                    <input class="form-control" type="text" ng-model="search2" list="nombresEMP" id="clean2" required>
+                    <datalist id="nombresEMP">
+                        <option ng-repeat="x in empleados | filter:search2"
+                            value="{{x.idEmpleado}}|{{x.nombre + ' '+ x.apellidoPaterno+' '+ x.apellidoMaterno}}">
+                        </option>
+                    </datalist>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="form-group">
+                    <label class="control-label">Peso (KG):</label>
+                    <div class="inputGroupContainer">
+                        <div class="input-group">
+                            <input ng-model="valores.peso" class="form-control" type="number" min="0" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="form-group">
+                    <label class="control-label">Talla:</label>
+                    <div class="inputGroupContainer">
+                        <div class="input-group">
+                            <input ng-model="valores.talla" class="form-control" type="number" min="0" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="form-group">
+                    <label class="control-label">Observaciones:</label>
+                    <div class="inputGroupContainer">
+                        <div class="input-group">
+                            <textarea ng-model="valores.observaciones" class="form-control" type="text"
+                                required></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 pt-4 text-center">
+                <button type="submit" class="btn btn-info">Enviar</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -47,6 +47,10 @@ app.config(function ($routeProvider) {
             templateUrl: './components/empleados/detallesEmp.html',
             controller: 'detallesEmpCtrl'
         })
+        .when('/verConsulta', {
+            templateUrl: './components/consultas/verConsulta.html',
+            controller: 'verConsultaCtrl'
+        })
         .otherwise({
             templateUrl: 'components/inicio/inicio.html',
             controller: 'indexController'
@@ -434,18 +438,21 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
         var mesAux = "";
         var diaAux = "";
         var fecha = "";
+        var ban = false;
         if(formatDate.getMonth()+1 < 10){
+            ban = true;
             mesAux = "0"+(formatDate.getMonth()+1).toString();
             fecha = (formatDate.getFullYear()+"-"+(mesAux)+"-"+formatDate.getDate()).toString();
         }
-        else if(formatDate.getDate() < 10){
+        if(formatDate.getDate() < 10){
+            ban = true;
             diaAux = "0"+(formatDate.getDate()).toString();
             fecha = (formatDate.getFullYear()+"-"+(formatDate.getMonth()+1)+"-"+diaAux).toString();
         }
-        else{
+        if(ban == false){
             fecha = (formatDate.getFullYear()+"-"+(formatDate.getMonth()+1)+"-"+formatDate.getDate()).toString();
-
         }
+ 
         var ruta = "https://first12354.herokuapp.com/citas/citasOcupadas/"+fecha;
         console.log(ruta);
         $http.get(ruta, {
@@ -502,8 +509,114 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
 
  
 });
-app.controller('consultasCtrl', function ($scope) {
-    $scope.m = "Consultas";
+app.controller('consultasCtrl', function ($scope, $http, $location) {
+    $scope.m = "Registrar Consultas";
+    $scope.RegistrarConsultas = true;
+    $scope.res = false;
+    $scope.opcion = {
+        name: 'registrar'
+    };
+    $http.get("https://first12354.herokuapp.com/user/clientes", {
+
+    })
+    .then(function (respuesta) {
+        $scope.clientes = respuesta.data.usuarios;
+    });
+
+    $http.get("https://first12354.herokuapp.com/empleado/getEmpleados", {
+
+    })
+    .then(function (respuesta) {
+        $scope.empleados = respuesta.data.status;
+
+    });
+    $scope.valores = {
+        peso: 0,
+        talla: 0,
+        observaciones: "",
+        fecha: "",
+        hora: "",
+        idCliente: 0,
+        idEmpleado: 0
+    };
+
+    $scope.Enviar = function (data) {
+        var mesAux = "";
+        var diaAux = "";
+        var ban = false;
+        $scope.date = new Date();
+        if($scope.date.getMonth()+1 < 10){
+            ban = true;
+            mesAux = "0"+($scope.date.getMonth()+1).toString();
+            $scope.valores.fecha = ($scope.date.getFullYear()+"-"+(mesAux)+"-"+$scope.date.getDate()).toString();
+        }
+        if($scope.date.getDate() < 10){
+            ban = true;
+            diaAux = "0"+($scope.date.getDate()).toString();
+            $scope.valores.fecha = ($scope.date.getFullYear()+"-"+($scope.date.getMonth()+1)+"-"+diaAux).toString();
+        }
+        if(ban == false){
+            $scope.valores.fecha = ($scope.date.getFullYear()+"-"+($scope.date.getMonth()+1)+"-"+$scope.date.getDate()).toString();
+        }
+        $scope.valores.hora = ($scope.date.getHours()+":"+$scope.date.getMinutes()).toString();
+
+        var CTEstr = data.search1;
+        var CTEres = CTEstr.split('|');
+        var EMPstr = data.search2;
+        var EMPres = EMPstr.split('|');
+
+        $scope.valores.idCliente =  CTEres[0];
+        $scope.valores.idEmpleado = EMPres[0];
+        $scope.RegistrarConsulta();
+    }
+    
+    $scope.RegistrarConsulta = function () {
+        console.log($scope.valores);
+        $http.post("https://first12354.herokuapp.com/consultas/registrarConsulta", $scope.valores
+        )
+        .then(function (respuesta) {
+            console.log(respuesta.data);
+            if(respuesta.data.status == 1){
+                $scope.res = true;
+            }
+            else{
+                $scope.res = false;
+            }
+            $scope.Limpiar();
+        });
+    }
+
+    $scope.Accion = function (opc){
+        if(opc == 'reg'){
+            $scope.RegistrarConsultas = true;
+            $scope.VerConsultas = false;
+        }
+        else if(opc == 'ver'){
+            $scope.RegistrarConsultas = false;
+            $location.path('verConsulta');
+        }
+    }
+
+    $scope.Limpiar = function (){
+        $scope.valores.peso = 0;
+        $scope.valores.talla = "";
+        $scope.valores.observaciones = "";
+        $scope.valores.fecha = "";
+        $scope.valores.hora = "";
+        document.getElementById('clean').value = "";
+        document.getElementById('clean2').value = "";
+    }
+
+});
+app.controller('verConsultaCtrl', function ($scope, $http) {
+    $scope.m = "Ver Consulta";
+    $http.get("https://first12354.herokuapp.com/consultas/clientes_con_consultas", {
+
+    })
+    .then(function (respuesta) {
+        $scope.consultas = respuesta.data.clientes;
+        console.log($scope.consultas);
+    });
 });
 app.controller('masajesCtrl', function ($scope) {
     $scope.m = "Masajes";
