@@ -43,6 +43,10 @@ app.config(function ($routeProvider) {
             templateUrl: './components/clientes/detallesCte.html',
             controller: 'detallesCteCtrl'
         })
+        .when('/detallesCONSULTA/:idcte', {
+            templateUrl: './components/consultas/detalleConsultas.html',
+            controller: 'detallesConCtrl'
+        })
         .when('/detallesEMP/:idemp', {
             templateUrl: './components/empleados/detallesEmp.html',
             controller: 'detallesEmpCtrl'
@@ -316,6 +320,21 @@ app.controller('detallesCteCtrl', function ($scope, $http, $location, $routePara
 
     $scope.return = function () {
         $location.path('verCte');
+    }
+});
+app.controller('detallesConCtrl', function ($scope, $http, $location, $routeParams) {
+    $scope.m = "Informacion de Consultas";
+    $scope.cte = $routeParams.idcte;
+    var ruta = "https://first12354.herokuapp.com/consultas/consulta_cliente/" + $scope.cte;
+    $http.get(ruta, {
+    })
+        .then(function (respuesta) {
+            $scope.consultas = respuesta.data.consultas;
+            console.log($scope.consultas);
+        });
+
+    $scope.return = function () {
+        $location.path('verConsulta');
     }
 });
 app.controller('detallesEmpCtrl', function ($scope, $http, $location, $routeParams) {
@@ -624,7 +643,8 @@ app.controller('verConsultaCtrl', function ($scope, $http,$location) {
     }
 
     $scope.Detalles = function (data){
-        console.log(data.x);
+        $location.url('/detallesCONSULTA/' + data.x.idCliente);
+
     }
 });
 app.controller('masajesCtrl', function ($scope) {
