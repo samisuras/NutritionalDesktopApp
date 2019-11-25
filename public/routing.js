@@ -608,15 +608,24 @@ app.controller('consultasCtrl', function ($scope, $http, $location) {
     }
 
 });
-app.controller('verConsultaCtrl', function ($scope, $http) {
+app.controller('verConsultaCtrl', function ($scope, $http,$location) {
     $scope.m = "Ver Consulta";
     $http.get("https://first12354.herokuapp.com/consultas/clientes_con_consultas", {
 
     })
     .then(function (respuesta) {
         $scope.consultas = respuesta.data.clientes;
-        console.log($scope.consultas);
+        //console.log($scope.consultas);
     });
+
+    $scope.return = function (){
+        $location.path('con');
+
+    }
+
+    $scope.Detalles = function (data){
+        console.log(data.x);
+    }
 });
 app.controller('masajesCtrl', function ($scope) {
     $scope.m = "Masajes";

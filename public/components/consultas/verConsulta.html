@@ -1,1 +1,28 @@
 <h1 class="h1">{{m}}</h1>
+<div class="container">
+        <button class="btn btn-success mb-3" ng-click="return()">Regresar<i class="fas fa-undo ml-3"></i></button>
+        <table class="table text-center table-striped table-hover">
+            <thead class="thead bg-info text-white">
+                <tr>
+                    <th scope="col">ID Usuario</th>
+                    <th scope="col">Nombre Completo</th>
+                    <th scope="col">Correo Electronico</th>
+                    <th scope="col">ID Direccion</th>
+                    <th scope="col">ID Cliente</th>
+                    <th scope="col">Ver mas</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="x in consultas">
+                    <th scope="row">{{x.idUsuario}}</th>
+                    <td>{{x.nombre+' '+x.apellidoPaterno+' '+x.apellidoMaterno}}</td>
+                    <td>{{x.correo}}</td>
+                    <td scope="row">{{x.idDireccion}}</td>
+                    <td scope="row">{{x.idCliente}}</td>
+                    <td><button class="btn btn-info" ng-click="Detalles(this)">Detalles</button></td>
+                </tr>
+               
+            </tbody>
+        </table>
+    </div>
