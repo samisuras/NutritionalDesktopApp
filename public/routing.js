@@ -647,6 +647,157 @@ app.controller('verConsultaCtrl', function ($scope, $http,$location) {
 
     }
 });
-app.controller('masajesCtrl', function ($scope) {
+app.controller('masajesCtrl', function ($scope, $http, $location) {
     $scope.m = "Masajes";
+    $scope.index = -1;
+    $scope.msjError = false;
+    $scope.msjError2 = false;
+    $scope.msj = false;
+    $scope.tablaConsultas = false;
+
+    $http.get("https://first12354.herokuapp.com/empleado/getEmpleados", {
+
+    })
+    .then(function (respuesta) {
+        $scope.empleados = respuesta.data.status;
+
+    });
+
+
+    $scope.horarios=[
+        { hor: "9:00 - 10:00", status: "Libre", color: "success", btn: false, emp: "" },
+        { hor: "10:00 - 11:00", status: "Libre", color: "success", btn: false, emp: "" },
+        { hor: "11:00 - 12:00", status: "Libre", color: "success", btn: false, emp: "" },
+        { hor: "12:00 - 13:00", status: "Libre", color: "success", btn: false, emp: "" },
+        { hor: "13:00 - 14:00", status: "Libre", color: "success", btn: false, emp: "" },
+        { hor: "14:00 - 15:00", status: "Libre", color: "success", btn: false, emp: "" },
+        { hor: "15:00 - 16:00", status: "Libre", color: "success", btn: false, emp: "" }
+    ]; 
+    $scope.datosMasajes = {
+        hora: "",
+        fecha: "",
+        idEmpleado:"",
+        fechaFormato:""
+    }
+
+    $scope.Enviar = function (data){
+        if(data.search2 != null){
+            var EMPstr = data.search2;
+            var EMPres = EMPstr.split('|');
+            $scope.datosMasajes.hora = data.horario.hor;
+            $scope.datosMasajes.idEmpleado = EMPres[0];
+            $scope.msjError = false;
+            var formatDate = ($scope.datosMasajes.fecha.getFullYear()+"-"+($scope.datosMasajes.fecha.getMonth()+1)+"-"+$scope.datosMasajes.fecha.getDate()).toString();
+            $scope.datosMasajes.fechaFormato = formatDate;
+            console.log($scope.datosMasajes);
+            $http.post("https://first12354.herokuapp.com/masajes/addMasaje",
+                $scope.datosMasajes
+            )
+            .then(function (respuesta) {
+                console.log(respuesta.data);
+                if(respuesta.data.status == 1){
+                    $scope.ReiniciarDatos();
+                }
+            })
+            .catch(function (error) {
+                console.log(error.data);
+            });
+        }
+        else{
+            $scope.msjError = true;
+        }
+
+    }
+    
+    $scope.verificarFecha = function (){
+        //Checar elejibilidad de fecha
+
+        $scope.msj = false;
+        if($scope.datosMasajes.fecha != ""){
+            //Checar fechas mayores no puede ser menor
+            if($scope.datosMasajes.fecha.getTime() >= (new Date().getTime() - 51840000)){
+                $scope.msjError2 = false;
+                $scope.filtrarFechas($scope.datosMasajes.fecha);
+                $scope.tablaConsultas = true;
+            }else{
+                $scope.msjError2 = true;
+                $scope.tablaConsultas = false;
+            }
+        }
+        else{
+            $scope.msjError2 = true;
+            $scope.tablaConsultas = false;
+        }
+        
+    }
+
+    $scope.filtrarFechas = function (formatDate){
+        var mesAux = "";
+        var diaAux = "";
+        var fecha = "";
+        var ban = false;
+        if(formatDate.getMonth()+1 < 10){
+            ban = true;
+            mesAux = "0"+(formatDate.getMonth()+1).toString();
+            fecha = (formatDate.getFullYear()+"-"+(mesAux)+"-"+formatDate.getDate()).toString();
+        }
+        if(formatDate.getDate() < 10){
+            ban = true;
+            diaAux = "0"+(formatDate.getDate()).toString();
+            fecha = (formatDate.getFullYear()+"-"+(formatDate.getMonth()+1)+"-"+diaAux).toString();
+        }
+        if(ban == false){
+            fecha = (formatDate.getFullYear()+"-"+(formatDate.getMonth()+1)+"-"+formatDate.getDate()).toString();
+        }
+        
+        var ruta = "https://first12354.herokuapp.com/masajes/citasOcupadas/"+fecha;
+        console.log(ruta);
+
+        $http.get(ruta, {
+
+        })
+        .then(function (respuesta) {
+            $scope.fechasOcupadas = respuesta.data.fechas;
+            console.log(respuesta.data);
+            if(respuesta.data.fechas.length == 0){
+                console.log("No hay coincidencias BD");
+                for(var j=0; j<$scope.horarios.length;j++){
+                    $scope.horarios[j].status = "Libre";
+                    $scope.horarios[j].color = "success";
+                    $scope.horarios[j].btn = false; 
+                    $scope.horarios[j].emp = ""
+                }
+                
+            }
+            else{
+                
+                for(var i=0; i<$scope.fechasOcupadas.length;i++){
+                    for(var j=0; j<$scope.horarios.length;j++){
+                        if($scope.fechasOcupadas[i].hora == $scope.horarios[j].hor){
+
+                            $scope.horarios[j].status = "Ocupado";
+                            $scope.horarios[j].color = "danger";
+                            $scope.horarios[j].btn = true;
+                            $scope.horarios[j].emp = $scope.fechasOcupadas[i].nombreEmpleado;
+
+                        }
+                    }
+                }
+                //console.log($scope.horarios)
+
+            }
+
+        });
+    
+    }
+    
+    $scope.ReiniciarDatos =  function (){
+        document.getElementById('clean2').value = "";
+        $scope.datosMasajes.fecha = "";
+        $scope.tablaConsultas = false;
+        $scope.msj = true;
+
+    }
+
+ 
 });
