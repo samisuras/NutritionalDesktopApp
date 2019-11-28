@@ -286,7 +286,7 @@ app.controller('empleadosCtrl', function ($scope, $http, $location) {
         apellidoMaterno: '',
         correo: '',
         cp: '',
-        numero: 0,
+        numero: '',
         calle: '',
         nss: 0,
         puesto: "",
