@@ -42,7 +42,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="datos.nombreMedicamentoDC" class="form-control" type="text" >
+                            <input ng-model="datos.nombreMedicamentoDC" class="form-control" maxlength="45" type="text" >
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <textarea ng-model="datos.finMedicamentoDC" class="form-control"></textarea>
+                            <textarea ng-model="datos.finMedicamentoDC" class="form-control" maxlength="45"></textarea>
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <textarea ng-model="datos.anticonceptivo" class="form-control"></textarea>
+                            <textarea ng-model="datos.anticonceptivo" class="form-control" maxlength="45"></textarea>
                         </div>
                     </div>
                 </div>
@@ -161,7 +161,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <textarea ng-model="datos.tipoAF" class="form-control" ></textarea>
+                            <textarea ng-model="datos.tipoAF" class="form-control" maxlength="40" ></textarea>
                         </div>
                     </div>
                 </div>
@@ -172,7 +172,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <textarea ng-model="datos.frecuenciaAF" class="form-control" ></textarea>
+                            <textarea ng-model="datos.frecuenciaAF" class="form-control" maxlength="40" ></textarea>
                         </div>
                     </div>
                 </div>
@@ -183,7 +183,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <textarea ng-model="datos.tiempoAF" class="form-control" ></textarea>
+                            <textarea ng-model="datos.tiempoAF" class="form-control" maxlength="40" ></textarea>
                         </div>
                     </div>
                 </div>
@@ -194,7 +194,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <textarea ng-model="datos.adiccion" class="form-control" ></textarea>
+                            <textarea ng-model="datos.adiccion" class="form-control" maxlength="40" ></textarea>
                         </div>
                     </div>
                 </div>
@@ -233,7 +233,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <textarea ng-model="datos.formaAlimentacion" class="form-control" ></textarea>
+                            <textarea ng-model="datos.formaAlimentacion" class="form-control" maxlength="45" ></textarea>
                         </div>
                     </div>
                 </div>
@@ -255,7 +255,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <textarea ng-model="datos.eventoRelacionado" class="form-control" ></textarea>
+                            <textarea ng-model="datos.eventoRelacionado" class="form-control" maxlength="65" ></textarea>
                         </div>
                     </div>
                 </div>
@@ -266,7 +266,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <textarea ng-model="datos.motivoReduccion" class="form-control" ></textarea>
+                            <textarea ng-model="datos.motivoReduccion" class="form-control" maxlength="90" ></textarea>
                         </div>
                     </div>
                 </div>
@@ -291,7 +291,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="datos.pesoDeseado" class="form-control" type="number" >
+                            <input ng-model="datos.pesoDeseado" class="form-control" type="number" min=0 step="0.1" max=100>
                         </div>
                     </div>
                 </div>

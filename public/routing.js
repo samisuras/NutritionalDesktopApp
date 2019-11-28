@@ -160,7 +160,7 @@ app.controller('clientesCtrl', function ($scope, $http, $location) {
         apellidoMaterno: '',
         correo: '',
         cp: '',
-        numero: 0,
+        numero: '',
         calle: '',
         sangre: '',
         estatura: 0
