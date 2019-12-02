@@ -167,7 +167,7 @@ app.controller('clientesCtrl', function ($scope, $http, $location) {
     };
     $scope.Enviar = function () {
         console.log(JSON.stringify($scope.valores));
-        $http.post("http://localhost:3300/user/add-user",
+        $http.post("https://first12354.herokuapp.com/user/add-user",
             $scope.valores
         )
             .then(function (respuesta) {
@@ -305,7 +305,7 @@ app.controller('empleadosCtrl', function ($scope, $http, $location) {
         $scope.valores.horarioTermino = tiempoF.value;
 
         console.log(JSON.stringify($scope.valores));
-        $http.post("http://localhost:3300/empleado/add-empleado",
+        $http.post("https://first12354.herokuapp.com/empleado/add-empleado",
             $scope.valores
         )
             .then(function (respuesta) {
@@ -835,7 +835,7 @@ app.controller('tipoMasajeCtrl', function ($scope, $http,$location,$routeParams)
     console.log($scope.date);
     $http.get("https://first12354.herokuapp.com/masajes/ultimoExtra")
     .then(function(res){
-        $scope.extraUltimo = res.data.extra[0];
+        $scope.extraUltimo = res.data.extra[0].lastExtra;
         console.log($scope.extraUltimo);
     });
 
