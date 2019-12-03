@@ -164,7 +164,7 @@ app.controller('clientesCtrl', function ($scope, $http, $location) {
         apellidoMaterno: '',
         correo: '',
         cp: '',
-        numero: 0,
+        numero: '',
         calle: '',
         sangre: '',
         estatura: 0
@@ -290,7 +290,7 @@ app.controller('empleadosCtrl', function ($scope, $http, $location) {
         apellidoMaterno: '',
         correo: '',
         cp: '',
-        numero: 0,
+        numero: '',
         calle: '',
         nss: 0,
         puesto: "",
@@ -835,7 +835,13 @@ app.controller('tipoMasajeCtrl', function ($scope, $http, $location, $routeParam
     $scope.m = "Tipo de Masaje";
     $scope.msjError = false;
     $scope.date = $routeParams.date;
+    $scope.extraUltimo = "";
     console.log($scope.date);
+    $http.get("https://first12354.herokuapp.com/masajes/ultimoExtra")
+    .then(function(res){
+        $scope.extraUltimo = res.data.extra[0].lastExtra;
+        console.log($scope.extraUltimo);
+    });
 
     $http.get("https://first12354.herokuapp.com/masajes/extras", {
 

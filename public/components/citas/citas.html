@@ -58,7 +58,7 @@
                 </td>
                 <td>
                     <input class="form-control" type="text" placeholder="Notas extra" ng-model="nota" id="clean3"
-                        ng-disabled="horario.btn" ng-hide="horario.btn">
+                        ng-disabled="horario.btn" ng-hide="horario.btn" maxlength="40" >
                     <span ng-show="horario.btn">{{horario.nota}}</span>
                 </td>
                 <td><button class="btn btn-success btn-small" ng-click="Enviar(this)"

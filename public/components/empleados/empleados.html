@@ -25,7 +25,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="valores.nombre" class="form-control" type="text" required>
+                            <input ng-model="valores.nombre" class="form-control" type="text" maxlength="40" required>
                         </div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="valores.apellidoPaterno" class="form-control" type="text" required>
+                            <input ng-model="valores.apellidoPaterno" class="form-control" type="text" maxlength="40" required>
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="valores.apellidoMaterno"  class="form-control" type="text" required>
+                            <input ng-model="valores.apellidoMaterno"  class="form-control" type="text" maxlength="40" required>
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="valores.correo"  class="form-control" type="email" required>
+                            <input ng-model="valores.correo"  class="form-control" type="email" maxlength="45" required>
                         </div>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="valores.cp"  class="form-control" type="number" required>
+                            <input ng-model="valores.cp"  class="form-control" type="number" max=99999 min=0 required>
                         </div>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="valores.numero"  class="form-control" type="number" required>
+                            <input ng-model="valores.numero"  class="form-control" type="text" maxlength="40" required>
                         </div>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="valores.calle"  class="form-control" type="text" required>
+                            <input ng-model="valores.calle"  class="form-control" type="text" maxlength="40" required>
                         </div>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="valores.nss" class="form-control" type="number" required>
+                            <input ng-model="valores.nss" class="form-control" type="number" maxlength="40" required>
                         </div>
                     </div>
                 </div>
@@ -113,7 +113,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="valores.puesto" class="form-control" type="text" required>
+                            <input ng-model="valores.puesto" class="form-control" maxlength="40" type="text" required>
                         </div>
                     </div>
                 </div>
@@ -124,7 +124,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="valores.noCedula" class="form-control" type="text">
+                            <input ng-model="valores.noCedula" class="form-control" maxlength="40" type="text">
                         </div>
                     </div>
                 </div>
@@ -135,7 +135,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="valores.area" class="form-control" type="text" required>
+                            <input ng-model="valores.area" class="form-control" type="text" maxlength="40" required>
                         </div>
                     </div>
                 </div>
@@ -146,7 +146,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="valores.descripcion" class="form-control" type="text" >
+                            <input ng-model="valores.descripcion" class="form-control" maxlength="40" type="text" >
                         </div>
                     </div>
                 </div>
@@ -157,7 +157,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input  id="horarioInicio" class="form-control" type="time" required>
+                            <input  id="horarioInicio" class="form-control" type="time" maxlength="40" required>
                         </div>
                     </div>
                 </div>
@@ -169,7 +169,7 @@
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                             <input type="time" class="form-control" id="horarioTermino" name="input" 
-                            placeholder="HH:mm" min="00:00" max="23:59" required />                        </div>
+                            placeholder="HH:mm" min="00:00" max="23:59" maxlength="40" required />                        </div>
                     </div>
                 </div>
             </div>
