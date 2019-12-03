@@ -1,52 +1,58 @@
 <h1 class="h1">{{m}}</h1>
 <div class="alert alert-dismissible alert-danger mt-3" ng-show="msjError">
-        <strong>Error!</strong> Completa lo campos correspondientes <a href="#" class="alert-link">para poder registrar los detalles de la cita de masaje.</a>.
+    <strong>Error!</strong> Completa lo campos correspondientes <a href="#" class="alert-link">para poder registrar los
+        detalles de la cita de masaje.</a>.
 </div>
 <div class="container-fluid">
-    <form class="well form-horizontal pt-4 pb-4"  ng-submit="Enviar()">
+    <form class="well form-horizontal pt-4 pb-4" ng-submit="Enviar()">
         <div class="row">
-            <div class="col-xl-4">
+            <div class="col-xl-12">
                 <div class="form-group">
                     <label class="control-label">Tipo de masaje:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <select ng-model="tipoDeMasajeSeleccionado" required>
-                                <option ng-repeat="opcion in tipoDeMasaje.Opciones" value="{{opcion.name}}">{{opcion.name}}</option>
+                                <option ng-repeat="opcion in tipoDeMasaje.Opciones" value="{{opcion.name}}">
+                                    {{opcion.name}}</option>
                             </select>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-xl-4">
+            <div class="col-xl-12">
                 <div class="form-group">
                     <label class="control-label">Unguento:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <select ng-model="tipoDeUnguentoSeleccionado" required>
-                                <option ng-repeat="opcion in Unguento.Opciones" value="{{opcion.name}}">{{opcion.name}}</option>
+                                <option ng-repeat="opcion in Unguento.Opciones" value="{{opcion.name}}">{{opcion.name}}
+                                </option>
                             </select>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col-xl-4">
-                <div class="form-group">
+            <div class="col-xl-12">
+                <div class="form-group pt-5">
                     <label class="control-label">Extras:</label>
-                    <div class="inputGroupContainer">
-                        <div class="input-group" ng-repeat="x in checkboxModel">
-                            <label>{{x.nombre}}:
+                    <div class="inputGroupContainer row border border-info">
+                        <div class="custom-control custom-checkbox m-2" ng-repeat="x in checkboxModel">
+                            <span class="col-xl-1"><span class="badge badge-secondary">{{x.nombre}}:</span>
                                 <input type="checkbox" ng-click="ver(this.x,'ext')">
-                                <input type="number" class="text-center" min="1"  ng-show ="checkboxModel[$index].value" ng-model="checkboxModel[$index].cantidad" ng-click="ver(this.x,'can')" >
+                                <input type="number" class="text-center" min="1" ng-show="checkboxModel[$index].value"
+                                    ng-model="checkboxModel[$index].cantidad" ng-click="ver(this.x,'can')">
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-xl-4"></div>
             <div class="col-xl-4 pt-4">
-                    <button type="submit" class="btn btn-info btn-block">Enviar</button>
-                </div>
+                <button type="submit" class="btn btn-info btn-block">Enviar</button>
+            </div>
         </div>
-    </form>
+
+</div>
+</form>
 </div>

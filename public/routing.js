@@ -59,6 +59,10 @@ app.config(function ($routeProvider) {
             templateUrl: './components/masajes/tipoMasaje.html',
             controller: 'tipoMasajeCtrl'
         })
+        .when('/rep', {
+            templateUrl: './components/reportes/reporte.html',
+            controller: 'reporteCtrl'
+        })
         .otherwise({
             templateUrl: 'components/inicio/inicio.html',
             controller: 'indexController'
@@ -94,7 +98,7 @@ app.controller('verEmpCtrl', function ($scope, $http, $location) {
 });
 app.controller('verCteCtrl', function ($scope, $http, $location) {
     $scope.titulo = "Ver Clientes";
-    $scope.detalle =true;
+    $scope.detalle = true;
     $http.get("https://first12354.herokuapp.com/user/filtroFecha", {
 
     })
@@ -103,13 +107,13 @@ app.controller('verCteCtrl', function ($scope, $http, $location) {
             console.log($scope.filtroFechas);
 
         });
-    $scope.elegirOpcion = function (opc){
-        if(opc == 'detalle'){
-            $scope.detalle =true;
+    $scope.elegirOpcion = function (opc) {
+        if (opc == 'detalle') {
+            $scope.detalle = true;
             $scope.filtro = false;
         }
-        else{
-            $scope.detalle =false;
+        else {
+            $scope.detalle = false;
             $scope.filtro = true;
         }
     }
@@ -715,19 +719,19 @@ app.controller('masajesCtrl', function ($scope, $http, $location) {
             var formatDate = ($scope.datosMasajes.fecha.getFullYear() + "-" + ($scope.datosMasajes.fecha.getMonth() + 1) + "-" + $scope.datosMasajes.fecha.getDate()).toString();
             $scope.datosMasajes.fechaFormato = formatDate;
 
-           $http.post("https://first12354.herokuapp.com/masajes/addCitaMasaje",
+            $http.post("https://first12354.herokuapp.com/masajes/addCitaMasaje",
                 $scope.datosMasajes
             )
-            .then(function (respuesta) {
-                console.log(respuesta.data);
-                if(respuesta.data.status == 1){
-                    $location.url('/tipoMasaje/' + $scope.datosMasajes.fechaFormato+"|"+$scope.datosMasajes.hora);
-                    $scope.ReiniciarDatos();
-                }
-            })
-            .catch(function (error) {
-                console.log(error.data);
-            });
+                .then(function (respuesta) {
+                    console.log(respuesta.data);
+                    if (respuesta.data.status == 1) {
+                        $location.url('/tipoMasaje/' + $scope.datosMasajes.fechaFormato + "|" + $scope.datosMasajes.hora);
+                        $scope.ReiniciarDatos();
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error.data);
+                });
         }
         else {
             $scope.msjError = true;
@@ -756,7 +760,7 @@ app.controller('masajesCtrl', function ($scope, $http, $location) {
         }
 
     }
-    
+
     $scope.filtrarFechas = function (formatDate) {
         var mesAux = "";
         var diaAux = "";
@@ -827,7 +831,7 @@ app.controller('masajesCtrl', function ($scope, $http, $location) {
 
 
 });
-app.controller('tipoMasajeCtrl', function ($scope, $http,$location,$routeParams) {
+app.controller('tipoMasajeCtrl', function ($scope, $http, $location, $routeParams) {
     $scope.m = "Tipo de Masaje";
     $scope.msjError = false;
     $scope.date = $routeParams.date;
@@ -839,8 +843,8 @@ app.controller('tipoMasajeCtrl', function ($scope, $http,$location,$routeParams)
         .then(function (respuesta) {
             $scope.extras = respuesta.data.extras;
             var json_check = [];
-            for(var i=0; i<$scope.extras.length;i++){
-                var datosExtras = {id: $scope.extras[i].idExtras, nombre: $scope.extras[i].nombre, value:false, cantidad:1};
+            for (var i = 0; i < $scope.extras.length; i++) {
+                var datosExtras = { id: $scope.extras[i].idExtras, nombre: $scope.extras[i].nombre, value: false, cantidad: 1 };
                 json_check.push(datosExtras);
             }
             $scope.checkboxModel = json_check;
@@ -851,26 +855,26 @@ app.controller('tipoMasajeCtrl', function ($scope, $http,$location,$routeParams)
     $scope.extraSeleccionado = " ";
     $scope.cantidad = {
         value: 1
-      };
-    $scope.ver = function (data,accion){
+    };
+    $scope.ver = function (data, accion) {
         //console.log(data);
-        if(accion == 'ext'){
-            if(data.value == false){
-                for(var i = 0; i<$scope.checkboxModel.length;i++){
-                    if($scope.checkboxModel[i].id == data.id){
+        if (accion == 'ext') {
+            if (data.value == false) {
+                for (var i = 0; i < $scope.checkboxModel.length; i++) {
+                    if ($scope.checkboxModel[i].id == data.id) {
                         $scope.checkboxModel[i].value = true;
                     }
                 }
             }
-            else{
-                for(var i = 0; i<$scope.checkboxModel.length;i++){
-                    if($scope.checkboxModel[i].id == data.id){
+            else {
+                for (var i = 0; i < $scope.checkboxModel.length; i++) {
+                    if ($scope.checkboxModel[i].id == data.id) {
                         $scope.checkboxModel[i].value = false;
                     }
                 }
             }
         }
- 
+
 
         //console.log($scope.checkboxModel);
     }
@@ -899,23 +903,23 @@ app.controller('tipoMasajeCtrl', function ($scope, $http,$location,$routeParams)
         hora: "",
         tipo: "",
         unguento: "",
-        extras:{
+        extras: {
             idExtra: 0,
             cantidad: 0
 
         }
     }
     var json_extras = [];
-    $scope.Enviar = function(){
+    $scope.Enviar = function () {
         //console.log($scope.checkboxModel)
-       if($scope.tipoDeMasajeSeleccionado != "" && $scope.tipoDeUnguentoSeleccionado != ""){
+        if ($scope.tipoDeMasajeSeleccionado != "" && $scope.tipoDeUnguentoSeleccionado != "") {
             $scope.msjError = false;
             $scope.valores.tipo = $scope.tipoDeMasajeSeleccionado;
             $scope.valores.unguento = $scope.tipoDeUnguentoSeleccionado;
             json_extras = [];
-            for(var i=0; i<$scope.checkboxModel.length;i++){
-                if($scope.checkboxModel[i].value == true){
-                    var datosExtras = {idExtra: $scope.checkboxModel[i].id, cantidad: $scope.checkboxModel[i].cantidad};
+            for (var i = 0; i < $scope.checkboxModel.length; i++) {
+                if ($scope.checkboxModel[i].value == true) {
+                    var datosExtras = { idExtra: $scope.checkboxModel[i].id, cantidad: $scope.checkboxModel[i].cantidad };
                     json_extras.push(datosExtras);
                 }
             }
@@ -928,26 +932,44 @@ app.controller('tipoMasajeCtrl', function ($scope, $http,$location,$routeParams)
             //console.log($scope.valores);
 
             $scope.EnviarBD($scope.valores);
-            
+
         }
-        else{
+        else {
             $scope.msjError = true;
         }
     }
 
-    $scope.EnviarBD = function (data){
+    $scope.EnviarBD = function (data) {
         //console.log(data);
         $http.post("https://first12354.herokuapp.com/masajes/addExtrasMasaje",
             data
         )
-        .then(function (respuesta) {
-            console.log(respuesta.data);
-            if(respuesta.data.status == 1){
-                $location.path('mas');
-            }
-        })
-        .catch(function (error) {
-            console.log(error.data);
-        });
+            .then(function (respuesta) {
+                console.log(respuesta.data);
+                if (respuesta.data.status == 1) {
+                    $location.path('mas');
+                }
+            })
+            .catch(function (error) {
+                console.log(error.data);
+            });
     }
+});
+app.controller('reporteCtrl', function ($scope, $http) {
+    $scope.m = "Reporte de Extras"
+    $http.get("https://first12354.herokuapp.com/reportes/reporteExtras", {
+
+    })
+        .then(function (respuesta) {
+            $scope.extrasCantidad = respuesta.data.extrasReporte;
+            console.log($scope.extrasCantidad);
+        });
+
+    $http.get("https://first12354.herokuapp.com/reportes/ventaExtras", {
+
+    })
+        .then(function (respuesta) {
+            $scope.extrasVentas = respuesta.data.ventas;
+            console.log($scope.extrasVentas);
+        });
 });
