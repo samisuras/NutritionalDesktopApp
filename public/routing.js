@@ -352,7 +352,7 @@ app.controller('detallesCteCtrl', function ($scope, $http, $location, $routePara
     }
 });
 app.controller('detallesConCtrl', function ($scope, $http, $location, $routeParams) {
-    $scope.m = "Informacion de Consultas";
+    $scope.m = "Informacion de Consulta";
     $scope.cte = $routeParams.idcte;
     var ruta = "https://first12354.herokuapp.com/consultas/consulta_cliente/" + $scope.cte;
     $http.get(ruta, {
@@ -365,6 +365,15 @@ app.controller('detallesConCtrl', function ($scope, $http, $location, $routePara
     $scope.return = function () {
         $location.path('verConsulta');
     }
+
+    var ruta2 = "https://first12354.herokuapp.com/user/cliente/" + $scope.cte;
+
+    $http.get(ruta2, {
+    })
+        .then(function (respuesta) {
+            $scope.nombre = respuesta.data.usuario[0].nombre +' '+ respuesta.data.usuario[0].apellidoPaterno+' '+respuesta.data.usuario[0].apellidoMaterno;
+            console.log($scope.nombre);
+        });
 });
 app.controller('detallesEmpCtrl', function ($scope, $http, $location, $routeParams) {
     $scope.m = "Informacion de Empleado";
@@ -663,7 +672,7 @@ app.controller('verConsultaCtrl', function ($scope, $http, $location) {
     })
         .then(function (respuesta) {
             $scope.consultas = respuesta.data.clientes;
-            //console.log($scope.consultas);
+            console.log($scope.consultas);
         });
 
     $scope.return = function () {
