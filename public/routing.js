@@ -155,7 +155,7 @@ app.controller('clientesCtrl', function ($scope, $http, $location) {
         }
     }
     $scope.opcion = {
-        name: 'detalle'
+        name: 'alta'
     };
 
     $scope.valores = {
