@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="form-group">
-                    <label class="control-label">Dolor de Cabeza:</label>
+                    <label class="control-label">Tiene dolor de cabeza frecuentemente:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -23,7 +23,7 @@
             </div>
             <div class="col-xl-12" ng-show="dolordecabeza">
                 <div class="form-group">
-                    <label class="control-label">Medicamento:</label>
+                    <label class="control-label">Toma algun medicamento:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -38,7 +38,7 @@
             </div>
             <div class="col-xl-4" ng-show="Medicamento">
                 <div class="form-group">
-                    <label class="control-label">Nombre del Medicamento:</label>
+                    <label class="control-label">Cual es:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -49,7 +49,7 @@
             </div>
             <div class="col-xl-4" ng-show="Medicamento">
                 <div class="form-group">
-                    <label class="control-label">Finalidad:</label>
+                    <label class="control-label">Finalalidad del medicamento:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -69,7 +69,10 @@
                     </div>
                 </div>
             </div>
+            <div class="col-xl-12">
+                <label>Usted o algun familiar padece de:</label><br>
 
+            </div>
             <div class="col-xl-4">
                 <div class="form-group">
                     <label class="control-label">Sobrepeso:</label>
@@ -142,7 +145,7 @@
             </div>
             <div class="col-xl-12">
                 <div class="form-group">
-                    <label class="control-label">Actividad Fisica:</label>
+                    <label class="control-label">Realiza algun tipo de Actividad Fisica:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -157,7 +160,7 @@
             </div>
             <div class="col-xl-4" ng-show="actividadfisica">
                 <div class="form-group">
-                    <label class="control-label">Tipo:</label>
+                    <label class="control-label">De que Tipo:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -179,7 +182,7 @@
             </div>
             <div class="col-xl-4" ng-show="actividadfisica">
                 <div class="form-group">
-                    <label class="control-label">Tiempo:</label>
+                    <label class="control-label">Tiempo dedicado:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -190,7 +193,7 @@
             </div>
             <div class="col-xl-4">
                 <div class="form-group">
-                    <label class="control-label">Adiccion:</label>
+                    <label class="control-label">Consume regularmente alcohol o cafe:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -201,7 +204,7 @@
             </div>
             <div class="col-xl-4">
                 <div class="form-group">
-                    <label class="control-label">Comida:</label>
+                    <label class="control-label">Come a sus horas:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -215,7 +218,7 @@
             </div>
             <div class="col-xl-12">
                 <div class="form-group">
-                    <label class="control-label">Estres:</label>
+                    <label class="control-label">Esta bajo Estres:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -229,7 +232,7 @@
             </div>
             <div class="col-xl-4" ng-show="Estres">
                 <div class="form-group">
-                    <label class="control-label">Forma de Alimentacion:</label>
+                    <label class="control-label">Afecta en su Forma de Alimentacion:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -240,18 +243,18 @@
             </div>
             <div class="col-xl-4">
                 <div class="form-group">
-                    <label class="control-label">Edad Sobrepeso:</label>
+                    <label class="control-label">A que Edad inicio su Sobrepeso:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="datos.edadSobrepeso" class="form-control" type="number">
+                            <input ng-model="datos.edadSobrepeso" class="form-control" type="number" min="0">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-xl-4">
                 <div class="form-group">
-                    <label class="control-label">Evento relacionado:</label>
+                    <label class="control-label">Lo realaciona con algun evento:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -262,7 +265,7 @@
             </div>
             <div class="col-xl-4">
                 <div class="form-group">
-                    <label class="control-label">Motivo Reduccion:</label>
+                    <label class="control-label">Por que desea la reduccion de peso:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -273,7 +276,7 @@
             </div>
             <div class="col-xl-4">
                 <div class="form-group">
-                    <label class="control-label">Familia:</label>
+                    <label class="control-label">Tiene apoyo de su Familia:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -287,7 +290,7 @@
             </div>
             <div class="col-xl-4">
                 <div class="form-group">
-                    <label class="control-label">Peso deseado:</label>
+                    <label class="control-label">Cula es su Peso deseado:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
