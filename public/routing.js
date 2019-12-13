@@ -359,7 +359,10 @@ app.controller('detallesConCtrl', function ($scope, $http, $location, $routePara
     })
         .then(function (respuesta) {
             $scope.consultas = respuesta.data.consultas;
-            console.log($scope.consultas);
+            for(var i = 0; i<respuesta.data.consultas.length;i++){
+                var fecha = respuesta.data.consultas[0].fecha.split('T');
+                respuesta.data.consultas[i].fecha = fecha[0];
+            }
         });
 
     $scope.return = function () {
@@ -372,7 +375,6 @@ app.controller('detallesConCtrl', function ($scope, $http, $location, $routePara
     })
         .then(function (respuesta) {
             $scope.nombre = respuesta.data.usuario[0].nombre +' '+ respuesta.data.usuario[0].apellidoPaterno+' '+respuesta.data.usuario[0].apellidoMaterno;
-            console.log($scope.nombre);
         });
 });
 app.controller('detallesEmpCtrl', function ($scope, $http, $location, $routeParams) {
@@ -542,6 +544,10 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
                                 $scope.horarios[j].cte = $scope.fechasOcupadas[i].nombreCliente;
                                 $scope.horarios[j].emp = $scope.fechasOcupadas[i].nombreEmpleado;
                                 $scope.horarios[j].nota = $scope.fechasOcupadas[i].notas;
+                                
+                                if ($scope.horarios[j].nota == 'undefined'){
+                                    $scope.horarios[j].nota = 'Sin notas'
+                                }
 
                             }
                         }
