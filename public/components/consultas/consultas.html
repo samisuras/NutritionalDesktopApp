@@ -1,7 +1,7 @@
 <h1 class="h1">{{m}}</h1>
 <div class="alert alert-dismissible alert-success mt-3" ng-show="res">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Exito!</strong> Se agrego el registro <a href="#" class="alert-link">correctamente</a>.
+        <strong>¡Éxito!</strong> Se agregó el registro <a href="#" class="alert-link">correctamente</a>.
     </div>
 <div class="container">
     <label class="control-label">Selecciona una opción:</label>
@@ -15,7 +15,7 @@
             Ver Consultas
         </label><br />
     </form>
-    <form class="well form-horizontal pt-4 pb-4" ng-submit="Enviar(this)" ng-show="RegistrarConsultas">
+    <form class="well form-horizontal pt-4 pb-4" ng-submit="Enviar(this)" ng-show="RegistrarConsultas"> 
         <div class="row">
             <div class="col-xl-4">
                 <div class="form-group">
@@ -41,7 +41,7 @@
             </div>
             <div class="col-xl-4">
                 <div class="form-group">
-                    <label class="control-label">Peso (KG):</label>
+                    <label class="control-label">Peso (kg):</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <input ng-model="valores.peso" class="form-control" type="number" min="0" max="250" required>
@@ -51,10 +51,30 @@
             </div>
             <div class="col-xl-4">
                 <div class="form-group">
-                    <label class="control-label">Talla:</label>
+                    <label class="control-label">Estatura (cm):</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
-                            <input ng-model="valores.talla" class="form-control" type="number" min="0" max="50" required>
+                            <input ng-model="valores.talla" class="form-control" type="number" min="0" max="300" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="form-group">
+                    <label class="control-label">Cadera (cm):</label>
+                    <div class="inputGroupContainer">
+                        <div class="input-group">
+                            <input ng-model="valores.cadera" class="form-control" type="number" min="0" max="200" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="form-group">
+                    <label class="control-label">Cintura (cm):</label>
+                    <div class="inputGroupContainer">
+                        <div class="input-group">
+                            <input ng-model="valores.cintura" class="form-control" type="number" min="0" max="200" required>
                         </div>
                     </div>
                 </div>
@@ -65,13 +85,14 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <textarea ng-model="valores.observaciones" class="form-control" type="text"
-                            maxlength="90"    required></textarea>
+                            maxlength="200" ></textarea>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-12 pt-4 text-center">
-                <button type="submit" class="btn btn-info">Enviar</button>
+            <div class="col-xl-4"></div>
+            <div class="col-xl-4 text-center">
+                <button type="submit" class="btn btn-info btn-block">Enviar</button>
             </div>
         </div>
     </form>

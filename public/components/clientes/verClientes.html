@@ -1,6 +1,4 @@
-<h1 class="h1">{{titulo}}
-    <i class="fas fa-user ml-3"></i>
-</h1>
+<h1 class="h1">{{titulo}}</h1>
 
 <div class="container">
     <div class="row">
@@ -20,21 +18,24 @@
             </form>
         </div>
     </div>
-
+    
+    <div class="form-group col-xl-6">
+        <input type="text" class="form-control" placeholder="Buscar" ng-model="buscador">
+    </div>
     <table class="table text-center table-striped table-hover" ng-show="detalle">
         <thead class="thead bg-info text-white">
             <tr>
                 <th scope="col">ID Usuario</th>
                 <th scope="col">Nombre Completo</th>
-                <th scope="col">Correo Electronico</th>
-                <th scope="col">ID Direccion</th>
+                <th scope="col">Correo Electrónico</th>
+                <th scope="col">ID Dirección</th>
                 <th scope="col">ID Cliente</th>
-                <th scope="col">Ver mas</th>
+                <th scope="col">Ver más</th>
 
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="x in users">
+            <tr ng-repeat="x in users | filter:buscador">
                 <th scope="row">{{x.idUsuario}}</th>
                 <td>{{x.nombre + ' '+ x.apellidoPaterno+' '+ x.apellidoMaterno}}</td>
                 <td>{{x.correo}}</td>
@@ -51,10 +52,10 @@
                 <tr>
                     <th scope="col">ID Usuario</th>
                     <th scope="col">Nombre Completo</th>
-                    <th scope="col">Correo Electronico</th>
-                    <th scope="col">ID Direccion</th>
+                    <th scope="col">Correo Electrónico</th>
+                    <th scope="col">ID Dirección</th>
                     <th scope="col">ID Cliente</th>
-                    <th scope="col">Dias Atrasados</th>
+                    <th scope="col">Días Atrasados</th>
     
                 </tr>
             </thead>

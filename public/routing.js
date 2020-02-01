@@ -138,7 +138,7 @@ app.controller('verCteCtrl', function ($scope, $http, $location) {
     }
 });
 app.controller('clientesCtrl', function ($scope, $http, $location) {
-    $scope.titulo = "Altas";
+    $scope.titulo = "Alta Clientes";
     $scope.altas = true;
     $scope.res = false;
     $scope.$location = $location;
@@ -310,6 +310,7 @@ app.controller('empleadosCtrl', function ($scope, $http, $location) {
 
         console.log(JSON.stringify($scope.valores));
         $http.post("https://first12354.herokuapp.com/empleado/add-empleado",
+        //$http.post("http://localhost:3300/empleado/add-empleado",
             $scope.valores
         )
             .then(function (respuesta) {
@@ -336,7 +337,7 @@ app.controller('empleadosCtrl', function ($scope, $http, $location) {
     }
 });
 app.controller('detallesCteCtrl', function ($scope, $http, $location, $routeParams) {
-    $scope.m = "Informacion de Cliente";
+    $scope.m = "Información de Cliente";
     $scope.cte = $routeParams.idcte;
     var ruta = "https://first12354.herokuapp.com/user/cliente/" + $scope.cte;
 
@@ -352,9 +353,9 @@ app.controller('detallesCteCtrl', function ($scope, $http, $location, $routePara
     }
 });
 app.controller('detallesConCtrl', function ($scope, $http, $location, $routeParams) {
-    $scope.m = "Informacion de Consulta";
+    $scope.m = "Información de Consulta";
     $scope.cte = $routeParams.idcte;
-    var ruta = "https://first12354.herokuapp.com/consultas/consulta_cliente/" + $scope.cte;
+    var ruta = "http://first12354.herokuapp.com/consultas/consulta_cliente/" + $scope.cte;
     $http.get(ruta, {
     })
         .then(function (respuesta) {
@@ -378,10 +379,11 @@ app.controller('detallesConCtrl', function ($scope, $http, $location, $routePara
         });
 });
 app.controller('detallesEmpCtrl', function ($scope, $http, $location, $routeParams) {
-    $scope.m = "Informacion de Empleado";
+    $scope.m = "Información de Empleado";
     $scope.emp = $routeParams.idemp;
 
-    var ruta = "https://first12354.herokuapp.com/empleado/" + $scope.emp;
+    //var ruta = "https://first12354.herokuapp.com/empleado/" + $scope.emp;
+    var ruta = "http://first12354.herokuapp.com/empleado/" + $scope.emp;
 
     $http.get(ruta, {
     })
@@ -477,14 +479,8 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
         $scope.msj = false;
         if ($scope.datosConsulta.fecha != "") {
             //Checar fechas mayores no puede ser menor
-            if ($scope.datosConsulta.fecha.getTime() >= (new Date().getTime() - 51840000)) {
-                $scope.msjError2 = false;
-                $scope.filtrarFechas($scope.datosConsulta.fecha);
-                $scope.tablaConsultas = true;
-            } else {
-                $scope.msjError2 = true;
-                $scope.tablaConsultas = false;
-            }
+            $scope.filtrarFechas($scope.datosConsulta.fecha);
+            $scope.tablaConsultas = true;
         }
         else {
             $scope.msjError2 = true;
@@ -604,6 +600,7 @@ app.controller('consultasCtrl', function ($scope, $http, $location) {
     };
 
     $scope.Enviar = function (data) {
+        console.log("yujyio");
         var mesAux = "";
         var diaAux = "";
         var ban = false;
@@ -760,14 +757,8 @@ app.controller('masajesCtrl', function ($scope, $http, $location) {
         $scope.msj = false;
         if ($scope.datosMasajes.fecha != "") {
             //Checar fechas mayores no puede ser menor
-            if ($scope.datosMasajes.fecha.getTime() >= (new Date().getTime() - 51840000)) {
-                $scope.msjError2 = false;
-                $scope.filtrarFechas($scope.datosMasajes.fecha);
-                $scope.tablaConsultas = true;
-            } else {
-                $scope.msjError2 = true;
-                $scope.tablaConsultas = false;
-            }
+            $scope.filtrarFechas($scope.datosMasajes.fecha);
+            $scope.tablaConsultas = true;
         }
         else {
             $scope.msjError2 = true;

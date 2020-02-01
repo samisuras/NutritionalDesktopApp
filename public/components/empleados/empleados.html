@@ -15,7 +15,7 @@
     </form>
     <div class="alert alert-dismissible alert-success mt-3" ng-show="res">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Exito!</strong> Se agrego el registro <a href="#" class="alert-link">correctamente</a>.
+        <strong>¡Éxito!</strong> Se agregó el registro <a href="#" class="alert-link">correctamente</a>.
     </div>
     <form class="well form-horizontal pt-4 pb-4"  ng-submit="Enviar()" ng-show="altas">
         <div class="row">
@@ -32,7 +32,7 @@
             </div>
             <div class="col-xl-4">
                 <div class="form-group">
-                    <label class="control-label">Apellido Paterno:</label>
+                    <label class="control-label">Primer Apellido:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -43,11 +43,11 @@
             </div>
             <div class="col-xl-4">
                 <div class="form-group">
-                    <label class="control-label">Apellido Materno:</label>
+                    <label class="control-label">Segundo Apellido:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="valores.apellidoMaterno"  class="form-control" type="text" maxlength="40" required>
+                            <input ng-model="valores.apellidoMaterno"  class="form-control" type="text" maxlength="40">
                         </div>
                     </div>
                 </div>
@@ -65,6 +65,17 @@
             </div>
             <div class="col-xl-4">
                 <div class="form-group">
+                    <label class="control-label">Teléfono:</label>
+                    <div class="inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input ng-model="valores.telefono"  class="form-control" type="number" maxlength="9999999999" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="form-group">
                     <label class="control-label">Código Postal:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
@@ -74,24 +85,24 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4">
-                <div class="form-group">
-                    <label class="control-label">Número:</label>
-                    <div class="inputGroupContainer">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="valores.numero"  class="form-control" type="text" maxlength="40" required>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4">
+            <div class="col-xl-3">
                 <div class="form-group">
                     <label class="control-label">Calle:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="valores.calle"  class="form-control" type="text" maxlength="40" required>
+                            <input ng-model="valores.calle"  class="form-control" type="text" maxlength="40"  required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-1">
+                <div class="form-group">
+                    <label class="control-label">Número:</label>
+                    <div class="inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input ng-model="valores.numero"  class="form-control" type="number" maxlength="5" required>
                         </div>
                     </div>
                 </div>
@@ -120,7 +131,7 @@
             </div>
             <div class="col-xl-4">
                 <div class="form-group">
-                    <label class="control-label">Cedula Profesional: (opcional)</label>
+                    <label class="control-label">Cédula Profesional: (opcional)</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -131,7 +142,7 @@
             </div>
             <div class="col-xl-4">
                 <div class="form-group">
-                    <label class="control-label">Area:</label>
+                    <label class="control-label">Área:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -142,7 +153,7 @@
             </div>
             <div class="col-xl-4">
                 <div class="form-group">
-                    <label class="control-label">Descripcion del puesto y/o <br> Actividades a Realizar (Opcional):</label>
+                    <label class="control-label">Descripción del puesto y/o <br> Actividades a Realizar (Opcional):</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -164,7 +175,7 @@
             </div>
             <div class="col-xl-4">
                 <div class="form-group">
-                    <label class="control-label">Horario Termino:</label>
+                    <label class="control-label">Horario Término:</label>
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>

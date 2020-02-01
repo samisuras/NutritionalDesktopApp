@@ -2,20 +2,23 @@
 
 <div class="container">
         <button class="btn btn-success mb-3" ng-click="return()">Regresar<i class="fas fa-undo ml-3"></i></button>
+        <div class="form-group col-xl-6">
+            <input type="text" class="form-control" placeholder="Buscar" ng-model="buscador">
+        </div>
         <table class="table text-center table-striped table-hover">
             <thead class="thead bg-info text-white">
                 <tr>
                     <th scope="col">ID Usuario</th>
                     <th scope="col">Nombre Completo</th>
-                    <th scope="col">Correo Electronico</th>
-                    <th scope="col">ID Direccion</th>
+                    <th scope="col">Correo Electrónico</th>
+                    <th scope="col">ID Dirección</th>
                     <th scope="col">ID Empleado</th>
-                    <th scope="col">Ver mas</th>
+                    <th scope="col">Ver más</th>
                     
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="x in users">
+                <tr ng-repeat="x in users | filter:buscador">
                     <th scope="row">{{x.idUsuario}}</th>
                     <td>{{x.nombre + ' '+ x.apellidoPaterno+' '+ x.apellidoMaterno}}</td>
                     <td>{{x.correo}}</td>
