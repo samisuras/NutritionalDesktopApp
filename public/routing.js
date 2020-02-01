@@ -353,6 +353,7 @@ app.controller('detallesCteCtrl', function ($scope, $http, $location, $routePara
     }
 });
 app.controller('detallesConCtrl', function ($scope, $http, $location, $routeParams) {
+    $scope.exito = false;
     $scope.m = "Información de Consulta";
     $scope.cte = $routeParams.idcte;
     var ruta = "http://first12354.herokuapp.com/consultas/consulta_cliente/" + $scope.cte;
@@ -377,6 +378,20 @@ app.controller('detallesConCtrl', function ($scope, $http, $location, $routePara
         .then(function (respuesta) {
             $scope.nombre = respuesta.data.usuario[0].nombre +' '+ respuesta.data.usuario[0].apellidoPaterno+' '+respuesta.data.usuario[0].apellidoMaterno;
         });
+
+    //formulario 
+    $scope.Enviar = function (data) {
+        $scope.exito = false;
+        const ruta = "https://first12354.herokuapp.com/consultas/modificarConsulta";
+        $http.post(ruta,data.x)
+        .then(function (data) {
+            console.log(data.data);
+            $scope.exito = true;
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
 });
 app.controller('detallesEmpCtrl', function ($scope, $http, $location, $routeParams) {
     $scope.m = "Información de Empleado";
