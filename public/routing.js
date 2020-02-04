@@ -802,8 +802,8 @@ app.controller('masajesCtrl', function ($scope, $http, $location) {
             fecha = (formatDate.getFullYear() + "-" + (formatDate.getMonth() + 1) + "-" + formatDate.getDate()).toString();
         }
 
-        //var ruta = "https://first12354.herokuapp.com/masajes/citasOcupadas/" + fecha;
-        var ruta = "http://localhost:3300/masajes/citasOcupadas/" + fecha;
+        var ruta = "https://first12354.herokuapp.com/masajes/citasOcupadas/" + fecha;
+        //var ruta = "http://localhost:3300/masajes/citasOcupadas/" + fecha;
 
         console.log(ruta);
         console.log(fecha);
