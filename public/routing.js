@@ -170,7 +170,9 @@ app.controller('clientesCtrl', function ($scope, $http, $location) {
         estatura: 0
     };
     $scope.Enviar = function () {
+        console.log("entre");
         console.log(JSON.stringify($scope.valores));
+        //https://first12354.herokuapp.com/user/add-user
         $http.post("https://first12354.herokuapp.com/user/add-user",
             $scope.valores
         )
@@ -344,6 +346,7 @@ app.controller('detallesCteCtrl', function ($scope, $http, $location, $routePara
     $http.get(ruta, {
     })
         .then(function (respuesta) {
+            console.log(respuesta.data);
             $scope.Cliente = respuesta.data.usuario[0];
             console.log($scope.Cliente);
         });
