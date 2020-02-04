@@ -361,6 +361,7 @@ app.controller('detallesConCtrl', function ($scope, $http, $location, $routePara
     })
         .then(function (respuesta) {
             $scope.consultas = respuesta.data.consultas;
+            console.log(respuesta.data);
             for(var i = 0; i<respuesta.data.consultas.length;i++){
                 var fecha = respuesta.data.consultas[0].fecha.split('T');
                 respuesta.data.consultas[i].fecha = fecha[0];
@@ -509,9 +510,8 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
         var diaAux = "";
         var fecha = "";
         var ban = false;
-        if (formatDate.getMonth() + 1 < 10) {
+        if ((formatDate.getMonth() + 1) < 10) {
             ban = true;
-            mesAux = "0" + (formatDate.getMonth() + 1).toString();
             fecha = (formatDate.getFullYear() + "-" + (mesAux) + "-" + formatDate.getDate()).toString();
         }
         if (formatDate.getDate() < 10) {
@@ -524,7 +524,9 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
         }
 
         var ruta = "https://first12354.herokuapp.com/citas/citasOcupadas/" + fecha;
-        console.log(ruta);
+        //var ruta = "http://localhost:3300/citas/citasOcupadas/" + fecha;
+
+        console.log(fecha);
         $http.get(ruta, {
 
         })
