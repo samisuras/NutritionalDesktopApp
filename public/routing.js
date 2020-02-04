@@ -791,7 +791,6 @@ app.controller('masajesCtrl', function ($scope, $http, $location) {
         var ban = false;
         if (formatDate.getMonth() + 1 < 10) {
             ban = true;
-            mesAux = "0" + (formatDate.getMonth() + 1).toString();
             fecha = (formatDate.getFullYear() + "-" + (mesAux) + "-" + formatDate.getDate()).toString();
         }
         if (formatDate.getDate() < 10) {
@@ -803,9 +802,11 @@ app.controller('masajesCtrl', function ($scope, $http, $location) {
             fecha = (formatDate.getFullYear() + "-" + (formatDate.getMonth() + 1) + "-" + formatDate.getDate()).toString();
         }
 
-        var ruta = "https://first12354.herokuapp.com/masajes/citasOcupadas/" + fecha;
-        console.log(ruta);
+        //var ruta = "https://first12354.herokuapp.com/masajes/citasOcupadas/" + fecha;
+        var ruta = "http://localhost:3300/masajes/citasOcupadas/" + fecha;
 
+        console.log(ruta);
+        console.log(fecha);
         $http.get(ruta, {
 
         })
