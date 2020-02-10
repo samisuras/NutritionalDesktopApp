@@ -1012,18 +1012,21 @@ app.controller('reporteCtrl', function ($scope, $http) {
 });
 app.controller('ventasCtrl', function ($scope, $http, $location) {
     $scope.m = "Ventas";
-
+    $scope.listavacia = false;
+    $scope.ventaAgregada = false;
 
     $http.get("https://first12354.herokuapp.com/inventario/allProducts", {
     })
         .then(function (respuesta) {
             $scope.productos = respuesta.data.productos;
-            //console.log($scope.productos);
+            console.log($scope.productos);
         })
     $scope.lista = [];
+    $scope.products = [];
     $scope.aumentar = function (data) {
+        var existencia = $scope.buscarExistencia (data);
         for (var i = 0; i < ($scope.lista.length); i++) {
-            if ($scope.lista[i].idProducto == parseInt(data)) {
+            if ($scope.lista[i].idProducto == parseInt(data) && $scope.lista[i].cantidad < existencia) {
                 $scope.lista[i].cantidad = ($scope.lista[i].cantidad) + 1;
                 break;
             }
@@ -1066,4 +1069,47 @@ app.controller('ventasCtrl', function ($scope, $http, $location) {
         }
         return false;
     }
+
+    $scope.Enviar = function (){
+        if($scope.lista != ""){
+            $scope.listavacia = false;
+            $scope.filtrarProducto();
+            console.log($scope.products);
+            $http.post("https://first12354.herokuapp.com/inventario/sellProduct",$scope.products)
+            .then(function (respuesta) {
+                console.log(respuesta.data);
+                if(respuesta.data.status == 1){
+                    $scope.products = [];
+                    $scope.lista = [];
+                    $scope.ventaAgregada = true;
+                }
+                else{
+                    $scope.ventaAgregada = false;
+                }
+            })
+        }
+        else{
+            $scope.listavacia = true;
+
+        }
+    }
+
+    $scope.filtrarProducto = function (){
+        for(var i=0;i<$scope.lista.length;i++){
+            var objeto = { idProducto: parseInt($scope.lista[i].idProducto), cantidad: $scope.lista[i].cantidad };
+            $scope.products.push(objeto);
+        }
+        
+    }
+
+    $scope.buscarExistencia = function (id){
+        for (var i = 0; i < $scope.productos.length; i++) {
+
+            if ($scope.productos[i].idProducto == id) {
+                return $scope.productos[i].existencia;
+            }
+        }
+
+    }
+
 });
