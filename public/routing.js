@@ -63,6 +63,10 @@ app.config(function ($routeProvider) {
             templateUrl: './components/reportes/reporte.html',
             controller: 'reporteCtrl'
         })
+        .when('/ventas', {
+            templateUrl: './components/ventas/ventas.html',
+            controller: 'ventasCtrl'
+        })
         .otherwise({
             templateUrl: 'components/inicio/inicio.html',
             controller: 'indexController'
@@ -312,7 +316,7 @@ app.controller('empleadosCtrl', function ($scope, $http, $location) {
 
         console.log(JSON.stringify($scope.valores));
         $http.post("https://first12354.herokuapp.com/empleado/add-empleado",
-        //$http.post("http://localhost:3300/empleado/add-empleado",
+            //$http.post("http://localhost:3300/empleado/add-empleado",
             $scope.valores
         )
             .then(function (respuesta) {
@@ -365,7 +369,7 @@ app.controller('detallesConCtrl', function ($scope, $http, $location, $routePara
         .then(function (respuesta) {
             $scope.consultas = respuesta.data.consultas;
             console.log(respuesta.data);
-            for(var i = 0; i<respuesta.data.consultas.length;i++){
+            for (var i = 0; i < respuesta.data.consultas.length; i++) {
                 var fecha = respuesta.data.consultas[0].fecha.split('T');
                 respuesta.data.consultas[i].fecha = fecha[0];
             }
@@ -380,21 +384,21 @@ app.controller('detallesConCtrl', function ($scope, $http, $location, $routePara
     $http.get(ruta2, {
     })
         .then(function (respuesta) {
-            $scope.nombre = respuesta.data.usuario[0].nombre +' '+ respuesta.data.usuario[0].apellidoPaterno+' '+respuesta.data.usuario[0].apellidoMaterno;
+            $scope.nombre = respuesta.data.usuario[0].nombre + ' ' + respuesta.data.usuario[0].apellidoPaterno + ' ' + respuesta.data.usuario[0].apellidoMaterno;
         });
 
     //formulario 
     $scope.Enviar = function (data) {
         $scope.exito = false;
         const ruta = "https://first12354.herokuapp.com/consultas/modificarConsulta";
-        $http.post(ruta,data.x)
-        .then(function (data) {
-            console.log(data.data);
-            $scope.exito = true;
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
+        $http.post(ruta, data.x)
+            .then(function (data) {
+                console.log(data.data);
+                $scope.exito = true;
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
     }
 });
 app.controller('detallesEmpCtrl', function ($scope, $http, $location, $routeParams) {
@@ -560,8 +564,8 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
                                 $scope.horarios[j].cte = $scope.fechasOcupadas[i].nombreCliente;
                                 $scope.horarios[j].emp = $scope.fechasOcupadas[i].nombreEmpleado;
                                 $scope.horarios[j].nota = $scope.fechasOcupadas[i].notas;
-                                
-                                if ($scope.horarios[j].nota == 'undefined'){
+
+                                if ($scope.horarios[j].nota == 'undefined') {
                                     $scope.horarios[j].nota = 'Sin notas'
                                 }
 
@@ -865,10 +869,10 @@ app.controller('tipoMasajeCtrl', function ($scope, $http, $location, $routeParam
     $scope.extraUltimo = "";
     console.log($scope.date);
     $http.get("https://first12354.herokuapp.com/masajes/ultimoExtra")
-    .then(function(res){
-        $scope.extraUltimo = res.data.extra[0].lastExtra;
-        console.log($scope.extraUltimo);
-    });
+        .then(function (res) {
+            $scope.extraUltimo = res.data.extra[0].lastExtra;
+            console.log($scope.extraUltimo);
+        });
 
     $http.get("https://first12354.herokuapp.com/masajes/extras", {
 
@@ -1005,4 +1009,61 @@ app.controller('reporteCtrl', function ($scope, $http) {
             $scope.extrasVentas = respuesta.data.ventas;
             console.log($scope.extrasVentas);
         });
+});
+app.controller('ventasCtrl', function ($scope, $http, $location) {
+    $scope.m = "Ventas";
+
+
+    $http.get("https://first12354.herokuapp.com/inventario/allProducts", {
+    })
+        .then(function (respuesta) {
+            $scope.productos = respuesta.data.productos;
+            //console.log($scope.productos);
+        })
+    $scope.lista = [];
+    $scope.aumentar = function (data) {
+        for (var i = 0; i < ($scope.lista.length); i++) {
+            if ($scope.lista[i].idProducto == parseInt(data)) {
+                $scope.lista[i].cantidad = ($scope.lista[i].cantidad) + 1;
+                break;
+            }
+        }
+    }
+    $scope.disminuir = function (data) {
+        for (var i = 0; i < $scope.lista.length; i++) {
+            if ($scope.lista[i].idProducto == parseInt(data) && $scope.lista[i].cantidad != 1) {
+                $scope.lista[i].cantidad = ($scope.lista[i].cantidad) - 1;
+                break;
+            }
+        }
+    }
+    $scope.Agregar = function (data) {
+        var item = data.split('|');
+        if ($scope.VerificarLista(item[0])) {
+            $scope.aumentar(item[0]);
+        }
+        else {
+            var objeto = { idProducto: parseInt(item[0]), nombre: item[1], cantidad: 1 };
+            $scope.lista.push(objeto);
+        }
+    }
+
+    $scope.Eliminar = function (id) {
+        for (var i = 0; i < $scope.lista.length; i++) {
+            if ($scope.lista[i].idProducto == id) {
+                $scope.lista.splice(i, 1);
+                break;
+            }
+        }
+    }
+
+    $scope.VerificarLista = function (id) {
+        for (var i = 0; i < $scope.lista.length; i++) {
+
+            if ($scope.lista[i].idProducto == id) {
+                return true;
+            }
+        }
+        return false;
+    }
 });
