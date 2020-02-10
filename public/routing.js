@@ -1046,8 +1046,14 @@ app.controller('ventasCtrl', function ($scope, $http, $location) {
             $scope.aumentar(item[0]);
         }
         else {
-            var objeto = { idProducto: parseInt(item[0]), nombre: item[1], cantidad: 1 };
-            $scope.lista.push(objeto);
+            if( $scope.buscarExistencia(parseInt(item[0])) > 0){
+                var objeto = { idProducto: parseInt(item[0]), nombre: item[1], cantidad: 1 };
+                $scope.lista.push(objeto);
+            }
+            else{
+                alert("No hay existencias del producto!");
+            }
+
         }
     }
 
