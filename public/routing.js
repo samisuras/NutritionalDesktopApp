@@ -67,6 +67,18 @@ app.config(function ($routeProvider) {
             templateUrl: './components/ventas/ventas.html',
             controller: 'ventasCtrl'
         })
+        .when('/altas', {
+            templateUrl: './components/inventario/altas.html',
+            controller: 'altasCtrl'
+        })
+        .when('/bajas', {
+            templateUrl: './components/inventario/bajas.html',
+            controller: 'bajasCtrl'
+        })
+        .when('/cambios', {
+            templateUrl: './components/inventario/cambios.html',
+            controller: 'cambiosCtrl'
+        })
         .otherwise({
             templateUrl: 'components/inicio/inicio.html',
             controller: 'indexController'
@@ -1118,4 +1130,41 @@ app.controller('ventasCtrl', function ($scope, $http, $location) {
 
     }
 
+});
+
+app.controller('altasCtrl', function ($scope, $http, $location) {
+    $scope.m = "Altas"
+
+    $scope.Bajas = function (){
+        $location.path('bajas');
+    }
+
+    $scope.Cambios = function (){
+        $location.path('cambios');
+    }
+    
+});
+app.controller('bajasCtrl', function ($scope, $http,$location) {
+    $scope.m = "Bajas"
+
+    $scope.Altas= function (){
+        $location.path('altas');
+    }
+
+    $scope.Cambios = function (){
+        $location.path('cambios');
+    }
+    
+});
+app.controller('cambiosCtrl', function ($scope, $http, $location) {
+    $scope.m = "Cambios"
+
+    $scope.Altas= function (){
+        $location.path('altas');
+    }
+
+    $scope.Bajas = function (){
+        $location.path('bajas');
+    }
+    
 });
