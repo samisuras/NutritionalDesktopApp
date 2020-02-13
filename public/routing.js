@@ -1005,22 +1005,144 @@ app.controller('tipoMasajeCtrl', function ($scope, $http, $location, $routeParam
     }
 });
 app.controller('reporteCtrl', function ($scope, $http) {
+    $scope.diaB = false;
+    $scope.periodoB = false;
+    $scope.dia = function () {
+         //iniciar variables en 0
+         $scope.totalCon = 0;
+         $scope.extrasVentas = 0;
+         $scope.total1 = 0;
+         $scope.ventas = 0
+        $scope.diaB = true;
+        $scope.periodoB = false;
+    }
+    $scope.periodo = function () {
+         //iniciar variables en 0
+         $scope.totalCon = 0;
+         $scope.extrasVentas = 0;
+         $scope.total1 = 0;
+         $scope.ventas = 0
+        $scope.diaB = false;
+        $scope.periodoB = true;
+    }
     $scope.m = "Reporte de Extras"
-    $http.get("https://first12354.herokuapp.com/reportes/reporteExtras", {
-
-    })
+    $scope.fecha ="";
+    $scope.fechaDia = "";
+    $scope.fecha2 = "";
+    $scope.verificarFechaDia = function () {
+        
+        $scope.fechaDia = document.getElementById("dateDia").value;
+        console.log("fecha dia");
+        console.log($scope.fechaDia.toString());
+        if($scope.fechaDia == ""){
+            alert("Selecciona una fecha")
+        }else{
+            consultarFechaDia($scope.fechaDia)
+            consultarConsultasDia($scope.fechaDia);
+        }   
+        console.log("ventas ",$scope.ventas, "consultas ", $scope.extrasVentas);
+    }
+    consultarFechaDia = function (fecha) {
+        const data = {
+            fecha: fecha
+            
+        }
+        $http.post("https://first12354.herokuapp.com/reportes/reporteVentasDia", data)
         .then(function (respuesta) {
-            $scope.extrasCantidad = respuesta.data.extrasReporte;
-            console.log($scope.extrasCantidad);
+            console.log(respuesta.data);
+            $scope.total1 = 0;
+            let arrayAux = respuesta.data.ventas;
+            if(arrayAux.length < 1){
+                alert("No hay ventas en ese dia/periodo")
+            }
+            let suma = 0;
+            arrayAux.forEach(e => {
+                console.log(e.cantidad);
+                suma += e.cantidad;
+            });
+            $scope.total1 = suma;
+            $scope.ventas = respuesta.data.ventas
         });
-
-    $http.get("https://first12354.herokuapp.com/reportes/ventaExtras", {
-
-    })
+    }
+    consultarConsultasDia = function (fecha) {
+        const data = {
+            fecha: fecha
+        }
+        $http.post(
+            "https://first12354.herokuapp.com/reportes/reporteConsultasDia",
+            data
+        )
         .then(function (respuesta) {
-            $scope.extrasVentas = respuesta.data.ventas;
-            console.log($scope.extrasVentas);
+            $scope.totalCon;
+            $scope.extrasVentas = respuesta.data.consultas;
+            let arrayAux = respuesta.data.consultas;
+            if(arrayAux.length < 1){
+                alert("No hay consultas en ese dia/periodo")
+            }
+            let suma = 0;
+            arrayAux.forEach(e => {
+                suma += e.cantidad;
+            });
+            $scope.totalCon = suma;
         });
+    }
+    $scope.verificarFecha = function () {
+        $scope.fecha = document.getElementById("date").value;
+        $scope.fecha2 = document.getElementById("date2").value;
+
+        if($scope.fecha == "" && $scope.fecha2 == ""){
+            alert("Selecciona una fecha")
+        }else{
+            console.log($scope.fecha);
+            consultarFecha($scope.fecha,$scope.fecha2);
+            consultarConsultas($scope.fecha,$scope.fecha2);
+        }
+    }
+    consultarConsultas = function (fecha,fecha2) {
+        const data = {
+            fecha: fecha,
+            fecha2: fecha2
+        }
+        $http.post(
+            "https://first12354.herokuapp.com/reportes/reporteConsultas",
+            data
+        )
+        .then(function (respuesta) {
+            $scope.totalCon;
+            $scope.extrasVentas = respuesta.data.consultas;
+            let arrayAux = respuesta.data.consultas;
+            if(arrayAux.length < 1){
+                alert("No hay consultas en ese dia/periodo")
+            }
+            let suma = 0;
+            arrayAux.forEach(e => {
+                suma += e.cantidad;
+            });
+            $scope.totalCon = suma;
+        });
+    }
+    consultarFecha = function (fecha,fecha2) {
+        const data = {
+            fecha: fecha,
+            fecha2: fecha2
+        }
+        $http.post("https://first12354.herokuapp.com/reportes/reporteVentas", data)
+        .then(function (respuesta) {
+            console.log(respuesta.data);
+            $scope.total1 = 0;
+            let arrayAux = respuesta.data.ventas;
+            if(arrayAux.length < 1){
+                alert("No hay ventas en ese dia/periodo")
+            }
+            let suma = 0;
+            arrayAux.forEach(e => {
+                console.log(e.cantidad);
+                suma += e.cantidad;
+            });
+            $scope.total1 = suma;
+            $scope.ventas = respuesta.data.ventas
+        });
+    }
 });
 app.controller('ventasCtrl', function ($scope, $http, $location) {
     $scope.m = "Ventas";

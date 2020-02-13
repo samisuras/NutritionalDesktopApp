@@ -1,8 +1,57 @@
 <h1 class="h1">{{m}}</h1>
 <div class="container">
     <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 mb-4" align="center">
+                    <div class="btn-group btn-group-toggle" >
+                        <label class="btn btn-primary active">
+                          <input type="radio" name="options" id="option1" autocomplete="off" ng-click="dia()" checked> Dia
+                        </label>
+                        <label class="btn btn-primary">
+                          <input type="radio" name="options" id="option2" ng-click="periodo()" autocomplete="off"> Periodo
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-if="periodoB">
+                <div class="col-xl-12">
+                    <form class="ml-5 mr-5 mb-4">
+                        <div class="form-group">
+                            <label for="date">Fecha de inicio: </label>
+                            <input id="date" type="date" ng-model="fecha" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="date">Fecha final: </label>
+                            <input id="date2" type="date" ng-model="fecha2" class="form-control ">
+                        </div>
+                        <div align="center">
+                            <button type="button" class="btn btn-info btn-lg" ng-click="verificarFecha()">Verificar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row" ng-if="diaB">
+                <div class="col-xl-12">
+                    <form class="ml-5 mr-5 mb-4">
+                        <div class="form-group">
+                            <label for="dateDia">Fecha: </label>
+                            <input id="dateDia" type="date" ng-model="fechaDia" class="form-control">
+                        </div>
+                        <div align="center">
+                            <button type="button" class="btn btn-info btn-lg" ng-click="verificarFechaDia()">Verificar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-xl-6">
             <table class="table text-center table-striped table-hover">
+                <div align="center">
+                    <h3><b>Ventas de productos</b></h3>
+                </div>
                 <thead class="thead bg-info text-white">
                     <tr>
                         <th scope="col">Nombre</th>
@@ -10,28 +59,37 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="x in extrasCantidad">
+                    <tr ng-repeat="x in ventas">
                         <th scope="row">{{x.nombre}}</th>
                         <td>{{x.cantidad}}</td>
                     </tr>
-
+                    <tr>
+                        <th scope="row"><b>Total<b></th>
+                        <td>{{total1}}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
         <div class="col-xl-6">
             <table class="table text-center table-striped table-hover">
+                <div align="center">
+                    <h3><b>Consultas</b></h3>
+                </div>
                 <thead class="thead bg-info text-white">
                     <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Venta</th>
+                        <th scope="col">Nutriologo</th>
+                        <th scope="col">Cantidad</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="x in extrasVentas">
                         <th scope="row">{{x.nombre}}</th>
-                        <td>{{x.venta_total}}</td>
+                        <td>{{x.cantidad}}</td>
                     </tr>
-
+                    <tr>
+                        <th scope="row"><b>Total<b></th>
+                        <td>{{totalCon}}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
