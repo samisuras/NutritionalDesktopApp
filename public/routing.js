@@ -71,13 +71,9 @@ app.config(function ($routeProvider) {
             templateUrl: './components/inventario/altas.html',
             controller: 'altasCtrl'
         })
-        .when('/bajas', {
-            templateUrl: './components/inventario/bajas.html',
-            controller: 'bajasCtrl'
-        })
-        .when('/cambios', {
-            templateUrl: './components/inventario/cambios.html',
-            controller: 'cambiosCtrl'
+        .when('/verproductos', {
+            templateUrl: './components/inventario/verProductos.html',
+            controller: 'verproductosCtrl'
         })
         .otherwise({
             templateUrl: 'components/inicio/inicio.html',
@@ -1131,40 +1127,98 @@ app.controller('ventasCtrl', function ($scope, $http, $location) {
     }
 
 });
-
 app.controller('altasCtrl', function ($scope, $http, $location) {
     $scope.m = "Altas"
-
-    $scope.Bajas = function (){
-        $location.path('bajas');
+    $scope.error = false;
+    $scope.correcto = false;
+    $scope.VerProductos = function (){
+        $location.path('verproductos');
     }
+    $scope.Enviar = function (e, n, d){
+        const data = {
+            nombre: n,
+            existencia: e,
+            descripcion: d
+        }
 
-    $scope.Cambios = function (){
-        $location.path('cambios');
+        console.log(data)
+        $http.post("https://first12354.herokuapp.com/inventario/addProduct",data)
+        .then(function (respuesta) {
+            console.log(respuesta.data);
+            if (respuesta.data.status == 1) {
+                $scope.correcto = true;
+                $scope.error = false;
+                $scope.nombre = "";
+                $scope.descripcion = "";
+                $scope.existencia = 0;
+            }
+            else {
+                $scope.correcto = false;
+                $scope.error = false;
+            }
+        })
     }
     
 });
-app.controller('bajasCtrl', function ($scope, $http,$location) {
-    $scope.m = "Bajas"
 
+app.controller('verproductosCtrl', function ($scope, $http, $location) {
+    $scope.m = "Productos";
+    $scope.correcto = false;
+    $scope.error = false;
+    $http.get("https://first12354.herokuapp.com/inventario/allProducts", {
+    })
+        .then(function (respuesta) {
+            $scope.productos = respuesta.data.productos;
+            console.log(respuesta.data);
+
+        })
     $scope.Altas= function (){
         $location.path('altas');
     }
 
-    $scope.Cambios = function (){
-        $location.path('cambios');
+    $scope.actualizar = function (data){
+        console.log(data);
+        $scope.update = true;
+        $scope.name = data.nombre;
+        $scope.idPro = data.idProducto;
+    }
+
+    $scope.actualizar_existencia = function (id_pro,unidad_pro){
+        const data = {
+            idProducto: id_pro,
+            unidades: unidad_pro
+        }
+
+        console.log(data)
+       $http.post("https://first12354.herokuapp.com/inventario/updateProductInventory",data)
+        .then(function (respuesta) {
+            console.log(respuesta.data);
+            if (respuesta.data.status == 1) {
+                $scope.correcto = true;
+                $scope.existencia_nueva = 1;
+                $scope.error = false;
+                $scope.update = false;
+                $http.get("https://first12354.herokuapp.com/inventario/allProducts", {
+                })
+                    .then(function (respuesta) {
+                        $scope.productos = respuesta.data.productos;
+                        console.log(respuesta.data);
+            
+                    })
+            }
+            else {
+                $scope.correcto = false;
+                $scope.error = false;
+            }
+        })
+    }
+
+    $scope.eliminar = function (data){
+        
+
     }
     
 });
-app.controller('cambiosCtrl', function ($scope, $http, $location) {
-    $scope.m = "Cambios"
 
-    $scope.Altas= function (){
-        $location.path('altas');
-    }
 
-    $scope.Bajas = function (){
-        $location.path('bajas');
-    }
-    
-});
+
