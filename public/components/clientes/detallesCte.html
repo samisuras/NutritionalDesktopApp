@@ -1,5 +1,13 @@
 <h1 class="h1">{{m}}  <i class="fas fa-user ml-3"></i></h1>
 <div class="container py-3">
+    <div class="row" ng-if="exito">
+        <div class="alert alert-dark alert-dismissible fade in text-center show col-sm-12 ml-5 mr-5" role="alert">
+            <strong>Correcto!</strong> Telefono cambiado exitosamente
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
     <div class="row">
         <div class="mx-auto col-xl-2 text-center">
             <button class="btn btn-success btn-block" ng-click="return()">Regresar<i class="fas fa-undo ml-3"></i></button>

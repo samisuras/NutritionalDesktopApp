@@ -353,9 +353,11 @@ app.controller('empleadosCtrl', function ($scope, $http, $location) {
 app.controller('detallesCteCtrl', function ($scope, $http, $location, $routeParams) {
     $scope.m = "Información de Cliente";
     $scope.cte = $routeParams.idcte;
+    $scope.exito = false;
     var ruta = "https://first12354.herokuapp.com/user/cliente/" + $scope.cte;
 
     $scope.actualizarTelefono = function () {
+        $scope.exito = false;
         if(document.getElementById("telefono").value == ""){
             alert("El numero no puede estar vacio")
         }
@@ -374,6 +376,7 @@ app.controller('detallesCteCtrl', function ($scope, $http, $location, $routePara
         $http.post("https://first12354.herokuapp.com/user/modificarTelefono/",data)
         .then( function (respuesta) {
             console.log(respuesta.data);
+            $scope.exito = true;
         })
     }
 
