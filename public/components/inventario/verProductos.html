@@ -1,0 +1,61 @@
+<h1 class="h1">{{m}}</h1>
+<div class="btn-group text-right" role="group" aria-label="Basic example">
+    <button type="button" class="btn btn-secondary" ng-click="Altas()">Altas</button>
+    <button type="button" class="btn btn-outline-secondary">Ver Productos</button>
+</div>
+<div class="alert alert-dismissible alert-success text-center m-3" ng-show="correcto">
+    <strong>Correcto!</strong> se actualizó la existencia del producto.
+</div>
+<div class="alert alert-dismissible alert-danger text-center m-3" ng-show="error">
+    <strong>Ocurrió un error!</strong> verifica los datos insertados o tu conexión a internet.
+</div>
+<div class="container border border-dark mt-3 text-center" ng-show="update">
+    <form class="well form-horizontal pt-5" ng-submit="actualizar_existencia(this.idPro, this.existencia_nueva)">
+        <div class="row">
+            <div class="col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Producto ({{idPro}}): <strong>{{name}}</strong></label>
+                    <input type="number" ng-model="idProducto" value="{{idPro}}" hidden>
+                </div>
+            </div>
+            <div class="col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Existencia (stock):</label>
+                    <div class="inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input ng-model="existencia_nueva" class="form-control" type="number" min="1"  required>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="col-xl-4 pt-1">
+                <button type="submit" class="btn btn-info btn-block">Actualizar Existencia</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<table class="table text-center table-striped table-hover m-5">
+    <thead class="thead bg-info text-white">
+        <tr>
+            <th scope="col">ID Producto</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Existencia</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Añadir existencia</th>
+            <th scope="col">Eliminar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="x in productos">
+            <th scope="row">{{x.idProducto}}</th>
+            <td>{{x.nombre}}</td>
+            <td>{{x.existencia}}</td>
+            <td>{{x.descripcion}}</td>
+            <td><button type="button" class="btn btn-info" ng-click="actualizar(this.x)"><i class="fas fa-pen"></i></button></td>
+            <td><button type="button" class="btn btn-danger" ng-click="eliminar(this.x.idProducto)"><i class="fas fa-trash-alt"></i></button></td>
+        </tr>
+
+    </tbody>
+</table>

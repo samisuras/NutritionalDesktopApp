@@ -1,7 +1,52 @@
 <h1 class="h1">{{m}}</h1>
 
-<div class="btn-group" role="group" aria-label="Basic example">
+<div class="btn-group text-white" role="group" aria-label="Basic example">
     <button type="button" class="btn btn-outline-secondary">Altas</button>
-    <button type="button" class="btn btn-secondary" ng-click="Bajas()">Bajas</button>
-    <button type="button" class="btn btn-secondary" ng-click="Cambios()">Cambios</button>
+    <button type="button" class="btn btn-secondary" ng-click="VerProductos()">Ver Productos</button>
+
+</div>
+<div class="alert alert-dismissible alert-success text-center m-3" ng-show="correcto">
+    <strong>Correcto!</strong> se agregó el producto de manera correcta.
+</div>
+<div class="alert alert-dismissible alert-danger text-center m-3" ng-show="error">
+    <strong>Ocurrió un error!</strong> verifica los datos insertados o tu conexión a internet.
+</div>
+<div class="container">
+    <form class="well form-horizontal pt-5" ng-submit="Enviar(this.existencia, this.nombre, this.descripcion)">
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="form-group">
+                    <label class="control-label">Nombre del Producto:</label>
+                    <div class="inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input ng-model="nombre" class="form-control" type="text" maxlength="25" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="form-group">
+                    <label class="control-label">Existencia (stock):</label>
+                    <div class="inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input ng-model="existencia" class="form-control" type="number" min="1"  required>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="col-xl-4">
+                <div class="form-group">
+                    <label for="exampleTextarea">Descripción:</label>
+                    <textarea class="form-control" rows="3" ng-model="descripcion" required></textarea>
+                </div>
+            </div>
+            <div class="col-xl-4"></div>
+            <div class="col-xl-4 pt-4">
+                <button type="submit" class="btn btn-info btn-block">Guardar Producto</button>
+            </div>
+            <div class="col-xl-4"></div>
+        </div>
+    </form>
 </div>
