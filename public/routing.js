@@ -359,6 +359,28 @@ app.controller('detallesCteCtrl', function ($scope, $http, $location, $routePara
     $scope.cte = $routeParams.idcte;
     var ruta = "https://first12354.herokuapp.com/user/cliente/" + $scope.cte;
 
+    $scope.actualizarTelefono = function () {
+        if(document.getElementById("telefono").value == ""){
+            alert("El numero no puede estar vacio")
+        }
+        else{   
+            let telefono = document.getElementById("telefono").value
+            console.log(telefono);
+            cambiarTelefono(telefono);
+        }
+    }
+
+    cambiarTelefono = function (telefono) {
+        let data = {
+            telefono: telefono,
+            idCliente: $scope.cte
+        }
+        $http.post("https://first12354.herokuapp.com/user/modificarTelefono/",data)
+        .then( function (respuesta) {
+            console.log(respuesta.data);
+        })
+    }
+
     $http.get(ruta, {
     })
         .then(function (respuesta) {

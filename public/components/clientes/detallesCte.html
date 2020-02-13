@@ -36,7 +36,10 @@
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Teléfono:</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" value="{{Cliente.telefono}}" >
+                                <input id="telefono" class="form-control" type="text" value="{{Cliente.telefono}}" >
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary" ng-click="actualizarTelefono()">Actualizar telefono</button>
                             </div>
                         </div>
                     </form>
