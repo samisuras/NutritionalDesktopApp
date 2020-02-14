@@ -424,9 +424,10 @@ app.controller('detallesConCtrl', function ($scope, $http, $location, $routePara
     $scope.Enviar = function (data) {
         $scope.exito = false;
         const ruta = "https://first12354.herokuapp.com/consultas/modificarConsulta";
+        console.log("peticion actualizar ",data.x);
         $http.post(ruta, data.x)
             .then(function (data) {
-                console.log(data.data);
+                console.log("respuesta:",data.data);
                 $scope.exito = true;
             })
             .catch(function (error) {
