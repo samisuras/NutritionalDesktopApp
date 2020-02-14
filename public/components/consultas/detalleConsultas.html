@@ -20,27 +20,34 @@
                     <th scope="col">Observaciones</th>
                     <th scope="col">Fecha de Cita</th>
                     <th scope="col">Hora</th>
-                    <th scope="col"></th>
+                    <th scope="col" ng-show="input"></th>
+                    <th scope="col" ng-hide="input"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="x in consultas">
                     <form class="well form-horizontal pt-4 pb-4" ng-show="RegistrarConsultas">
                         <td scope="col">
-                            <input class="form-control" type="text"  maxlength="3" ng-model="x.peso" value="{{x.peso}}"> 
+                            <spam ng-hide="input">{{x.peso}}</spam>
+                            <input class="form-control" type="text"  maxlength="3" ng-model="x.peso" value="{{x.peso}}" ng-show="input"> 
                         </td>
                         <td scope="col">
-                            <input class="form-control" type="text"  maxlength="3" ng-model="x.cadera" value={{x.cadera}}> 
+                            <spam ng-hide="input">{{x.cadera}}</spam> 
+                            <input class="form-control" type="text"  maxlength="3" ng-model="x.cadera" value={{x.cadera}} ng-show="input"> 
                         </td>
                         <td scope="col">
-                            <input class="form-control" type="text"  maxlength="3" ng-model="x.cintura" value={{x.cintura}}> 
+                            <spam ng-hide="input">{{x.cintura}}</spam>
+                            <input class="form-control" type="text"  maxlength="3" ng-model="x.cintura" value={{x.cintura}} ng-show="input"> 
                         </td>
                         <td scope="col">{{x.talla}}</td>
                         <td scope="col">{{x.observaciones}}</td>
                         <td scope="col">{{x.fecha}}</td>
                         <td scope="col">{{x.hora}}</td>
-                        <td scope="col">
+                        <td scope="col" ng-show="input">
                             <button type="submit" ng-click="Enviar(this)" class="btn btn-info btn-block">Guardar</button>
+                        </td>
+                        <td scope="col" ng-hide="input">
+                            <button type="button" class="btn btn-info" ng-click="mostrarForm()"><i class="fas fa-pen"></i></button>
                         </td>
                     </form>
                 </tr>
