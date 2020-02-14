@@ -396,6 +396,7 @@ app.controller('detallesConCtrl', function ($scope, $http, $location, $routePara
     $scope.exito = false;
     $scope.m = "Información de Consulta";
     $scope.cte = $routeParams.idcte;
+    $scope.input = false;
     var ruta = "http://first12354.herokuapp.com/consultas/consulta_cliente/" + $scope.cte;
     $http.get(ruta, {
     })
@@ -408,6 +409,9 @@ app.controller('detallesConCtrl', function ($scope, $http, $location, $routePara
             }
         });
 
+    $scope.mostrarForm = function (){
+        $scope.input = true;
+    }
     $scope.return = function () {
         $location.path('verConsulta');
     }
@@ -423,12 +427,15 @@ app.controller('detallesConCtrl', function ($scope, $http, $location, $routePara
     //formulario 
     $scope.Enviar = function (data) {
         $scope.exito = false;
+        $scope.input = false;
         const ruta = "https://first12354.herokuapp.com/consultas/modificarConsulta";
         console.log("peticion actualizar ",data.x);
         $http.post(ruta, data.x)
             .then(function (data) {
                 console.log("respuesta:",data.data);
                 $scope.exito = true;
+                
+
             })
             .catch(function (error) {
                 console.log(error);
