@@ -539,7 +539,6 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
 
     $scope.verificarFecha = function () {
         //Checar elejibilidad de fecha
-
         $scope.msj = false;
         if ($scope.datosConsulta.fecha != "") {
             //Checar fechas mayores no puede ser menor
@@ -594,30 +593,61 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
 
                 }
                 else {
-
-                    for (var i = 0; i < $scope.fechasOcupadas.length; i++) {
-                        for (var j = 0; j < $scope.horarios.length; j++) {
-                            if ($scope.fechasOcupadas[i].hora == $scope.horarios[j].hor) {
-
-                                $scope.horarios[j].status = "Ocupado";
-                                $scope.horarios[j].color = "danger";
-                                $scope.horarios[j].btn = true;
-                                $scope.horarios[j].cte = $scope.fechasOcupadas[i].nombreCliente;
-                                $scope.horarios[j].emp = $scope.fechasOcupadas[i].nombreEmpleado;
-                                $scope.horarios[j].nota = $scope.fechasOcupadas[i].notas;
-
-                                if ($scope.horarios[j].nota == 'undefined') {
-                                    $scope.horarios[j].nota = 'Sin notas'
-                                }
-
-                            }
-                        }
-                    }
-                    //console.log($scope.horarios)
-
+                    pintarOcupados($scope.fechasOcupadas);
+                    quitarFechasRepetidas();
                 }
 
             });
+
+    }
+    function quitarFechasRepetidas() {
+        for (let i = 0; i < $scope.horarios.length-1; i++) {
+            if(
+                ($scope.horarios[i].hor == $scope.horarios[i+1].hor) 
+                && 
+                ($scope.horarios[i].status == $scope.horarios[i+1].status)
+            ){
+                $scope.horarios.splice(i,1);
+            }
+        }
+    }
+
+    function pintarOcupados() {
+        let valoresArray = []
+        for (var i = 0; i < $scope.fechasOcupadas.length; i++) {
+            for (var j = 0; j < $scope.horarios.length; j++) {
+                if ($scope.fechasOcupadas[i].hora == $scope.horarios[j].hor) {
+                    let horario = $scope.horarios[j].hor;
+                    $scope.horarios[j].status = "Ocupado";
+                    $scope.horarios[j].color = "danger";
+                    $scope.horarios[j].btn = true;
+                    $scope.horarios[j].cte = $scope.fechasOcupadas[i].nombreCliente;
+                    $scope.horarios[j].emp = $scope.fechasOcupadas[i].nombreEmpleado;
+                    $scope.horarios[j].nota = $scope.fechasOcupadas[i].notas;
+
+                    if ($scope.horarios[j].nota == 'undefined') {
+                        $scope.horarios[j].nota = 'Sin notas'
+                    }
+                    //{ hor: "9:00 - 10:00", status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: "" }
+                    valoresArray.push({
+                        hor: horario,
+                        index: j +1
+                    })
+                    break;
+                }
+            }
+        }
+        for (let i = 0; i < valoresArray.length; i++) {
+            if(i == valoresArray.length - 1)
+            {
+                $scope.horarios.push({ hor: "15:00 - 16:00", status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: "" })
+            }else{
+                $scope.horarios.splice(valoresArray[i].index,0,{ hor: valoresArray[i].hor, status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: "" })
+            }
+            
+        }
+        console.log(valoresArray);
+        //console.log($scope.horarios)
 
     }
 
