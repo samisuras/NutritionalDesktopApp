@@ -483,16 +483,7 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
 
         });
 
-
-    $scope.horarios = [
-        { hor: "9:00 - 10:00", status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: "" },
-        { hor: "10:00 - 11:00", status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: "" },
-        { hor: "11:00 - 12:00", status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: "" },
-        { hor: "12:00 - 13:00", status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: "" },
-        { hor: "13:00 - 14:00", status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: "" },
-        { hor: "14:00 - 15:00", status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: "" },
-        { hor: "15:00 - 16:00", status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: "" }
-    ];
+    $scope.horarios = [];
 
     $scope.datosConsulta = {
         hora: "",
@@ -502,10 +493,28 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
         idEmpleado: "",
         fechaFormato: ""
     }
-
+    function agregarRutas () {
+        $scope.horarios = [];
+        let cadaQuince = 0;
+        for (let i = 8; i < 21 ; i++) {
+            $scope.horarios.push({ hor: `${i}:00 - ${i}:${cadaQuince+15}`, status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: ""  })
+            cadaQuince = 15;
+            for (let j = 2; j < 5; j++) {
+                if(cadaQuince == 45){
+                    $scope.horarios.push({ hor: `${i}:45 - ${i+1}:00`, status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: ""  }) 
+                    break;
+                }
+                else{
+                    $scope.horarios.push({ hor: `${i}:${cadaQuince} - ${i}:${cadaQuince+15}`, status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: ""  })
+                    cadaQuince += 15;
+                }    
+            }
+            cadaQuince = 00;
+        }
+        console.log("horarios nuevos ",$scope.horarios);
+    }
     $scope.Enviar = function (data) {
         if (data.search1 != null && data.search2 != null) {
-
             var CTEstr = data.search1;
             var CTEres = CTEstr.split('|');
             var EMPstr = data.search2;
@@ -541,6 +550,7 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
         //Checar elejibilidad de fecha
         $scope.msj = false;
         if ($scope.datosConsulta.fecha != "") {
+            agregarRutas();
             //Checar fechas mayores no puede ser menor
             $scope.filtrarFechas($scope.datosConsulta.fecha);
             $scope.tablaConsultas = true;
@@ -637,16 +647,18 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
                 }
             }
         }
+        //insertar en la primera posicion
         for (let i = 0; i < valoresArray.length; i++) {
-            if(i == valoresArray.length - 1)
+            if(i == valoresArray.length - 1 && valoresArray.length != 1)
             {
-                $scope.horarios.push({ hor: "15:00 - 16:00", status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: "" })
+                $scope.horarios.push({ hor: valoresArray[i].hor, status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: "" })
             }else{
                 $scope.horarios.splice(valoresArray[i].index,0,{ hor: valoresArray[i].hor, status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: "" })
             }
             
         }
-        console.log(valoresArray);
+        console.log("array de valores",valoresArray);
+        console.log("horarios",$scope.horarios);
         //console.log($scope.horarios)
 
     }
@@ -801,7 +813,7 @@ app.controller('masajesCtrl', function ($scope, $http, $location) {
 
 
     $scope.horarios = [
-        { hor: "9:00 - 10:00", status: "Libre", color: "success", btn: false, emp: "" },
+        { hor: "9:00 - 10:00", status: "Libre", color: "success", btn: false, emp: "" },,
         { hor: "10:00 - 11:00", status: "Libre", color: "success", btn: false, emp: "" },
         { hor: "11:00 - 12:00", status: "Libre", color: "success", btn: false, emp: "" },
         { hor: "12:00 - 13:00", status: "Libre", color: "success", btn: false, emp: "" },
