@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="col-sm-12">
+        <h1>Citas para el Nutriologo: {{ empleado.nombre + " " + empleado.apellidoMaterno + " " + empleado.apellidoPaterno }} </h1>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <form class="mt-3 mr-5 ml-5">
+                <div class="form-group">  
+                    <label for="fecha">Elija la fecha</label>
+                    <input type="date" class="form-control" name="fecha" id="fecha" >
+                </div>
+                <div class="" align="center">
+                    <button type="submit" class="btn btn-primary btn-lg" ng-click="buscarFecha(this)">Buscar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
