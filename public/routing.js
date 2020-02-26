@@ -546,6 +546,9 @@ app.controller('citasEmpleadoCtrl', function ($scope, $http, $location, $routePa
             if($scope.citasEmpleado.length > 0){
                 $scope.tabla = true;
                 $scope.sinRegistros = false;
+                for (let i = 0; i < $scope.citasEmpleado.length; i++) {
+                    $scope.citasEmpleado[i].fecha = $scope.citasEmpleado[i].fecha.split('T')[0];
+                }
             }
             else{
                 $scope.tabla = false;
