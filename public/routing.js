@@ -679,14 +679,34 @@ app.controller('verConsultaCtrl', function ($scope, $http, $location) {
 });
 app.controller('masajesCtrl', function ($scope, $http, $location) {
     $scope.m = "SPA";
-
-    $http.get("https://first12354.herokuapp.com/user/clientes", {
-
-    })
+    $scope.agregar = true;
+    $scope.lista = false;
+    $scope.agregarSPA = function () {
+        $scope.agregar = true;
+        $scope.lista = false;
+    }
+    $scope.mostrarLista = function () {
+        $scope.agregar = false;
+        $scope.lista = true;
+    }
+    $scope.buscarFecha = function () {
+        let fecha = document.getElementById("fecha").value;
+        console.log(fecha);
+        $http.get("https://first12354.herokuapp.com/masajes/citasOcupadas/"+ fecha)
         .then(function (respuesta) {
-            $scope.clientes = respuesta.data.usuarios;
+            console.log(respuesta.data);
+            $scope.citas = respuesta.data.fechas;
 
+        })
+        .catch(function (data) {
+            console.log(data);
         });
+    }
+    $http.get("https://first12354.herokuapp.com/user/clientes")
+    .then(function (respuesta) {
+        $scope.clientes = respuesta.data.usuarios;
+
+    });
 
     $scope.Enviar = function (data){
         const datos = {
@@ -697,6 +717,7 @@ app.controller('masajesCtrl', function ($scope, $http, $location) {
         }
         $http.post("https://first12354.herokuapp.com/masajes/addCitaMasaje",datos)
         .then(function () {
+            alert("cita registrada")
             limpiarCampos(); 
         })  
         .catch(function () {

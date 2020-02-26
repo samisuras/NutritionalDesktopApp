@@ -9,10 +9,10 @@
     </div>
     <div class="container" align="center">
         <buttton class="btn btn-primary btn-lg ml-5 mr-5 mt-3" ng-click="agregarSPA()">Agregar cita SPA</buttton>
-        <buttton class="btn btn-success btn-lg mr-5 ml-5 mt-3" ng-click="">Mostrar citas SPA</buttton>
+        <buttton class="btn btn-success btn-lg mr-5 ml-5 mt-3" ng-click="mostrarLista()">Mostrar citas SPA</buttton>
     </div>
     <!--Alta de citas-->
-    <div class="container mt-5 ml-5 mr-5">
+    <div class="container mt-5 ml-5 mr-5" ng-if="agregar">
         <!--Formulario-->
         <form class="row" align="center" ng-submit="Enviar(this)">
             <div class=" col-md-6 form-group">
@@ -52,3 +52,40 @@
             </div>
         </form>
     </div>
+
+<div class="container pt-5" ng-show="lista">
+    <div class="row">
+        <div class="col-sm-12">
+            <form class=" mr-5 ml-5">
+                <div class="form-group">  
+                    <label for="fecha">Elija la fecha</label>
+                    <input type="date" class="form-control" name="fecha" id="fecha" >
+                </div>
+                <div class="" align="center">
+                    <button type="submit" class="btn btn-primary btn-lg" ng-click="buscarFecha()">Buscar</button>
+                </div>
+                <div class="alert alert-dismissible alert-danger mt-3" ng-show="sinRegistros">
+                    <strong>No se encontraron resultados en la base de datos.</strong>
+                </div>
+            </form>
+        </div>
+    </div>
+    <table class="table table-hover mt-3">
+        <thead class="thead-dark table-hover">
+            <tr>
+                <th scope="col">Id Cita</th>
+                <th scope="col">Nombre del Paciente</th>
+                <th scope="col">Hora</th>
+                <th scope="col">Aparato</th>             
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="x in citas">
+                <th scope="row">{{x.idCita_masaje}}</th>
+                <td>{{x.nombre_cliente}}</td>
+                <td>{{x.hora}}</td>
+                <td scope="row">{{x.aparato}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
