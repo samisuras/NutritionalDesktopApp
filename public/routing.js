@@ -515,21 +515,22 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
     }
 });
 app.controller('citasEmpleadoCtrl', function ($scope, $http, $location, $routeParams) {
-    console.log($routeParams);
     let idemp = $routeParams.idemp;
     let ruta = "https://first12354.herokuapp.com/empleado/"+ idemp;
     $scope.empleado;
-    console.log(ruta);
     //Traer info del empleado
     $http.get(ruta)
     .then(function (respuesta) {
-        console.log(respuesta.data.empleado[0]);
         $scope.empleado = respuesta.data.empleado[0];
     })
     //Buscar fechas
     $scope.buscarFecha = function (info) {
         let fecha = document.getElementById("fecha").value;
         buscarCitasPorClienteYFecha(fecha,$routeParams.idemp);
+    }
+
+    $scope.return = function (){
+        $location.path('cit');
     }
     function buscarCitasPorClienteYFecha(fecha,idEmpleado) {
         const datos = {
@@ -540,7 +541,16 @@ app.controller('citasEmpleadoCtrl', function ($scope, $http, $location, $routePa
         let ruta = "https://first12354.herokuapp.com/citas/fecha-idEmpleado";
         $http.post(ruta,datos)
         .then(function (respuesta) {
-            console.log(respuesta.data);
+            $scope.citasEmpleado =respuesta.data.citas;
+            console.log($scope.citasEmpleado);
+            if($scope.citasEmpleado.length > 0){
+                $scope.tabla = true;
+                $scope.sinRegistros = false;
+            }
+            else{
+                $scope.tabla = false;
+                $scope.sinRegistros = true;
+            }
         });
     }
 })
