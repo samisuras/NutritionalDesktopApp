@@ -690,14 +690,18 @@ app.controller('masajesCtrl', function ($scope, $http, $location) {
 
     $scope.Enviar = function (data){
         const datos = {
-            hora: $scope.hora,
+            hora: document.getElementById("hora").value,
             fecha: $scope.dia.toISOString(),
             aparato: $scope.aparato,
             nombreCliente: $scope.search1
         }
-        limpiarCampos();
-
-        
+        $http.post("https://first12354.herokuapp.com/masajes/addCitaMasaje",datos)
+        .then(function () {
+            limpiarCampos(); 
+        })  
+        .catch(function () {
+            alert("error");
+        })
     }
 
     function limpiarCampos (){
