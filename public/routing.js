@@ -710,12 +710,19 @@ app.controller('masajesCtrl', function ($scope, $http, $location) {
 
     $scope.Enviar = function (data){
         let fecha = document.getElementById("dia").value;
+        let nombre;
+        if(document.getElementById("clean").value.split('|')[1] == undefined){
+            nombre = document.getElementById("clean").value
+        }else{
+            nombre = document.getElementById("clean").value.split('|')[1]
+        }
         const datos = {
             hora: document.getElementById("hora").value,
             fecha: fecha,
-            aparato: $scope.aparato,
-            nombreCliente: $scope.search1
-        }
+            aparato: document.getElementById("aparato").value.toString(),
+            nombreCliente: nombre
+        };
+        console.log(datos);
         $http.post("https://first12354.herokuapp.com/masajes/addCitaMasaje",datos)
         .then(function () {
             alert("cita registrada")
@@ -723,7 +730,7 @@ app.controller('masajesCtrl', function ($scope, $http, $location) {
         })  
         .catch(function () {
             alert("error");
-        })
+        });
     }
 
     function limpiarCampos (){
