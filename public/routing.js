@@ -709,9 +709,10 @@ app.controller('masajesCtrl', function ($scope, $http, $location) {
     });
 
     $scope.Enviar = function (data){
+        let fecha = document.getElementById("dia").value;
         const datos = {
             hora: document.getElementById("hora").value,
-            fecha: $scope.dia.toISOString(),
+            fecha: fecha,
             aparato: $scope.aparato,
             nombreCliente: $scope.search1
         }
