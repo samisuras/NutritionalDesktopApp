@@ -53,20 +53,12 @@ ul > li {
     list-style: none;
 }
 
-.btn {
-    background: rgba(1,146,89,1) !important;
-}
-
 .btn-primary:focus {
     box-shadow: none;
 }
 
 .btn-primary:not(:disabled):not(.disabled):active:focus {
     box-shadow: none;
-}
-
-.table thead {
-    background-color: #065233 !important;
 }
 
 
