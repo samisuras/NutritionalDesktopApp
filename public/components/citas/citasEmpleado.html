@@ -28,7 +28,8 @@
                 <th scope="col">ID Cita</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Horario</th>
-                <th scope="col">Notas</th>             
+                <th scope="col">Notas</th>
+                <th scope="col">Recordatorio</th>         
             </tr>
         </thead>
         <tbody>
@@ -37,6 +38,9 @@
                 <td>{{x.fecha}}</td>
                 <td>{{x.hora}}</td>
                 <td scope="row">{{x.notas}}</td>
+                <td scope="col">
+                    <button type="button" class="btn btn-info" ng-click="enviarWA(this)">Enviar mensaje</button>
+                </td>
             </tr>
         </tbody>
     </table>

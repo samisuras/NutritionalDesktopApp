@@ -1,5 +1,7 @@
 var app = angular.module('app', ['ngRoute']);
 const pool = require('./db/conexion');
+const open = require('open');
+
 app.config(function ($routeProvider) {
     // configure the routes
     $routeProvider
@@ -555,6 +557,22 @@ app.controller('citasEmpleadoCtrl', function ($scope, $http, $location, $routePa
                 $scope.sinRegistros = true;
             }
         });
+    }
+
+    $scope.enviarWA = function (data) {
+        console.log("hola", data.x);
+        $http.post("https://first12354.herokuapp.com/citas/enviarRecordatorio", data.x)
+            .then(function (respuesta) {
+                console.log("res:", respuesta.data.response[0].telefono, $scope);
+                if (respuesta.data.status == 1) {
+                    $scope.res = true;
+                    var mensaje = "Se le recuerda que el día " + data.x.fecha + " en el horario de "  + data.x.hora + " tiene una cita en el consultorio de NaturalInn. ¡Que tenga un buen día!";
+                    open("https://api.whatsapp.com/send?phone=521"+respuesta.data.response[0].telefono+"&text="+mensaje+"&source=&data=");
+                }
+                else {
+                    $scope.res = false;
+                }
+            });
     }
 })
 app.controller('consultasCtrl', function ($scope, $http, $location) {
