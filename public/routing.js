@@ -23,6 +23,10 @@ app.config(function ($routeProvider) {
             templateUrl: './components/citas/citas.html',
             controller: 'citasCtrl'
         })
+        .when('/citasEmpleado/:idemp',{
+            templateUrl: './components/citas/citasEmpleado.html',
+            controller: 'citasEmpleadoCtrl'
+        })
         .when('/mas', {
             templateUrl: './components/masajes/masajes.html',
             controller: 'masajesCtrl'
@@ -462,207 +466,97 @@ app.controller('detallesEmpCtrl', function ($scope, $http, $location, $routePara
 });
 app.controller('citasCtrl', function ($scope, $http, $location) {
     $scope.m = "Citas Nutricionales";
-    $scope.index = -1;
-    $scope.msjError = false;
-    $scope.msjError2 = false;
-    $scope.msj = false;
-    $scope.tablaConsultas = false;
-    var nombreCte = ""
-    $http.get("https://first12354.herokuapp.com/user/clientes", {
-
-    })
-        .then(function (respuesta) {
-            $scope.clientes = respuesta.data.usuarios;
-        });
-
-    $http.get("https://first12354.herokuapp.com/empleado/getEmpleados", {
-
-    })
-        .then(function (respuesta) {
-            $scope.empleados = respuesta.data.status;
-
-        });
-
-
-    $scope.horarios = [
-        { hor: "9:00 - 10:00", status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: "" },
-        { hor: "10:00 - 11:00", status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: "" },
-        { hor: "11:00 - 12:00", status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: "" },
-        { hor: "12:00 - 13:00", status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: "" },
-        { hor: "13:00 - 14:00", status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: "" },
-        { hor: "14:00 - 15:00", status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: "" },
-        { hor: "15:00 - 16:00", status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: "" }
-    ];
-
-    $scope.datosConsulta = {
+    $scope.altaCita = true;
+    $scope.mostrarCitas = false;
+    $scope.datosConsultaIn = {
         hora: "",
         fecha: "",
-        notas: "",
-        idCliente: "",
-        idEmpleado: "",
-        fechaFormato: ""
+        notas: ""
     }
-
-    $scope.Enviar = function (data) {
-        if (data.search1 != null && data.search2 != null) {
-
-            var CTEstr = data.search1;
-            var CTEres = CTEstr.split('|');
-            var EMPstr = data.search2;
-            var EMPres = EMPstr.split('|');
-            $scope.datosConsulta.hora = data.horario.hor;
-            $scope.datosConsulta.idCliente = CTEres[0];
-            $scope.datosConsulta.idEmpleado = EMPres[0];
-            $scope.datosConsulta.notas = data.nota;
-            $scope.msjError = false;
-            var formatDate = ($scope.datosConsulta.fecha.getFullYear() + "-" + ($scope.datosConsulta.fecha.getMonth() + 1) + "-" + $scope.datosConsulta.fecha.getDate()).toString();
-            $scope.datosConsulta.fechaFormato = formatDate;
-            //console.log($scope.datosConsulta);
-            $http.post("https://first12354.herokuapp.com/citas/addCita",
-                $scope.datosConsulta
+    $scope.altaCitasBool = function() {
+        $scope.altaCita = true;
+        $scope.mostrarCitas = false;
+    }
+    $scope.mostrarCitasBool = function () {
+        $scope.altaCita = false;
+        $scope.mostrarCitas = true;
+    }
+    $scope.registrarCita = function(data){
+        let CTEstr = data.search1;
+        let CTEres = CTEstr.split('|');
+        let EMPstr = data.search2;
+        let EMPres = EMPstr.split('|');
+        $scope.datosConsultaIn.idCliente = CTEres[0];
+        $scope.datosConsultaIn.idEmpleado = EMPres[0];
+        $scope.datosConsultaIn.hora = document.getElementById("horaIn").value + " - " + document.getElementById("horaFin").value;
+        console.log($scope.datosConsultaIn);
+        $http.post("https://first12354.herokuapp.com/citas/addCita",
+                $scope.datosConsultaIn
             )
-                .then(function (respuesta) {
-                    console.log(respuesta.data);
-                    if (respuesta.data.status == 1) {
-                        $scope.ReiniciarDatos();
-                    }
-                })
-                .catch(function (error) {
-                    console.log(error.data);
-                });
-        }
-        else {
-            $scope.msjError = true;
-        }
-
-    }
-
-    $scope.verificarFecha = function () {
-        //Checar elejibilidad de fecha
-        $scope.msj = false;
-        if ($scope.datosConsulta.fecha != "") {
-            //Checar fechas mayores no puede ser menor
-            $scope.filtrarFechas($scope.datosConsulta.fecha);
-            $scope.tablaConsultas = true;
-        }
-        else {
-            $scope.msjError2 = true;
-            $scope.tablaConsultas = false;
-        }
-
-    }
-
-    $scope.filtrarFechas = function (formatDate) {
-        var mesAux = "";
-        var diaAux = "";
-        var fecha = "";
-        var ban = false;
-        if ((formatDate.getMonth() + 1) < 10) {
-            ban = true;
-            fecha = (formatDate.getFullYear() + "-" + (mesAux) + "-" + formatDate.getDate()).toString();
-        }
-        if (formatDate.getDate() < 10) {
-            ban = true;
-            diaAux = "0" + (formatDate.getDate()).toString();
-            fecha = (formatDate.getFullYear() + "-" + (formatDate.getMonth() + 1) + "-" + diaAux).toString();
-        }
-        if (ban == false) {
-            fecha = (formatDate.getFullYear() + "-" + (formatDate.getMonth() + 1) + "-" + formatDate.getDate()).toString();
-        }
-
-        var ruta = "https://first12354.herokuapp.com/citas/citasOcupadas/" + fecha;
-        //var ruta = "http://localhost:3300/citas/citasOcupadas/" + fecha;
-
-        console.log(fecha);
-        $http.get(ruta, {
-
-        })
             .then(function (respuesta) {
-                $scope.fechasOcupadas = respuesta.data.fechas;
-                console.log(respuesta.data);
-                if (respuesta.data.fechas.length == 0) {
-                    console.log("No hay coincidencias BD");
-                    for (var j = 0; j < $scope.horarios.length; j++) {
-                        $scope.horarios[j].status = "Libre";
-                        $scope.horarios[j].color = "success";
-                        $scope.horarios[j].btn = false;
-                        $scope.horarios[j].cte = ""
-                        $scope.horarios[j].emp = ""
-                        $scope.horarios[j].nota = ""
-                    }
-
-                }
-                else {
-                    pintarOcupados($scope.fechasOcupadas);
-                    quitarFechasRepetidas();
-                }
-
+                console.log("respuesta: ",respuesta.data);
+            })
+            .catch(function (error) {
+                console.log(error.data);
             });
-
     }
-    function quitarFechasRepetidas() {
-        for (let i = 0; i < $scope.horarios.length-1; i++) {
-            if(
-                ($scope.horarios[i].hor == $scope.horarios[i+1].hor) 
-                && 
-                ($scope.horarios[i].status == $scope.horarios[i+1].status)
-            ){
-                $scope.horarios.splice(i,1);
-            }
+    $http.get("https://first12354.herokuapp.com/user/clientes")
+    .then(function (respuesta) {
+        $scope.clientes = respuesta.data.usuarios;
+    });
+
+    $http.get("https://first12354.herokuapp.com/empleado/getEmpleados")
+    .then(function (respuesta) {
+        $scope.empleados = respuesta.data.status;
+        console.log("Empleados: ",$scope.empleados);
+    });
+    $scope.mostrarCitasLink = function (idEmpleado) {
+        $location.url('/citasEmpleado/' + idEmpleado);
+    }
+});
+app.controller('citasEmpleadoCtrl', function ($scope, $http, $location, $routeParams) {
+    let idemp = $routeParams.idemp;
+    let ruta = "https://first12354.herokuapp.com/empleado/"+ idemp;
+    $scope.empleado;
+    //Traer info del empleado
+    $http.get(ruta)
+    .then(function (respuesta) {
+        $scope.empleado = respuesta.data.empleado[0];
+    })
+    //Buscar fechas
+    $scope.buscarFecha = function (info) {
+        let fecha = document.getElementById("fecha").value;
+        buscarCitasPorClienteYFecha(fecha,$routeParams.idemp);
+    }
+
+    $scope.return = function (){
+        $location.path('cit');
+    }
+    function buscarCitasPorClienteYFecha(fecha,idEmpleado) {
+        const datos = {
+            fecha: fecha,
+            idEmpleado: idEmpleado
         }
-    }
-
-    function pintarOcupados() {
-        let valoresArray = []
-        for (var i = 0; i < $scope.fechasOcupadas.length; i++) {
-            for (var j = 0; j < $scope.horarios.length; j++) {
-                if ($scope.fechasOcupadas[i].hora == $scope.horarios[j].hor) {
-                    let horario = $scope.horarios[j].hor;
-                    $scope.horarios[j].status = "Ocupado";
-                    $scope.horarios[j].color = "danger";
-                    $scope.horarios[j].btn = true;
-                    $scope.horarios[j].cte = $scope.fechasOcupadas[i].nombreCliente;
-                    $scope.horarios[j].emp = $scope.fechasOcupadas[i].nombreEmpleado;
-                    $scope.horarios[j].nota = $scope.fechasOcupadas[i].notas;
-
-                    if ($scope.horarios[j].nota == 'undefined') {
-                        $scope.horarios[j].nota = 'Sin notas'
-                    }
-                    //{ hor: "9:00 - 10:00", status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: "" }
-                    valoresArray.push({
-                        hor: horario,
-                        index: j +1
-                    })
-                    break;
+        console.log(datos);
+        let ruta = "https://first12354.herokuapp.com/citas/fecha-idEmpleado";
+        $http.post(ruta,datos)
+        .then(function (respuesta) {
+            $scope.citasEmpleado =respuesta.data.citas;
+            console.log($scope.citasEmpleado);
+            if($scope.citasEmpleado.length > 0){
+                $scope.tabla = true;
+                $scope.sinRegistros = false;
+                for (let i = 0; i < $scope.citasEmpleado.length; i++) {
+                    $scope.citasEmpleado[i].fecha = $scope.citasEmpleado[i].fecha.split('T')[0];
                 }
             }
-        }
-        for (let i = 0; i < valoresArray.length; i++) {
-            if(i == valoresArray.length - 1)
-            {
-                $scope.horarios.push({ hor: "15:00 - 16:00", status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: "" })
-            }else{
-                $scope.horarios.splice(valoresArray[i].index,0,{ hor: valoresArray[i].hor, status: "Libre", color: "success", btn: false, cte: "", emp: "", nota: "" })
+            else{
+                $scope.tabla = false;
+                $scope.sinRegistros = true;
             }
-            
-        }
-        console.log(valoresArray);
-        //console.log($scope.horarios)
-
+        });
     }
-
-    $scope.ReiniciarDatos = function () {
-        document.getElementById('clean').value = "";
-        document.getElementById('clean2').value = "";
-        document.getElementById('clean3').value = "";
-        $scope.datosConsulta.fecha = "";
-        $scope.tablaConsultas = false;
-        $scope.msj = true;
-
-    }
-
-
-});
+})
 app.controller('consultasCtrl', function ($scope, $http, $location) {
     $scope.m = "Registrar Consultas";
     $scope.RegistrarConsultas = true;
@@ -784,153 +678,67 @@ app.controller('verConsultaCtrl', function ($scope, $http, $location) {
     }
 });
 app.controller('masajesCtrl', function ($scope, $http, $location) {
-    $scope.m = "Masajes";
-    $scope.index = -1;
-    $scope.msjError = false;
-    $scope.msjError2 = false;
-    $scope.msj = false;
-    $scope.tablaConsultas = false;
-
-    $http.get("https://first12354.herokuapp.com/empleado/getEmpleados", {
-
-    })
-        .then(function (respuesta) {
-            $scope.empleados = respuesta.data.status;
-
-        });
-
-
-    $scope.horarios = [
-        { hor: "9:00 - 10:00", status: "Libre", color: "success", btn: false, emp: "" },
-        { hor: "10:00 - 11:00", status: "Libre", color: "success", btn: false, emp: "" },
-        { hor: "11:00 - 12:00", status: "Libre", color: "success", btn: false, emp: "" },
-        { hor: "12:00 - 13:00", status: "Libre", color: "success", btn: false, emp: "" },
-        { hor: "13:00 - 14:00", status: "Libre", color: "success", btn: false, emp: "" },
-        { hor: "14:00 - 15:00", status: "Libre", color: "success", btn: false, emp: "" },
-        { hor: "15:00 - 16:00", status: "Libre", color: "success", btn: false, emp: "" }
-    ];
-    $scope.datosMasajes = {
-        hora: "",
-        fecha: "",
-        idEmpleado: "",
-        fechaFormato: ""
+    $scope.m = "SPA";
+    $scope.agregar = true;
+    $scope.lista = false;
+    $scope.agregarSPA = function () {
+        $scope.agregar = true;
+        $scope.lista = false;
     }
-
-    $scope.Enviar = function (data) {
-        if (data.search2 != null) {
-            var EMPstr = data.search2;
-            var EMPres = EMPstr.split('|');
-            $scope.datosMasajes.hora = data.horario.hor;
-            $scope.datosMasajes.idEmpleado = EMPres[0];
-            $scope.msjError = false;
-            var formatDate = ($scope.datosMasajes.fecha.getFullYear() + "-" + ($scope.datosMasajes.fecha.getMonth() + 1) + "-" + $scope.datosMasajes.fecha.getDate()).toString();
-            $scope.datosMasajes.fechaFormato = formatDate;
-
-            $http.post("https://first12354.herokuapp.com/masajes/addCitaMasaje",
-                $scope.datosMasajes
-            )
-                .then(function (respuesta) {
-                    console.log(respuesta.data);
-                    if (respuesta.data.status == 1) {
-                        $location.url('/tipoMasaje/' + $scope.datosMasajes.fechaFormato + "|" + $scope.datosMasajes.hora);
-                        $scope.ReiniciarDatos();
-                    }
-                })
-                .catch(function (error) {
-                    console.log(error.data);
-                });
-        }
-        else {
-            $scope.msjError = true;
-        }
-
+    $scope.mostrarLista = function () {
+        $scope.agregar = false;
+        $scope.lista = true;
     }
-
-    $scope.verificarFecha = function () {
-        //Checar elejibilidad de fecha
-        //$location.path('tipoMasaje');
-        $scope.msj = false;
-        if ($scope.datosMasajes.fecha != "") {
-            //Checar fechas mayores no puede ser menor
-            $scope.filtrarFechas($scope.datosMasajes.fecha);
-            $scope.tablaConsultas = true;
-        }
-        else {
-            $scope.msjError2 = true;
-            $scope.tablaConsultas = false;
-        }
-
-    }
-
-    $scope.filtrarFechas = function (formatDate) {
-        var mesAux = "";
-        var diaAux = "";
-        var fecha = "";
-        var ban = false;
-        if (formatDate.getMonth() + 1 < 10) {
-            ban = true;
-            fecha = (formatDate.getFullYear() + "-" + (mesAux) + "-" + formatDate.getDate()).toString();
-        }
-        if (formatDate.getDate() < 10) {
-            ban = true;
-            diaAux = "0" + (formatDate.getDate()).toString();
-            fecha = (formatDate.getFullYear() + "-" + (formatDate.getMonth() + 1) + "-" + diaAux).toString();
-        }
-        if (ban == false) {
-            fecha = (formatDate.getFullYear() + "-" + (formatDate.getMonth() + 1) + "-" + formatDate.getDate()).toString();
-        }
-
-        var ruta = "https://first12354.herokuapp.com/masajes/citasOcupadas/" + fecha;
-        //var ruta = "http://localhost:3300/masajes/citasOcupadas/" + fecha;
-
-        console.log(ruta);
+    $scope.buscarFecha = function () {
+        let fecha = document.getElementById("fecha").value;
         console.log(fecha);
-        $http.get(ruta, {
+        $http.get("https://first12354.herokuapp.com/masajes/citasOcupadas/"+ fecha)
+        .then(function (respuesta) {
+            console.log(respuesta.data);
+            $scope.citas = respuesta.data.fechas;
 
         })
-            .then(function (respuesta) {
-                $scope.fechasOcupadas = respuesta.data.fechas;
-                console.log(respuesta.data);
-                if (respuesta.data.fechas.length == 0) {
-                    console.log("No hay coincidencias BD");
-                    for (var j = 0; j < $scope.horarios.length; j++) {
-                        $scope.horarios[j].status = "Libre";
-                        $scope.horarios[j].color = "success";
-                        $scope.horarios[j].btn = false;
-                        $scope.horarios[j].emp = ""
-                    }
+        .catch(function (data) {
+            console.log(data);
+        });
+    }
+    $http.get("https://first12354.herokuapp.com/user/clientes")
+    .then(function (respuesta) {
+        $scope.clientes = respuesta.data.usuarios;
 
-                }
-                else {
+    });
 
-                    for (var i = 0; i < $scope.fechasOcupadas.length; i++) {
-                        for (var j = 0; j < $scope.horarios.length; j++) {
-                            if ($scope.fechasOcupadas[i].hora == $scope.horarios[j].hor) {
-
-                                $scope.horarios[j].status = "Ocupado";
-                                $scope.horarios[j].color = "danger";
-                                $scope.horarios[j].btn = true;
-                                $scope.horarios[j].emp = $scope.fechasOcupadas[i].nombreEmpleado;
-
-                            }
-                        }
-                    }
-                    //console.log($scope.horarios)
-
-                }
-
-            });
-
+    $scope.Enviar = function (data){
+        let fecha = document.getElementById("dia").value;
+        let nombre;
+        if(document.getElementById("clean").value.split('|')[1] == undefined){
+            nombre = document.getElementById("clean").value
+        }else{
+            nombre = document.getElementById("clean").value.split('|')[1]
+        }
+        const datos = {
+            hora: document.getElementById("hora").value,
+            fecha: fecha,
+            aparato: document.getElementById("aparato").value.toString(),
+            nombreCliente: nombre
+        };
+        console.log(datos);
+        $http.post("https://first12354.herokuapp.com/masajes/addCitaMasaje",datos)
+        .then(function () {
+            alert("cita registrada")
+            limpiarCampos(); 
+        })  
+        .catch(function () {
+            alert("error");
+        });
     }
 
-    $scope.ReiniciarDatos = function () {
-        document.getElementById('clean2').value = "";
-        $scope.datosMasajes.fecha = "";
-        $scope.tablaConsultas = false;
-        $scope.msj = true;
-
+    function limpiarCampos (){
+        $scope.aparato = "";
+        $scope.search1 = "";
+        $scope.dia = "";
+        $scope.hora = "";
     }
-
 
 });
 app.controller('tipoMasajeCtrl', function ($scope, $http, $location, $routeParams) {

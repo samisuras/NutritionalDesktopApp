@@ -3,67 +3,81 @@
     <div class="alert alert-dismissible alert-danger" ng-show="msjError">
         <strong>¡Campos Vacíos! Antes de reservar, rellena los campos correspondientes.</strong>
     </div>
-    <div class="alert alert-dismissible alert-danger" ng-show="msjError2">
-        <strong>La fecha debe ser igual o mayor al día actual</strong>
-    </div>
     <div class="alert alert-dismissible alert-success" ng-show="msj">
         <strong>Se registró la cita correctamente</strong>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-4">
-                <input id="date" type="date" ng-model="datosConsulta.fecha" class="mb-3 ml-3 form-control">
-            </div>
-            <div class="col-xl-4">
-                <button type="button" class="btn btn-info btn-sm" ng-click="verificarFecha()">Verificar</button>
-            </div>
-        </div>
+    <div class="container" align="center">
+        <buttton class="btn btn-primary btn-lg ml-5 mr-5 mt-3" ng-click="altaCitasBool()">Agregar cita</buttton>
+        <buttton class="btn btn-success btn-lg mr-5 ml-5 mt-3" ng-click="mostrarCitasBool()">Mostrar citas</buttton>
     </div>
+    <!--Alta de citas-->
+    <div class="container mt-5 ml-5 mr-5" ng-if="altaCita">
+        <!--Formulario-->
+        <form class="row" align="center">
+            <div class=" col-md-6 form-group">
+                <label for="dia">Dia</label>
+                <input type="date" class="form-control" ng-model="datosConsultaIn.fecha" name="dia" id="dia">
+            </div>
+            <div class="col-sm-6 form-group">
+                <label for="notas">Notas:</label><input type="text" class="form-control" ng-model="datosConsultaIn.notas" name="" id="">
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="horaIn">Hora Inicio</label>
+                    <input type="time" class="form-control" name="hora" id="horaIn">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="horaFin">Hora Fin</label>
+                    <input type="time" class="form-control" name="hora" id="horaFin">
+                </div>
+            </div>
+            <div class="col-md-6 form-group">
+                <label for="empleado">Nutriologo</label>
+                <input class="form-control" type="text" placeholder="Nombre de Empleado" ng-model="search2"
+                    list="nombresEMP" id="clean2" ng-disabled="horario.btn" ng-hide="horario.btn"> 
+                    <span ng-show="horario.btn">{{horario.emp}}</span>
+                <datalist id="nombresEMP">
+                    <option ng-repeat="x in empleados | filter:search2"
+                        value="{{x.idEmpleado}}|{{x.nombre + ' '+ x.apellidoPaterno+' '+ x.apellidoMaterno}}">
+                    </option>
+                </datalist>
+            </div>
+            <div class="col-md-6 form-group">
+                <label for="paciente">Paciente</label>
+                <input class="form-control" type="text" placeholder="Nombre de Cliente" ng-model="search1"
+                    list="nombresCTE" id="clean" ng-disabled="horario.btn" ng-hide="horario.btn">
+                    <span ng-show="horario.btn">{{horario.cte}}</span>
+                <datalist id="nombresCTE">
+                    <option ng-repeat="x in clientes | filter:search1"
+                        value="{{x.idCliente}}|{{x.nombre + ' '+ x.apellidoPaterno+' '+ x.apellidoMaterno}}">
+                    </option>
+                </datalist>
+            </div>
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary btn-md" ng-click="registrarCita(this)">Registrar Cita</button>
 
-    <table class="table text-center table-striped table-hover" ng-show="tablaConsultas">
-        <thead class="thead bg-info text-white">
-            <tr>
-                <th scope="col">Horario</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Cliente</th>
-                <th scope="col">Empleado</th>
-                <th scope="col">Notas</th>
-                <th scope="col">Reservar</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="horario in horarios">
-                <th scope="row"><input class="text-center form-control" type="text" ng-model="horario.hor"
-                        value="{{horario.hor}}" disabled></th>
-                <td class="text-{{horario.color}}"><strong>{{horario.status}}</strong></td>
+            </div>
+        </form>
+    </div>
+    <!--Calendario de citas ocupadas-->
+    <div ng-if="mostrarCitas" class="mt-5">
+        <table class="table table-hover">
+            <thead class="thead-dark table-hover">
+              <tr>
+                <th scope="col" class="col-sm-8">Nutriologo</th>
+                <th scope="col" class="col-sm-4">Consultas</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="x in empleados">
+                <td scope="row"><b>{{x.nombre + " " + x.apellidoMaterno + " " + x.apellidoPaterno }}</b></td>
                 <td>
-                    <input class="form-control" type="text" placeholder="Nombre de Cliente" ng-model="search1"
-                        list="nombresCTE" id="clean" ng-disabled="horario.btn" ng-hide="horario.btn">
-                        <span ng-show="horario.btn">{{horario.cte}}</span>
-                    <datalist id="nombresCTE">
-                        <option ng-repeat="x in clientes | filter:search1"
-                            value="{{x.idCliente}}|{{x.nombre + ' '+ x.apellidoPaterno+' '+ x.apellidoMaterno}}">
-                        </option>
-                    </datalist>
+                    <div align="center"><a class="fas fa-plus-circle fa-2x text-primary" ng-click="mostrarCitasLink(x.idEmpleado)"></a></div>
                 </td>
-                <td>
-                    <input class="form-control" type="text" placeholder="Nombre de Empleado" ng-model="search2"
-                        list="nombresEMP" id="clean2" ng-disabled="horario.btn" ng-hide="horario.btn"> 
-                        <span ng-show="horario.btn">{{horario.emp}}</span>
-                    <datalist id="nombresEMP">
-                        <option ng-repeat="x in empleados | filter:search2"
-                            value="{{x.idEmpleado}}|{{x.nombre + ' '+ x.apellidoPaterno+' '+ x.apellidoMaterno}}">
-                        </option>
-                    </datalist>
-                </td>
-                <td>
-                    <input class="form-control" type="text" placeholder="Notas extra" ng-model="nota" id="clean3"
-                        ng-disabled="horario.btn" ng-hide="horario.btn" maxlength="40" >
-                    <span ng-show="horario.btn">{{horario.nota}}</span>
-                </td>
-                <td><button class="btn btn-success btn-small" ng-click="Enviar(this)"
-                        ng-disabled="horario.btn">Reservar</button></td>
-            </tr>
-        </tbody>
-    </table>
+              </tr>
+            </tbody>
+          </table>
+    </div>
 </div>
