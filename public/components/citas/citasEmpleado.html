@@ -1,6 +1,6 @@
 <div class="container">
     <div class="col-sm-12">
-        <h1>Citas para el Nutriologo: {{ empleado.nombre + " " + empleado.apellidoMaterno + " " + empleado.apellidoPaterno }} </h1>
+        <h1 class="text-dark">Citas para el Nutriologo: {{ empleado.nombre + " " + empleado.apellidoMaterno + " " + empleado.apellidoPaterno }} </h1>
     </div>
     <div class="row">
         <div class="col-sm-12">
@@ -10,8 +10,8 @@
                     <input type="date" class="form-control" name="fecha" id="fecha" >
                 </div>
                 <div class="" align="center">
-                    <button class="btn btn-primary btn-lg mr-3" ng-click="return()">Regresar<i class="fas fa-undo ml-3"></i></button>
-                    <button type="submit" class="btn btn-primary btn-lg" ng-click="buscarFecha(this)">Buscar</button>
+                    <button class="btn btn-success btn-lg mr-3" ng-click="return()">Regresar<i class="fas fa-undo ml-3"></i></button>
+                    <button type="submit" class="btn btn-info btn-lg" ng-click="buscarFecha(this)">Buscar</button>
                 </div>
                 <div class="alert alert-dismissible alert-danger mt-3" ng-show="sinRegistros">
                     <strong>No se encontraron resultados en la base de datos.</strong>
@@ -23,7 +23,7 @@
 
 <div class="container pt-5" ng-show="tabla">
     <table class="table text-center table-striped table-hover">
-        <thead class="thead text-white">
+        <thead class="thead text-light bg-info">
             <tr>
                 <th scope="col">ID Cita</th>
                 <th scope="col">Fecha</th>
