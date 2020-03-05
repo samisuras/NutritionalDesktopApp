@@ -1,7 +1,6 @@
 /node_modules
 .env
 /build
-/installer
+/installer32
 /Nutricion-win32-x64
-/Sistema-win32-ia32
-/PruebaResize-win32-x64
+/Nutricion-win32-ia32
