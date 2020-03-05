@@ -4,15 +4,10 @@
         <strong>¡Éxito!</strong> Se agregó el registro <a href="#" class="alert-link">correctamente</a>.
     </div>
 <div class="container">
-    <label class="control-label">Selecciona una opción:</label>
-    <form class="row border border-info text-center">
-        <label class="col-xl-6 mt-1 mb-1">
-            <input type="radio" ng-model="opcion.name" value="registrar" ng-click="Accion('reg')">
-            Registrar Consulta
-        </label><br />
-        <label class="col-xl-6 mt-1 mb-1">
-            <input type="radio" ng-model="opcion.name" value="ver" ng-click="Accion('ver')">
-            Ver Consultas
+    <form class="row text-center">
+        <label class="col-xl-6 mt-1 mb-1 text-center">
+            <button class="btn btn-secondary btn-block"  ng-click="Accion('ver')">Ver Consultas<i class="fas fa-address-book ml-3"></i></button>
+            
         </label><br />
     </form>
     <form class="well form-horizontal pt-4 pb-4" ng-submit="Enviar(this)" ng-show="RegistrarConsultas"> 
