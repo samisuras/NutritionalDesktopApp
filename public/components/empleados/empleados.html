@@ -2,15 +2,9 @@
 
 
 <div class="container-fluid">
-    <label class="control-label">Selecciona una opción:</label>
-    <form class="row border border-info text-center">
-        <label class="col-xl-6 mt-1 mb-1">
-            <input type="radio" ng-model="opcion.name" value="alta" ng-click="elegirOpcion('alta')">
-            Altas
-        </label><br />
-        <label class="col-xl-6 mt-1 mb-1">
-            <input type="radio" ng-model="opcion.name" value="verEmp" ng-click="elegirOpcion('verEmp')">
-            Ver Empleados
+    <form class="row text-center">
+        <label class="col-xl-6 mt-1 mb-1 text-center">
+            <button class="btn btn-secondary btn-block"  ng-click="elegirOpcion('verEmp')">Ver Empleados<i class="fas fa-user ml-3"></i></button>
         </label><br />
     </form>
     <div class="alert alert-dismissible alert-success mt-3" ng-show="res">
