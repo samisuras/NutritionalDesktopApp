@@ -227,7 +227,7 @@ app.controller('expedienteCtrl', function ($scope, $http, $location) {
         nombreMedicamentoDC: "",
         finMedicamentoDC: "",
         anticonceptivo: "",
-        sobrepeso: 0,
+        sobrepeso: "",
         diabetes: 0,
         cancer: 0,
         hipertension: 0,
