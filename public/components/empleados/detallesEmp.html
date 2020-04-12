@@ -1,8 +1,17 @@
 <h1 class="h1">{{m}}  <i class="fas fa-user ml-3"></i></h1>
 <div class="container py-3">
+    <div class="row" ng-if="exito">
+        <div class="alert alert-dark alert-dismissible fade in text-center show col-sm-12 ml-5 mr-5" role="alert">
+            <strong>Correcto!</strong> Datos cambiados exitosamente
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
     <div class="row">
         <div class="mx-auto col-xl-2 text-center">
             <button class="btn btn-success btn-block" ng-click="return()">Regresar<i class="fas fa-undo ml-3"></i></button>
+            <button type="submit" class="btn btn-primary btn-block mb-3" ng-click="actualizarDatos()">Actualizar datos</button>
         </div>
         <div class="mx-auto col-xl-10">
             <div class="card">
@@ -24,43 +33,51 @@
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Teléfono:</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" value="{{Empleado.telefono}}" disabled >
+                                <input class="form-control" id="telefono" type="text" value="{{Empleado.telefono}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Correo:</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" value="{{Empleado.correo}}" disabled>
+                                <input class="form-control" id="correo" type="text" value="{{Empleado.correo}}">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Dirección:</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="email" value="{{'Calle: '+Empleado.calle+' #'+Empleado.numero+' CP: '+Empleado.cp}}" disabled>
+                            <label class="col-lg-3 col-form-label form-control-label">Calle:</label>
+                            <div class="col-lg-3">
+                                <input class="form-control" id="calle" type="text" value="{{Empleado.calle}}">
+                            </div>
+                            <label class="col-lg-1 col-form-label form-control-label">No.:</label>
+                            <div class="col-lg-2">
+                                <input class="form-control" id="numero" type="text" value="{{Empleado.numero}}">
+                            </div>
+                            <label class="col-lg-1 col-form-label form-control-label">CP:</label>
+                            <div class="col-lg-2">
+                                <input class="form-control" id="cp" type="text" value="{{Empleado.cp}}">
                             </div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Puesto:</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="text" value="{{Empleado.puesto}}" disabled>
+                                    <input class="form-control" id="puesto" type="text" value="{{Empleado.puesto}}">
                                 </div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Cédula:</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="text" value="{{Empleado.noCedula}}" disabled>
+                                    <input class="form-control" id="cedula" type="text" value="{{Empleado.noCedula}}">
                                 </div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Area:</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="text" value="{{Empleado.area}}" disabled>
+                                    <input class="form-control" id="area" type="text" value="{{Empleado.area}}">
                                 </div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Descripcion:</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="text" value="{{Empleado.descripcion}}" disabled>
+                                    <input class="form-control" id="descripcion" type="text" value="{{Empleado.descripcion}}">
                                 </div>
                         </div>
                     </form>

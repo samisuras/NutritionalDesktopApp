@@ -1,3 +1,4 @@
+//35.238.215.74
 var app = angular.module('app', ['ngRoute']);
 
 const pool = require('./db/conexion');
@@ -96,7 +97,7 @@ app.controller('inicioCtrl', function ($scope) {
 app.controller('verEmpCtrl', function ($scope, $http, $location) {
     $scope.m = "Ver Empleados";
 
-    $http.get("http://35.238.215.74/empleado/getEmpleados", {
+    $http.get("http://localhost:3300/empleado/getEmpleados", {
 
     })
         .then(function (respuesta) {
@@ -118,7 +119,7 @@ app.controller('verEmpCtrl', function ($scope, $http, $location) {
 app.controller('verCteCtrl', function ($scope, $http, $location) {
     $scope.titulo = "Ver Clientes";
     $scope.detalle = true;
-    $http.get("http://35.238.215.74/user/filtroFecha", {
+    $http.get("http://localhost:3300/user/filtroFecha", {
 
     })
         .then(function (respuesta) {
@@ -139,7 +140,7 @@ app.controller('verCteCtrl', function ($scope, $http, $location) {
     $scope.opcion = {
         name: 'detalle'
     };
-    $http.get("http://35.238.215.74/user/clientes", {
+    $http.get("http://localhost:3300/user/clientes", {
 
     })
         .then(function (respuesta) {
@@ -191,8 +192,8 @@ app.controller('clientesCtrl', function ($scope, $http, $location) {
     $scope.Enviar = function () {
         console.log("entre");
         console.log(JSON.stringify($scope.valores));
-        //http://35.238.215.74/user/add-user
-        $http.post("http://35.238.215.74/user/add-user",
+        //http://localhost:3300/user/add-user
+        $http.post("http://localhost:3300/user/add-user",
             $scope.valores
         )
             .then(function (respuesta) {
@@ -248,7 +249,7 @@ app.controller('expedienteCtrl', function ($scope, $http, $location) {
     }
     $scope.EnviarExp = function () {
         console.log(JSON.stringify($scope.datos));
-        $http.post("http://35.238.215.74/user/add-expediente",
+        $http.post("http://localhost:3300/user/add-expediente",
             $scope.datos
         )
             .then(function (respuesta) {
@@ -330,7 +331,7 @@ app.controller('empleadosCtrl', function ($scope, $http, $location) {
         $scope.valores.horarioTermino = tiempoF.value;
 
         console.log(JSON.stringify($scope.valores));
-        $http.post("http://35.238.215.74/empleado/add-empleado",
+        $http.post("http://localhost:3300/empleado/add-empleado",
             //$http.post("http://localhost:3300/empleado/add-empleado",
             $scope.valores
         )
@@ -361,29 +362,134 @@ app.controller('detallesCteCtrl', function ($scope, $http, $location, $routePara
     $scope.m = "Información de Cliente";
     $scope.cte = $routeParams.idcte;
     $scope.exito = false;
-    var ruta = "http://35.238.215.74/user/cliente/" + $scope.cte;
+    var ruta = "http://localhost:3300/user/cliente/" + $scope.cte;
 
-    $scope.actualizarTelefono = function () {
-        $scope.exito = false;
+    $scope.actualizarDatos = function () {
+        $scope.exitoD = false;
         if(document.getElementById("telefono").value == ""){
-            alert("El numero no puede estar vacio")
+            alert("El número no puede estar vacío")
         }
-        else{   
-            let telefono = document.getElementById("telefono").value
-            console.log(telefono);
-            cambiarTelefono(telefono);
+        if(document.getElementById("calle").value == "" || document.getElementById("numero").value == "" || document.getElementById("cp").value == ""){
+            alert("La dirección no puede estar vacía")
+        }
+        if (document.getElementById("telefono").value != "" && document.getElementById("calle").value != "" && document.getElementById("numero").value != "" &&
+            document.getElementById("cp").value != "") {   
+            let telefono = document.getElementById("telefono").value;
+            let correo = document.getElementById("correo").value;
+            let calle = document.getElementById("calle").value;
+            let numero = document.getElementById("numero").value;
+            let cp = document.getElementById("cp").value;
+            cambiarDatos(correo, telefono, calle, numero, cp);
         }
     }
 
-    cambiarTelefono = function (telefono) {
+    cambiarDatos = function (correo, telefono, calle, numero, cp) {
         let data = {
+            correo: correo,
             telefono: telefono,
-            idCliente: $scope.cte
+            idCliente: $scope.cte,
+            idDireccion: $scope.Cliente.idDireccion,
+            cp: cp,
+            numero: numero,
+            calle: calle
         }
-        $http.post("http://35.238.215.74/user/modificarTelefono/",data)
+        $http.post("http://localhost:3300/user/modificarDatosCliente/",data)
         .then( function (respuesta) {
             console.log(respuesta.data);
-            $scope.exito = true;
+            $scope.exitoD = true;
+        })
+    }
+
+    $scope.actualizarExpediente = function () {
+        $scope.exitoE = false;
+        let dolorCabeza = document.getElementById("dolorCabeza").value;
+        let medicamentoDC = document.getElementById("medicamentoDC").value;
+        let nombreMedicamentoDC = document.getElementById("nombreMedicamentoDC").value;
+        let finMedicamentoDC = document.getElementById("finMedicamentoDC").value;
+        let anticonceptivo = document.getElementById("anticonceptivo").value;
+        let sobrepeso = document.getElementById("sobrepeso").value;
+        let diabetes = document.getElementById("diabetes").value;
+        let cancer = document.getElementById("cancer").value;
+        let hipertension = document.getElementById("hipertension").value;
+        let cardiovascular = document.getElementById("cardiovascular").value;
+        let actividadFisica = document.getElementById("actividadFisica").value;
+        let tipoAF = document.getElementById("tipoAF").value;
+        let frecuenciaAF = document.getElementById("frecuenciaAF").value;
+        let tiempoAF = document.getElementById("tiempoAF").value;
+        let adiccion = document.getElementById("adiccion").value;
+        let comida = document.getElementById("comida").value;
+        let estres = document.getElementById("estres").value;
+        let formaAlimentacion = document.getElementById("formaAlimentacion").value;
+        let edadSobrepeso = document.getElementById("edadSobrepeso").value;
+        let pesoDeseado = document.getElementById("pesoDeseado").value;
+        let familia = document.getElementById("familia").value;
+        let eventoRelacionado = document.getElementById("eventoRelacionado").value;
+        let motivoReduccion = document.getElementById("motivoReduccion").value;
+        if (dolorCabeza != 1 && dolorCabeza != 0) {
+            alert("El valor para <dolor de cabeza> debe ser 0 o 1");
+        }
+        if (Number.isNaN(sobrepeso/1)) {
+            alert("El valor de <sobrepeso> debe ser numérico");
+        }
+        if (Number.isNaN(diabetes/1)) {
+            alert("El valor de <diabetes> debe ser numérico");
+        }
+        if (Number.isNaN(cancer/1)) {
+            alert("El valor de <cancer> debe ser numérico");
+        }
+        if (Number.isNaN(hipertension/1)) {
+            alert("El valor de <hipertension> debe ser numérico");
+        }
+        if (Number.isNaN(cardiovascular/1)) {
+            alert("El valor de <cardiovascular> debe ser numérico");
+        }
+        if (actividadFisica != 1 && actividadFisica != 0) {
+            alert("El valor para <actividad física> debe ser 0 o 1");
+        }
+        if (comida != 1 && comida != 0) {
+            alert("El valor para <comida> debe ser 0 o 1");
+        }
+        if (estres != 1 && estres != 0) {
+            alert("El valor para <estrés> debe ser 0 o 1");
+        }
+        cambiarExpediente(dolorCabeza, medicamentoDC, nombreMedicamentoDC, finMedicamentoDC, anticonceptivo, sobrepeso, diabetes, cancer, hipertension, cardiovascular,
+            actividadFisica, tipoAF, frecuenciaAF, tiempoAF, adiccion, comida, estres, formaAlimentacion, edadSobrepeso, pesoDeseado, familia, eventoRelacionado,
+            motivoReduccion);
+    }
+
+    cambiarExpediente = function (dolorCabeza, medicamentoDC, nombreMedicamentoDC, finMedicamentoDC, anticonceptivo, sobrepeso, diabetes, cancer, hipertension,
+        cardiovascular, actividadFisica, tipoAF, frecuenciaAF, tiempoAF, adiccion, comida, estres, formaAlimentacion, edadSobrepeso, pesoDeseado, familia,
+        eventoRelacionado, motivoReduccion) {
+        let data = {
+            idCliente: $scope.cte,
+            dolorCabeza: dolorCabeza,
+            medicamentoDC: medicamentoDC,
+            nombreMedicamentoDC: nombreMedicamentoDC,
+            finMedicamentoDC: finMedicamentoDC,
+            anticonceptivo: anticonceptivo,
+            sobrepeso: sobrepeso,
+            diabetes: diabetes,
+            cancer: cancer,
+            hipertension: hipertension,
+            cardiovascular: cardiovascular,
+            actividadFisica: actividadFisica,
+            tipoAF: tipoAF,
+            frecuenciaAF: frecuenciaAF,
+            tiempoAF: tiempoAF,
+            adiccion: adiccion,
+            comida: comida,
+            estres: estres,
+            formaAlimentacion: formaAlimentacion,
+            edadSobrepeso: edadSobrepeso,
+            pesoDeseado: pesoDeseado,
+            familia: familia,
+            eventoRelacionado: eventoRelacionado,
+            motivoReduccion: motivoReduccion
+        }
+        $http.post("http://localhost:3300/user/modificarExpedienteCliente/",data)
+        .then( function (respuesta) {
+            console.log(respuesta.data);
+            $scope.exitoE = true;
         })
     }
 
@@ -404,7 +510,7 @@ app.controller('detallesConCtrl', function ($scope, $http, $location, $routePara
     $scope.m = "Información de Consulta";
     $scope.cte = $routeParams.idcte;
     $scope.input = false;
-    var ruta = "http://35.238.215.74/consultas/consulta_cliente/" + $scope.cte;
+    var ruta = "http://localhost:3300/consultas/consulta_cliente/" + $scope.cte;
     $http.get(ruta, {
     })
         .then(function (respuesta) {
@@ -423,7 +529,7 @@ app.controller('detallesConCtrl', function ($scope, $http, $location, $routePara
         $location.path('verConsulta');
     }
 
-    var ruta2 = "http://35.238.215.74/user/cliente/" + $scope.cte;
+    var ruta2 = "http://localhost:3300/user/cliente/" + $scope.cte;
 
     $http.get(ruta2, {
     })
@@ -435,7 +541,7 @@ app.controller('detallesConCtrl', function ($scope, $http, $location, $routePara
     $scope.Enviar = function (data) {
         $scope.exito = false;
         $scope.input = false;
-        const ruta = "http://35.238.215.74/consultas/modificarConsulta";
+        const ruta = "http://localhost:3300/consultas/modificarConsulta";
         console.log("peticion actualizar ",data.x);
         $http.post(ruta, data.x)
             .then(function (data) {
@@ -453,8 +559,58 @@ app.controller('detallesEmpCtrl', function ($scope, $http, $location, $routePara
     $scope.m = "Información de Empleado";
     $scope.emp = $routeParams.idemp;
 
-    //var ruta = "http://35.238.215.74/empleado/" + $scope.emp;
-    var ruta = "http://35.238.215.74/empleado/" + $scope.emp;
+    //var ruta = "http://localhost:3300/empleado/" + $scope.emp;
+    var ruta = "http://localhost:3300/empleado/" + $scope.emp;
+
+    $scope.actualizarDatos = function () {
+        $scope.exito = false;
+        if(document.getElementById("telefono").value == ""){
+            alert("El número no puede estar vacío")
+        }
+        if(document.getElementById("calle").value == "" || document.getElementById("numero").value == "" || document.getElementById("cp").value == ""){
+            alert("La dirección no puede estar vacía")
+        }
+        if(document.getElementById("cedula").value == ""){
+            alert("La cédula no puede estar vacía")
+        }
+        if(document.getElementById("puesto").value == ""){
+            alert("El puesto no puede estar vacío")
+        }
+        if (document.getElementById("telefono").value != "" && document.getElementById("calle").value != "" && document.getElementById("numero").value != "" &&
+            document.getElementById("cp").value != "" && document.getElementById("cedula").value != "" && document.getElementById("puesto").value != "") {   
+            let telefono = document.getElementById("telefono").value;
+            let correo = document.getElementById("correo").value;
+            let calle = document.getElementById("calle").value;
+            let numero = document.getElementById("numero").value;
+            let cp = document.getElementById("cp").value;
+            let puesto = document.getElementById("puesto").value;
+            let cedula = document.getElementById("cedula").value;
+            let area = document.getElementById("area").value;
+            let descripcion = document.getElementById("descripcion").value;
+            cambiarDatos(correo, telefono, calle, numero, cp, puesto, cedula, area, descripcion);
+        }
+    }
+
+    cambiarDatos = function (correo, telefono, calle, numero, cp, puesto, cedula, area, descripcion) {
+        let data = {
+            correo: correo,
+            telefono: telefono,
+            idEmpleado: $scope.emp,
+            idDireccion: $scope.Empleado.idDireccion,
+            cp: cp,
+            numero: numero,
+            calle: calle,
+            puesto: puesto,
+            cedula: cedula,
+            area: area,
+            descripcion: descripcion
+        }
+        $http.post("http://localhost:3300/empleado/modificarDatosEmpleado/",data)
+        .then( function (respuesta) {
+            console.log(respuesta.data);
+            $scope.exito = true;
+        })
+    }
 
     $http.get(ruta, {
     })
@@ -493,7 +649,7 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
         $scope.datosConsultaIn.idEmpleado = EMPres[0];
         $scope.datosConsultaIn.hora = document.getElementById("horaIn").value + " - " + document.getElementById("horaFin").value;
         console.log($scope.datosConsultaIn);
-        $http.post("http://35.238.215.74/citas/addCita",
+        $http.post("http://localhost:3300/citas/addCita",
                 $scope.datosConsultaIn
             )
             .then(function (respuesta) {
@@ -503,12 +659,12 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
                 console.log(error.data);
             });
     }
-    $http.get("http://35.238.215.74/user/clientes")
+    $http.get("http://localhost:3300/user/clientes")
     .then(function (respuesta) {
         $scope.clientes = respuesta.data.usuarios;
     });
 
-    $http.get("http://35.238.215.74/empleado/getEmpleados")
+    $http.get("http://localhost:3300/empleado/getEmpleados")
     .then(function (respuesta) {
         $scope.empleados = respuesta.data.status;
         console.log("Empleados: ",$scope.empleados);
@@ -519,7 +675,7 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
 });
 app.controller('citasEmpleadoCtrl', function ($scope, $http, $location, $routeParams) {
     let idemp = $routeParams.idemp;
-    let ruta = "http://35.238.215.74/empleado/"+ idemp;
+    let ruta = "http://localhost:3300/empleado/"+ idemp;
     $scope.empleado;
     //Traer info del empleado
     $http.get(ruta)
@@ -541,7 +697,7 @@ app.controller('citasEmpleadoCtrl', function ($scope, $http, $location, $routePa
             idEmpleado: idEmpleado
         }
         console.log(datos);
-        let ruta = "http://35.238.215.74/citas/fecha-idEmpleado";
+        let ruta = "http://localhost:3300/citas/fecha-idEmpleado";
         $http.post(ruta,datos)
         .then(function (respuesta) {
             $scope.citasEmpleado =respuesta.data.citas;
@@ -583,14 +739,14 @@ app.controller('consultasCtrl', function ($scope, $http, $location) {
     $scope.opcion = {
         name: 'registrar'
     };
-    $http.get("http://35.238.215.74/user/clientes", {
+    $http.get("http://localhost:3300/user/clientes", {
 
     })
         .then(function (respuesta) {
             $scope.clientes = respuesta.data.usuarios;
         });
 
-    $http.get("http://35.238.215.74/empleado/getEmpleados", {
+    $http.get("http://localhost:3300/empleado/getEmpleados", {
 
     })
         .then(function (respuesta) {
@@ -640,7 +796,7 @@ app.controller('consultasCtrl', function ($scope, $http, $location) {
 
     $scope.RegistrarConsulta = function () {
         console.log($scope.valores);
-        $http.post("http://35.238.215.74/consultas/registrarConsulta", $scope.valores
+        $http.post("http://localhost:3300/consultas/registrarConsulta", $scope.valores
         )
             .then(function (respuesta) {
                 console.log(respuesta.data);
@@ -678,7 +834,7 @@ app.controller('consultasCtrl', function ($scope, $http, $location) {
 });
 app.controller('verConsultaCtrl', function ($scope, $http, $location) {
     $scope.m = "Ver Consulta";
-    $http.get("http://35.238.215.74/consultas/clientes_con_consultas", {
+    $http.get("http://localhost:3300/consultas/clientes_con_consultas", {
 
     })
         .then(function (respuesta) {
@@ -711,7 +867,7 @@ app.controller('masajesCtrl', function ($scope, $http, $location) {
     $scope.buscarFecha = function () {
         let fecha = document.getElementById("fecha").value;
         console.log(fecha);
-        $http.get("http://35.238.215.74/masajes/citasOcupadas/"+ fecha)
+        $http.get("http://localhost:3300/masajes/citasOcupadas/"+ fecha)
         .then(function (respuesta) {
             console.log(respuesta.data);
             $scope.citas = respuesta.data.fechas;
@@ -721,7 +877,7 @@ app.controller('masajesCtrl', function ($scope, $http, $location) {
             console.log(data);
         });
     }
-    $http.get("http://35.238.215.74/user/clientes")
+    $http.get("http://localhost:3300/user/clientes")
     .then(function (respuesta) {
         $scope.clientes = respuesta.data.usuarios;
 
@@ -742,7 +898,7 @@ app.controller('masajesCtrl', function ($scope, $http, $location) {
             nombreCliente: nombre
         };
         console.log(datos);
-        $http.post("http://35.238.215.74/masajes/addCitaMasaje",datos)
+        $http.post("http://localhost:3300/masajes/addCitaMasaje",datos)
         .then(function () {
             alert("cita registrada")
             limpiarCampos(); 
@@ -766,13 +922,13 @@ app.controller('tipoMasajeCtrl', function ($scope, $http, $location, $routeParam
     $scope.date = $routeParams.date;
     $scope.extraUltimo = "";
     console.log($scope.date);
-    $http.get("http://35.238.215.74/masajes/ultimoExtra")
+    $http.get("http://localhost:3300/masajes/ultimoExtra")
         .then(function (res) {
             $scope.extraUltimo = res.data.extra[0].lastExtra;
             console.log($scope.extraUltimo);
         });
 
-    $http.get("http://35.238.215.74/masajes/extras", {
+    $http.get("http://localhost:3300/masajes/extras", {
 
     })
         .then(function (respuesta) {
@@ -876,7 +1032,7 @@ app.controller('tipoMasajeCtrl', function ($scope, $http, $location, $routeParam
 
     $scope.EnviarBD = function (data) {
         //console.log(data);
-        $http.post("http://35.238.215.74/masajes/addExtrasMasaje",
+        $http.post("http://localhost:3300/masajes/addExtrasMasaje",
             data
         )
             .then(function (respuesta) {
@@ -933,7 +1089,7 @@ app.controller('reporteCtrl', function ($scope, $http) {
             fecha: fecha
             
         }
-        $http.post("http://35.238.215.74/reportes/reporteVentasDia", data)
+        $http.post("http://localhost:3300/reportes/reporteVentasDia", data)
         .then(function (respuesta) {
             console.log(respuesta.data);
             $scope.total1 = 0;
@@ -955,7 +1111,7 @@ app.controller('reporteCtrl', function ($scope, $http) {
             fecha: fecha
         }
         $http.post(
-            "http://35.238.215.74/reportes/reporteConsultasDia",
+            "http://localhost:3300/reportes/reporteConsultasDia",
             data
         )
         .then(function (respuesta) {
@@ -990,7 +1146,7 @@ app.controller('reporteCtrl', function ($scope, $http) {
             fecha2: fecha2
         }
         $http.post(
-            "http://35.238.215.74/reportes/reporteConsultas",
+            "http://localhost:3300/reportes/reporteConsultas",
             data
         )
         .then(function (respuesta) {
@@ -1012,7 +1168,7 @@ app.controller('reporteCtrl', function ($scope, $http) {
             fecha: fecha,
             fecha2: fecha2
         }
-        $http.post("http://35.238.215.74/reportes/reporteVentas", data)
+        $http.post("http://localhost:3300/reportes/reporteVentas", data)
         .then(function (respuesta) {
             console.log(respuesta.data);
             $scope.total1 = 0;
@@ -1035,7 +1191,7 @@ app.controller('ventasCtrl', function ($scope, $http, $location) {
     $scope.listavacia = false;
     $scope.ventaAgregada = false;
 
-    $http.get("http://35.238.215.74/inventario/allProducts", {
+    $http.get("http://localhost:3300/inventario/allProducts", {
     })
         .then(function (respuesta) {
             $scope.productos = respuesta.data.productos;
@@ -1101,7 +1257,7 @@ app.controller('ventasCtrl', function ($scope, $http, $location) {
             $scope.listavacia = false;
             $scope.filtrarProducto();
             console.log($scope.products);
-            $http.post("http://35.238.215.74/inventario/sellProduct",$scope.products)
+            $http.post("http://localhost:3300/inventario/sellProduct",$scope.products)
             .then(function (respuesta) {
                 console.log(respuesta.data);
                 if(respuesta.data.status == 1){
@@ -1154,7 +1310,7 @@ app.controller('altasCtrl', function ($scope, $http, $location) {
         }
 
         console.log(data)
-        $http.post("http://35.238.215.74/inventario/addProduct",data)
+        $http.post("http://localhost:3300/inventario/addProduct",data)
         .then(function (respuesta) {
             console.log(respuesta.data);
             if (respuesta.data.status == 1) {
@@ -1177,7 +1333,7 @@ app.controller('verproductosCtrl', function ($scope, $http, $location) {
     $scope.m = "Productos";
     $scope.correcto = false;
     $scope.error = false;
-    $http.get("http://35.238.215.74/inventario/allProducts", {
+    $http.get("http://localhost:3300/inventario/allProducts", {
     })
         .then(function (respuesta) {
             $scope.productos = respuesta.data.productos;
@@ -1202,7 +1358,7 @@ app.controller('verproductosCtrl', function ($scope, $http, $location) {
         }
 
         console.log(data)
-       $http.post("http://35.238.215.74/inventario/updateProductInventory",data)
+       $http.post("http://localhost:3300/inventario/updateProductInventory",data)
         .then(function (respuesta) {
             console.log(respuesta.data);
             if (respuesta.data.status == 1) {
@@ -1210,7 +1366,7 @@ app.controller('verproductosCtrl', function ($scope, $http, $location) {
                 $scope.existencia_nueva = 1;
                 $scope.error = false;
                 $scope.update = false;
-                $http.get("http://35.238.215.74/inventario/allProducts", {
+                $http.get("http://localhost:3300/inventario/allProducts", {
                 })
                     .then(function (respuesta) {
                         $scope.productos = respuesta.data.productos;

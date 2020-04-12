@@ -1,8 +1,16 @@
 <h1 class="h1">{{m}}  <i class="fas fa-user ml-3"></i></h1>
 <div class="container py-3">
-    <div class="row" ng-if="exito">
+    <div class="row" ng-if="exitoD">
         <div class="alert alert-dark alert-dismissible fade in text-center show col-sm-12 ml-5 mr-5" role="alert">
-            <strong>Correcto!</strong> Telefono cambiado exitosamente
+            <strong>Correcto!</strong> Datos cambiados exitosamente
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    <div class="row" ng-if="exitoE">
+        <div class="alert alert-dark alert-dismissible fade in text-center show col-sm-12 ml-5 mr-5" role="alert">
+            <strong>Correcto!</strong> Expediente actualizado exitosamente
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -10,7 +18,9 @@
     </div>
     <div class="row">
         <div class="mx-auto col-xl-2 text-center">
-            <button class="btn btn-success btn-block" ng-click="return()">Regresar<i class="fas fa-undo ml-3"></i></button>
+            <button class="btn btn-success btn-block mb-3" ng-click="return()">Regresar<i class="fas fa-undo ml-3"></i></button>
+            <button type="submit" class="btn btn-primary btn-block mb-3" ng-click="actualizarDatos()">Actualizar datos</button>
+            <button type="submit" class="btn btn-primary btn-block" ng-click="actualizarExpediente()">Actualizar expediente</button>
         </div>
         <div class="mx-auto col-xl-10">
             <div class="card">
@@ -32,22 +42,27 @@
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Correo:</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" value="{{Cliente.correo}}" disabled>
+                                <input id="correo" class="form-control" type="text" value="{{Cliente.correo}}">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Dirección:</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="email" value="{{'Calle: '+Cliente.calle+' #'+Cliente.numero+' CP: '+Cliente.cp}}" disabled>
+                            <label class="col-lg-3 col-form-label form-control-label">Calle:</label>
+                            <div class="col-lg-3">
+                                <input class="form-control" id="calle" type="text" value="{{Cliente.calle}}">
+                            </div>
+                            <label class="col-lg-1 col-form-label form-control-label">No.:</label>
+                            <div class="col-lg-2">
+                                <input class="form-control" id="numero" type="text" value="{{Cliente.numero}}">
+                            </div>
+                            <label class="col-lg-1 col-form-label form-control-label">CP:</label>
+                            <div class="col-lg-2">
+                                <input class="form-control" id="cp" type="text" value="{{Cliente.cp}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Teléfono:</label>
                             <div class="col-lg-9">
                                 <input id="telefono" class="form-control" type="text" value="{{Cliente.telefono}}" >
-                            </div>
-                            <div>
-                                <button type="submit" class="btn btn-primary" ng-click="actualizarTelefono()">Actualizar telefono</button>
                             </div>
                         </div>
                     </form>
@@ -65,122 +80,122 @@
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label text-right">¿Tiene dolor de cabeza frecuente?:</label>
                             <div class="col-lg-3">
-                                <input class="form-control" type="text" value="{{Cliente.dolorCabeza}}" disabled>
+                                <input class="form-control" id="dolorCabeza" type="text" value="{{Cliente.dolorCabeza}}">
                             </div>
                             <label class="col-lg-3 col-form-label form-control-label text-right">¿Toma algún medicamento?:</label>
                             <div class="col-lg-3">
-                                <input class="form-control" type="text" value="{{Cliente.medicamentoDC}}" disabled>
+                                <input class="form-control" id="medicamentoDC" type="text" value="{{Cliente.medicamentoDC}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">¿Cuál es?:</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" value="{{Cliente.nombreMedicamentoDC}}" disabled>
+                                <input class="form-control" id="nombreMedicamentoDC" type="text" value="{{Cliente.nombreMedicamentoDC}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Finalidad del Medicamento:</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" value="{{Cliente.finMedicamentoDC}}" disabled>
+                                <input class="form-control" id="finMedicamentoDC" type="text" value="{{Cliente.finMedicamentoDC}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Anticonceptivo:</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" value="{{Cliente.anticonceptivo}}" disabled>
+                                <input class="form-control" id="anticonceptivo" type="text" value="{{Cliente.anticonceptivo}}">
                             </div>
                         </div>
                         <label>Usted o algun familiar padecen</label>
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label form-control-label text-right">Sobrepeso:</label>
                             <div class="col-lg-2">
-                                <input class="form-control" type="text" value="{{Cliente.sobrepeso}}" disabled>
+                                <input class="form-control" id="sobrepeso" type="text" value="{{Cliente.sobrepeso}}">
                             </div>
                             <label class="col-lg-2 col-form-label form-control-label text-right">Diabetes:</label>
                             <div class="col-lg-2">
-                                <input class="form-control" type="text" value="{{Cliente.diabetes}}" disabled>
+                                <input class="form-control" id="diabetes" type="text" value="{{Cliente.diabetes}}">
                             </div>
                             <label class="col-lg-2 col-form-label form-control-label text-right">Cáncer:</label>
                             <div class="col-lg-2">
-                                <input class="form-control" type="text" value="{{Cliente.cancer}}" disabled>
+                                <input class="form-control" id="cancer" type="text" value="{{Cliente.cancer}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label form-control-label text-right">Hipertensión:</label>
                             <div class="col-lg-2">
-                                <input class="form-control" type="text" value="{{Cliente.hipertension}}" disabled>
+                                <input class="form-control" id="hipertension" type="text" value="{{Cliente.hipertension}}">
                             </div>
                             <label class="col-lg-2 col-form-label form-control-label text-right text-right">Cardiovascular:</label>
                             <div class="col-lg-2">
-                                <input class="form-control" type="text" value="{{Cliente.cardiovascular}}" disabled>
-                            </div>
-                            <label class="col-lg-2 col-form-label form-control-label text-right">Actividad Física:</label>
-                            <div class="col-lg-2">
-                                <input class="form-control" type="text" value="{{Cliente.actividadFisica}}" disabled>
+                                <input class="form-control" id="cardiovascular" type="text" value="{{Cliente.cardiovascular}}">
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label mb-3">Actividad Física:</label>
+                            <div class="col-lg-9 mb-3">
+                                <input class="form-control" id="actividadFisica" type="text" value="{{Cliente.actividadFisica}}">
+                            </div>
                             <label class="col-lg-3 col-form-label form-control-label">Tipo de Actividad Física:</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" value="{{Cliente.tipoAF}}" disabled>
+                                <input class="form-control" id="tipoAF" type="text" value="{{Cliente.tipoAF}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label text-right">Frecuencia:</label>
                             <div class="col-lg-3">
-                                <input class="form-control" type="text" value="{{Cliente.frecuenciaAF}}" disabled>
+                                <input class="form-control" id="frecuenciaAF" type="text" value="{{Cliente.frecuenciaAF}}">
                             </div>
                             <label class="col-lg-3 col-form-label form-control-label text-right">Tiempo:</label>
                             <div class="col-lg-3">
-                                <input class="form-control" type="text" value="{{Cliente.tiempoAF}}" disabled>
+                                <input class="form-control" id="tiempoAF" type="text" value="{{Cliente.tiempoAF}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Adicción:</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" value="{{Cliente.adiccion}}" disabled>
+                                <input class="form-control" id="adiccion" type="text" value="{{Cliente.adiccion}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label text-right">Comida:</label>
                             <div class="col-lg-3">
-                                <input class="form-control" type="text" value="{{Cliente.comida}}" disabled>
+                                <input class="form-control" id="comida" type="text" value="{{Cliente.comida}}">
                             </div>
                             <label class="col-lg-3 col-form-label form-control-label text-right">Estrés:</label>
                             <div class="col-lg-3">
-                                <input class="form-control" type="text" value="{{Cliente.estres}}" disabled>
+                                <input class="form-control" id="estres" type="text" value="{{Cliente.estres}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Forma Alimentación:</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" value="{{Cliente.formaAlimentacion}}" disabled>
+                                <input class="form-control" id="formaAlimentacion" type="text" value="{{Cliente.formaAlimentacion}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label form-control-label text-right">Edad Sobrepeso:</label>
                             <div class="col-lg-2">
-                                <input class="form-control" type="text" value="{{Cliente.edadSobrepeso}}" disabled>
+                                <input class="form-control" id="edadSobrepeso" type="text" value="{{Cliente.edadSobrepeso}}">
                             </div>
                             <label class="col-lg-2 col-form-label form-control-label text-right">Peso Deseado:</label>
                             <div class="col-lg-2">
-                                <input class="form-control" type="text" value="{{Cliente.pesoDeseado}}" disabled>
+                                <input class="form-control" id="pesoDeseado" type="text" value="{{Cliente.pesoDeseado}}">
                             </div>
                             <label class="col-lg-2 col-form-label form-control-label text-right">Familia:</label>
                             <div class="col-lg-2">
-                                <input class="form-control" type="text" value="{{Cliente.familia}}" disabled>
+                                <input class="form-control" id="familia" type="text" value="{{Cliente.familia}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Evento Relacionado:</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" value="{{Cliente.eventoRelacionado}}" disabled>
+                                <input class="form-control" id="eventoRelacionado" type="text" value="{{Cliente.eventoRelacionado}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Motivo Reducción:</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" value="{{Cliente.motivoReduccion}}" disabled>
+                                <input class="form-control" id="motivoReduccion" type="text" value="{{Cliente.motivoReduccion}}">
                             </div>
                         </div>
                     </form>
