@@ -97,7 +97,7 @@ app.controller('inicioCtrl', function ($scope) {
 app.controller('verEmpCtrl', function ($scope, $http, $location) {
     $scope.m = "Ver Empleados";
 
-    $http.get("http://localhost:3300/empleado/getEmpleados", {
+    $http.get("http://35.238.215.74/empleado/getEmpleados", {
 
     })
         .then(function (respuesta) {
@@ -119,7 +119,7 @@ app.controller('verEmpCtrl', function ($scope, $http, $location) {
 app.controller('verCteCtrl', function ($scope, $http, $location) {
     $scope.titulo = "Ver Clientes";
     $scope.detalle = true;
-    $http.get("http://localhost:3300/user/filtroFecha", {
+    $http.get("http://35.238.215.74/user/filtroFecha", {
 
     })
         .then(function (respuesta) {
@@ -140,7 +140,7 @@ app.controller('verCteCtrl', function ($scope, $http, $location) {
     $scope.opcion = {
         name: 'detalle'
     };
-    $http.get("http://localhost:3300/user/clientes", {
+    $http.get("http://35.238.215.74/user/clientes", {
 
     })
         .then(function (respuesta) {
@@ -192,8 +192,8 @@ app.controller('clientesCtrl', function ($scope, $http, $location) {
     $scope.Enviar = function () {
         console.log("entre");
         console.log(JSON.stringify($scope.valores));
-        //http://localhost:3300/user/add-user
-        $http.post("http://localhost:3300/user/add-user",
+        //http://35.238.215.74/user/add-user
+        $http.post("http://35.238.215.74/user/add-user",
             $scope.valores
         )
             .then(function (respuesta) {
@@ -249,7 +249,7 @@ app.controller('expedienteCtrl', function ($scope, $http, $location) {
     }
     $scope.EnviarExp = function () {
         console.log(JSON.stringify($scope.datos));
-        $http.post("http://localhost:3300/user/add-expediente",
+        $http.post("http://35.238.215.74/user/add-expediente",
             $scope.datos
         )
             .then(function (respuesta) {
@@ -331,8 +331,8 @@ app.controller('empleadosCtrl', function ($scope, $http, $location) {
         $scope.valores.horarioTermino = tiempoF.value;
 
         console.log(JSON.stringify($scope.valores));
-        $http.post("http://localhost:3300/empleado/add-empleado",
-            //$http.post("http://localhost:3300/empleado/add-empleado",
+        $http.post("http://35.238.215.74/empleado/add-empleado",
+            //$http.post("http://35.238.215.74/empleado/add-empleado",
             $scope.valores
         )
             .then(function (respuesta) {
@@ -362,7 +362,7 @@ app.controller('detallesCteCtrl', function ($scope, $http, $location, $routePara
     $scope.m = "Información de Cliente";
     $scope.cte = $routeParams.idcte;
     $scope.exito = false;
-    var ruta = "http://localhost:3300/user/cliente/" + $scope.cte;
+    var ruta = "http://35.238.215.74/user/cliente/" + $scope.cte;
 
     $scope.actualizarDatos = function () {
         $scope.exitoD = false;
@@ -393,7 +393,7 @@ app.controller('detallesCteCtrl', function ($scope, $http, $location, $routePara
             numero: numero,
             calle: calle
         }
-        $http.post("http://localhost:3300/user/modificarDatosCliente/",data)
+        $http.post("http://35.238.215.74/user/modificarDatosCliente/",data)
         .then( function (respuesta) {
             console.log(respuesta.data);
             $scope.exitoD = true;
@@ -486,7 +486,7 @@ app.controller('detallesCteCtrl', function ($scope, $http, $location, $routePara
             eventoRelacionado: eventoRelacionado,
             motivoReduccion: motivoReduccion
         }
-        $http.post("http://localhost:3300/user/modificarExpedienteCliente/",data)
+        $http.post("http://35.238.215.74/user/modificarExpedienteCliente/",data)
         .then( function (respuesta) {
             console.log(respuesta.data);
             $scope.exitoE = true;
@@ -510,7 +510,7 @@ app.controller('detallesConCtrl', function ($scope, $http, $location, $routePara
     $scope.m = "Información de Consulta";
     $scope.cte = $routeParams.idcte;
     $scope.input = false;
-    var ruta = "http://localhost:3300/consultas/consulta_cliente/" + $scope.cte;
+    var ruta = "http://35.238.215.74/consultas/consulta_cliente/" + $scope.cte;
     $http.get(ruta, {
     })
         .then(function (respuesta) {
@@ -529,7 +529,7 @@ app.controller('detallesConCtrl', function ($scope, $http, $location, $routePara
         $location.path('verConsulta');
     }
 
-    var ruta2 = "http://localhost:3300/user/cliente/" + $scope.cte;
+    var ruta2 = "http://35.238.215.74/user/cliente/" + $scope.cte;
 
     $http.get(ruta2, {
     })
@@ -541,7 +541,7 @@ app.controller('detallesConCtrl', function ($scope, $http, $location, $routePara
     $scope.Enviar = function (data) {
         $scope.exito = false;
         $scope.input = false;
-        const ruta = "http://localhost:3300/consultas/modificarConsulta";
+        const ruta = "http://35.238.215.74/consultas/modificarConsulta";
         console.log("peticion actualizar ",data.x);
         $http.post(ruta, data.x)
             .then(function (data) {
@@ -559,8 +559,8 @@ app.controller('detallesEmpCtrl', function ($scope, $http, $location, $routePara
     $scope.m = "Información de Empleado";
     $scope.emp = $routeParams.idemp;
 
-    //var ruta = "http://localhost:3300/empleado/" + $scope.emp;
-    var ruta = "http://localhost:3300/empleado/" + $scope.emp;
+    //var ruta = "http://35.238.215.74/empleado/" + $scope.emp;
+    var ruta = "http://35.238.215.74/empleado/" + $scope.emp;
 
     $scope.actualizarDatos = function () {
         $scope.exito = false;
@@ -605,7 +605,7 @@ app.controller('detallesEmpCtrl', function ($scope, $http, $location, $routePara
             area: area,
             descripcion: descripcion
         }
-        $http.post("http://localhost:3300/empleado/modificarDatosEmpleado/",data)
+        $http.post("http://35.238.215.74/empleado/modificarDatosEmpleado/",data)
         .then( function (respuesta) {
             console.log(respuesta.data);
             $scope.exito = true;
@@ -649,7 +649,7 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
         $scope.datosConsultaIn.idEmpleado = EMPres[0];
         $scope.datosConsultaIn.hora = document.getElementById("horaIn").value + " - " + document.getElementById("horaFin").value;
         console.log($scope.datosConsultaIn);
-        $http.post("http://localhost:3300/citas/addCita",
+        $http.post("http://35.238.215.74/citas/addCita",
                 $scope.datosConsultaIn
             )
             .then(function (respuesta) {
@@ -659,12 +659,12 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
                 console.log(error.data);
             });
     }
-    $http.get("http://localhost:3300/user/clientes")
+    $http.get("http://35.238.215.74/user/clientes")
     .then(function (respuesta) {
         $scope.clientes = respuesta.data.usuarios;
     });
 
-    $http.get("http://localhost:3300/empleado/getEmpleados")
+    $http.get("http://35.238.215.74/empleado/getEmpleados")
     .then(function (respuesta) {
         $scope.empleados = respuesta.data.status;
         console.log("Empleados: ",$scope.empleados);
@@ -675,7 +675,7 @@ app.controller('citasCtrl', function ($scope, $http, $location) {
 });
 app.controller('citasEmpleadoCtrl', function ($scope, $http, $location, $routeParams) {
     let idemp = $routeParams.idemp;
-    let ruta = "http://localhost:3300/empleado/"+ idemp;
+    let ruta = "http://35.238.215.74/empleado/"+ idemp;
     $scope.empleado;
     //Traer info del empleado
     $http.get(ruta)
@@ -697,7 +697,7 @@ app.controller('citasEmpleadoCtrl', function ($scope, $http, $location, $routePa
             idEmpleado: idEmpleado
         }
         console.log(datos);
-        let ruta = "http://localhost:3300/citas/fecha-idEmpleado";
+        let ruta = "http://35.238.215.74/citas/fecha-idEmpleado";
         $http.post(ruta,datos)
         .then(function (respuesta) {
             $scope.citasEmpleado =respuesta.data.citas;
@@ -739,14 +739,14 @@ app.controller('consultasCtrl', function ($scope, $http, $location) {
     $scope.opcion = {
         name: 'registrar'
     };
-    $http.get("http://localhost:3300/user/clientes", {
+    $http.get("http://35.238.215.74/user/clientes", {
 
     })
         .then(function (respuesta) {
             $scope.clientes = respuesta.data.usuarios;
         });
 
-    $http.get("http://localhost:3300/empleado/getEmpleados", {
+    $http.get("http://35.238.215.74/empleado/getEmpleados", {
 
     })
         .then(function (respuesta) {
@@ -796,7 +796,7 @@ app.controller('consultasCtrl', function ($scope, $http, $location) {
 
     $scope.RegistrarConsulta = function () {
         console.log($scope.valores);
-        $http.post("http://localhost:3300/consultas/registrarConsulta", $scope.valores
+        $http.post("http://35.238.215.74/consultas/registrarConsulta", $scope.valores
         )
             .then(function (respuesta) {
                 console.log(respuesta.data);
@@ -834,7 +834,7 @@ app.controller('consultasCtrl', function ($scope, $http, $location) {
 });
 app.controller('verConsultaCtrl', function ($scope, $http, $location) {
     $scope.m = "Ver Consulta";
-    $http.get("http://localhost:3300/consultas/clientes_con_consultas", {
+    $http.get("http://35.238.215.74/consultas/clientes_con_consultas", {
 
     })
         .then(function (respuesta) {
@@ -867,7 +867,7 @@ app.controller('masajesCtrl', function ($scope, $http, $location) {
     $scope.buscarFecha = function () {
         let fecha = document.getElementById("fecha").value;
         console.log(fecha);
-        $http.get("http://localhost:3300/masajes/citasOcupadas/"+ fecha)
+        $http.get("http://35.238.215.74/masajes/citasOcupadas/"+ fecha)
         .then(function (respuesta) {
             console.log(respuesta.data);
             $scope.citas = respuesta.data.fechas;
@@ -877,7 +877,7 @@ app.controller('masajesCtrl', function ($scope, $http, $location) {
             console.log(data);
         });
     }
-    $http.get("http://localhost:3300/user/clientes")
+    $http.get("http://35.238.215.74/user/clientes")
     .then(function (respuesta) {
         $scope.clientes = respuesta.data.usuarios;
 
@@ -898,7 +898,7 @@ app.controller('masajesCtrl', function ($scope, $http, $location) {
             nombreCliente: nombre
         };
         console.log(datos);
-        $http.post("http://localhost:3300/masajes/addCitaMasaje",datos)
+        $http.post("http://35.238.215.74/masajes/addCitaMasaje",datos)
         .then(function () {
             alert("cita registrada")
             limpiarCampos(); 
@@ -922,13 +922,13 @@ app.controller('tipoMasajeCtrl', function ($scope, $http, $location, $routeParam
     $scope.date = $routeParams.date;
     $scope.extraUltimo = "";
     console.log($scope.date);
-    $http.get("http://localhost:3300/masajes/ultimoExtra")
+    $http.get("http://35.238.215.74/masajes/ultimoExtra")
         .then(function (res) {
             $scope.extraUltimo = res.data.extra[0].lastExtra;
             console.log($scope.extraUltimo);
         });
 
-    $http.get("http://localhost:3300/masajes/extras", {
+    $http.get("http://35.238.215.74/masajes/extras", {
 
     })
         .then(function (respuesta) {
@@ -1032,7 +1032,7 @@ app.controller('tipoMasajeCtrl', function ($scope, $http, $location, $routeParam
 
     $scope.EnviarBD = function (data) {
         //console.log(data);
-        $http.post("http://localhost:3300/masajes/addExtrasMasaje",
+        $http.post("http://35.238.215.74/masajes/addExtrasMasaje",
             data
         )
             .then(function (respuesta) {
@@ -1089,7 +1089,7 @@ app.controller('reporteCtrl', function ($scope, $http) {
             fecha: fecha
             
         }
-        $http.post("http://localhost:3300/reportes/reporteVentasDia", data)
+        $http.post("http://35.238.215.74/reportes/reporteVentasDia", data)
         .then(function (respuesta) {
             console.log(respuesta.data);
             $scope.total1 = 0;
@@ -1111,7 +1111,7 @@ app.controller('reporteCtrl', function ($scope, $http) {
             fecha: fecha
         }
         $http.post(
-            "http://localhost:3300/reportes/reporteConsultasDia",
+            "http://35.238.215.74/reportes/reporteConsultasDia",
             data
         )
         .then(function (respuesta) {
@@ -1146,7 +1146,7 @@ app.controller('reporteCtrl', function ($scope, $http) {
             fecha2: fecha2
         }
         $http.post(
-            "http://localhost:3300/reportes/reporteConsultas",
+            "http://35.238.215.74/reportes/reporteConsultas",
             data
         )
         .then(function (respuesta) {
@@ -1168,7 +1168,7 @@ app.controller('reporteCtrl', function ($scope, $http) {
             fecha: fecha,
             fecha2: fecha2
         }
-        $http.post("http://localhost:3300/reportes/reporteVentas", data)
+        $http.post("http://35.238.215.74/reportes/reporteVentas", data)
         .then(function (respuesta) {
             console.log(respuesta.data);
             $scope.total1 = 0;
@@ -1191,7 +1191,7 @@ app.controller('ventasCtrl', function ($scope, $http, $location) {
     $scope.listavacia = false;
     $scope.ventaAgregada = false;
 
-    $http.get("http://localhost:3300/inventario/allProducts", {
+    $http.get("http://35.238.215.74/inventario/allProducts", {
     })
         .then(function (respuesta) {
             $scope.productos = respuesta.data.productos;
@@ -1257,7 +1257,7 @@ app.controller('ventasCtrl', function ($scope, $http, $location) {
             $scope.listavacia = false;
             $scope.filtrarProducto();
             console.log($scope.products);
-            $http.post("http://localhost:3300/inventario/sellProduct",$scope.products)
+            $http.post("http://35.238.215.74/inventario/sellProduct",$scope.products)
             .then(function (respuesta) {
                 console.log(respuesta.data);
                 if(respuesta.data.status == 1){
@@ -1310,7 +1310,7 @@ app.controller('altasCtrl', function ($scope, $http, $location) {
         }
 
         console.log(data)
-        $http.post("http://localhost:3300/inventario/addProduct",data)
+        $http.post("http://35.238.215.74/inventario/addProduct",data)
         .then(function (respuesta) {
             console.log(respuesta.data);
             if (respuesta.data.status == 1) {
@@ -1333,7 +1333,7 @@ app.controller('verproductosCtrl', function ($scope, $http, $location) {
     $scope.m = "Productos";
     $scope.correcto = false;
     $scope.error = false;
-    $http.get("http://localhost:3300/inventario/allProducts", {
+    $http.get("http://35.238.215.74/inventario/allProducts", {
     })
         .then(function (respuesta) {
             $scope.productos = respuesta.data.productos;
@@ -1358,7 +1358,7 @@ app.controller('verproductosCtrl', function ($scope, $http, $location) {
         }
 
         console.log(data)
-       $http.post("http://localhost:3300/inventario/updateProductInventory",data)
+       $http.post("http://35.238.215.74/inventario/updateProductInventory",data)
         .then(function (respuesta) {
             console.log(respuesta.data);
             if (respuesta.data.status == 1) {
@@ -1366,7 +1366,7 @@ app.controller('verproductosCtrl', function ($scope, $http, $location) {
                 $scope.existencia_nueva = 1;
                 $scope.error = false;
                 $scope.update = false;
-                $http.get("http://localhost:3300/inventario/allProducts", {
+                $http.get("http://35.238.215.74/inventario/allProducts", {
                 })
                     .then(function (respuesta) {
                         $scope.productos = respuesta.data.productos;
