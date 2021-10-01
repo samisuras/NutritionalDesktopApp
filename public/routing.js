@@ -1164,6 +1164,8 @@ app.controller('reporteCtrl', function ($scope, $http) {
                 suma += e.cantidad;
             });
             $scope.totalCon = suma;
+        }).catch(function (err){
+            console.log(err)
         });
     }
     consultarFecha = function (fecha,fecha2) {
