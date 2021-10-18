@@ -1051,6 +1051,7 @@ app.controller('tipoMasajeCtrl', function ($scope, $http, $location, $routeParam
 });
 app.controller('reporteCtrl', function ($scope, $http) {
     $scope.diaB = false;
+    $scope.total = '';
     $scope.periodoB = false;
     $scope.dia = function () {
          //iniciar variables en 0
@@ -1062,6 +1063,7 @@ app.controller('reporteCtrl', function ($scope, $http) {
         $scope.periodoB = false;
     }
     $scope.periodo = function () {
+        $scope.total = 0;
          //iniciar variables en 0
          $scope.totalCon = 0;
          $scope.extrasVentas = 0;
@@ -1075,7 +1077,7 @@ app.controller('reporteCtrl', function ($scope, $http) {
     $scope.fechaDia = "";
     $scope.fecha2 = "";
     $scope.verificarFechaDia = function () {
-        
+        $scope.total = 0;
         $scope.fechaDia = document.getElementById("dateDia").value;
         console.log("fecha dia");
         console.log($scope.fechaDia.toString());
@@ -1092,7 +1094,7 @@ app.controller('reporteCtrl', function ($scope, $http) {
             fecha: fecha
             
         }
-        $http.post("http://143.110.233.84/reportes/reporteVentasDia", data)
+        $http.post("http://localhost:8080/reportes/reporteVentasDia", data)
         .then(function (respuesta) {
             console.log(respuesta.data);
             $scope.total1 = 0;
@@ -1101,10 +1103,13 @@ app.controller('reporteCtrl', function ($scope, $http) {
                 alert("No hay ventas en ese dia/periodo")
             }
             let suma = 0;
+            let total = 0;
             arrayAux.forEach(e => {
                 console.log(e.cantidad);
                 suma += e.cantidad;
+                total += e.precio;
             });
+            $scope.total = total;
             $scope.total1 = suma;
             $scope.ventas = respuesta.data.ventas
         });
@@ -1114,7 +1119,7 @@ app.controller('reporteCtrl', function ($scope, $http) {
             fecha: fecha
         }
         $http.post(
-            "http://143.110.233.84/reportes/reporteConsultasDia",
+            "http://localhost:8080/reportes/reporteConsultasDia",
             data
         )
         .then(function (respuesta) {
@@ -1149,7 +1154,7 @@ app.controller('reporteCtrl', function ($scope, $http) {
             fecha2: fecha2
         }
         $http.post(
-            "http://143.110.233.84/reportes/reporteConsultas",
+            "http://localhost:8080/reportes/reporteConsultas",
             data
         )
         .then(function (respuesta) {
@@ -1173,7 +1178,7 @@ app.controller('reporteCtrl', function ($scope, $http) {
             fecha: fecha,
             fecha2: fecha2
         }
-        $http.post("http://143.110.233.84/reportes/reporteVentas", data)
+        $http.post("http://localhost:8080/reportes/reporteVentas", data)
         .then(function (respuesta) {
             console.log(respuesta.data);
             $scope.total1 = 0;
@@ -1182,10 +1187,13 @@ app.controller('reporteCtrl', function ($scope, $http) {
                 alert("No hay ventas en ese dia/periodo")
             }
             let suma = 0;
+            let total = 0;
             arrayAux.forEach(e => {
                 console.log(e.cantidad);
                 suma += e.cantidad;
+                total += e.precio;
             });
+            $scope.total = total;
             $scope.total1 = suma;
             $scope.ventas = respuesta.data.ventas
         });
@@ -1195,8 +1203,9 @@ app.controller('ventasCtrl', function ($scope, $http, $location) {
     $scope.m = "Ventas";
     $scope.listavacia = false;
     $scope.ventaAgregada = false;
+    $scope.total = 0;
 
-    $http.get("http://143.110.233.84/inventario/allProducts", {
+    $http.get("http://localhost:8080/inventario/allProducts", {
     })
         .then(function (respuesta) {
             $scope.productos = respuesta.data.productos;
@@ -1212,6 +1221,7 @@ app.controller('ventasCtrl', function ($scope, $http, $location) {
                 break;
             }
         }
+        recalcularPrecio();
     }
     $scope.disminuir = function (data) {
         for (var i = 0; i < $scope.lista.length; i++) {
@@ -1220,15 +1230,17 @@ app.controller('ventasCtrl', function ($scope, $http, $location) {
                 break;
             }
         }
+        recalcularPrecio();
     }
     $scope.Agregar = function (data) {
         var item = data.split('|');
+        const producto = $scope.productos.find((producto) => producto.idProducto == item[0])
         if ($scope.VerificarLista(item[0])) {
             $scope.aumentar(item[0]);
         }
         else {
             if( $scope.buscarExistencia(parseInt(item[0])) > 0){
-                var objeto = { idProducto: parseInt(item[0]), nombre: item[1], cantidad: 1 };
+                var objeto = { idProducto: parseInt(item[0]), nombre: item[1], cantidad: 1, precio: producto.precio };
                 $scope.lista.push(objeto);
             }
             else{
@@ -1236,6 +1248,7 @@ app.controller('ventasCtrl', function ($scope, $http, $location) {
             }
 
         }
+        recalcularPrecio();
     }
 
     $scope.Eliminar = function (id) {
@@ -1245,6 +1258,7 @@ app.controller('ventasCtrl', function ($scope, $http, $location) {
                 break;
             }
         }
+        recalcularPrecio();
     }
 
     $scope.VerificarLista = function (id) {
@@ -1261,8 +1275,10 @@ app.controller('ventasCtrl', function ($scope, $http, $location) {
         if($scope.lista != ""){
             $scope.listavacia = false;
             $scope.filtrarProducto();
-            console.log($scope.products);
-            $http.post("http://143.110.233.84/inventario/sellProduct",$scope.products)
+            console.log($scope.lista);
+            const products = $scope.products;
+            const total = $scope.total;
+            $http.post("http://localhost:8080/inventario/sellProduct",{products, total })
             .then(function (respuesta) {
                 console.log(respuesta.data);
                 if(respuesta.data.status == 1){
@@ -1279,6 +1295,7 @@ app.controller('ventasCtrl', function ($scope, $http, $location) {
             $scope.listavacia = true;
 
         }
+        $scope.total = 0;
     }
 
     $scope.filtrarProducto = function (){
@@ -1297,6 +1314,16 @@ app.controller('ventasCtrl', function ($scope, $http, $location) {
             }
         }
 
+    }
+
+
+
+    function recalcularPrecio(){
+        let total = 0;
+        for(let product of $scope.lista){
+            total += (product.cantidad * product.precio)
+        }
+        $scope.total = total;
     }
 
 });
@@ -1339,7 +1366,7 @@ app.controller('verproductosCtrl', function ($scope, $http, $location) {
     $scope.m = "Productos";
     $scope.correcto = false;
     $scope.error = false;
-    $http.get("http://143.110.233.84/inventario/allProducts", {
+    $http.get("http://localhost:8080/inventario/allProducts", {
     })
         .then(function (respuesta) {
             $scope.productos = respuesta.data.productos;

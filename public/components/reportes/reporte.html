@@ -56,16 +56,19 @@
                     <tr>
                         <th scope="col">Nombre</th>
                         <th scope="col">Cantidad</th>
+                        <th scope="col">Precio</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="x in ventas">
                         <th scope="row">{{x.nombre}}</th>
                         <td>{{x.cantidad}}</td>
+                        <td>{{x.precio}}</td>
                     </tr>
                     <tr>
                         <th scope="row"><b>Total<b></th>
                         <td>{{total1}}</td>
+                        <td>{{total}}</td>
                     </tr>
                 </tbody>
             </table>
