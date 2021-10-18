@@ -1307,15 +1307,16 @@ app.controller('altasCtrl', function ($scope, $http, $location) {
     $scope.VerProductos = function (){
         $location.path('verproductos');
     }
-    $scope.Enviar = function (e, n, d){
+    $scope.Enviar = function (e, n, d, p){
         const data = {
             nombre: n,
             existencia: e,
-            descripcion: d
+            descripcion: d,
+            precio: p
         }
 
         console.log(data)
-        $http.post("http://143.110.233.84/inventario/addProduct",data)
+        $http.post("http://localhost:8080/inventario/addProduct",data)
         .then(function (respuesta) {
             console.log(respuesta.data);
             if (respuesta.data.status == 1) {

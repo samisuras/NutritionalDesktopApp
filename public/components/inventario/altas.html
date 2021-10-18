@@ -12,7 +12,7 @@
     <strong>Ocurrió un error!</strong> verifica los datos insertados o tu conexión a internet.
 </div>
 <div class="container">
-    <form class="well form-horizontal pt-5" ng-submit="Enviar(this.existencia, this.nombre, this.descripcion)">
+    <form class="well form-horizontal pt-5" ng-submit="Enviar(this.existencia, this.nombre, this.descripcion, this.precio)">
         <div class="row">
             <div class="col-xl-4">
                 <div class="form-group">
@@ -42,7 +42,19 @@
                     <textarea class="form-control" rows="3" ng-model="descripcion" required></textarea>
                 </div>
             </div>
-            <div class="col-xl-4"></div>
+            <div class="col-xl-4">
+                <div class="form-group">
+                    <label class="control-label">Precio de Venta:</label>
+                    <div class="inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input ng-model="precio" class="form-control" type="decimal" min="0.0" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-xl-4 pt-4">
                 <button type="submit" class="btn btn-info btn-block">Guardar Producto</button>
             </div>
