@@ -36,12 +36,13 @@
     </form>
 </div>
 
-<table class="table text-center table-striped table-hover m-5">
+<table class="table text-center table-striped table-hover m-4">
     <thead class="thead bg-info text-white">
         <tr>
             <th scope="col">ID Producto</th>
             <th scope="col">Nombre</th>
             <th scope="col">Existencia</th>
+            <th scope="col">Precio</th>
             <th scope="col">Descripción</th>
             <th scope="col">Añadir existencia</th>
             <th scope="col">Eliminar</th>
@@ -52,10 +53,10 @@
             <th scope="row">{{x.idProducto}}</th>
             <td>{{x.nombre}}</td>
             <td>{{x.existencia}}</td>
+            <td>{{x.precio}}</td>
             <td>{{x.descripcion}}</td>
             <td><button type="button" class="btn btn-info" ng-click="actualizar(this.x)"><i class="fas fa-pen"></i></button></td>
             <td><button type="button" class="btn btn-danger" ng-click="eliminar(this.x.idProducto)"><i class="fas fa-trash-alt"></i></button></td>
         </tr>
-
     </tbody>
 </table>
