@@ -186,17 +186,18 @@ app.controller('clientesCtrl', function ($scope, $http, $location) {
         apellidoPaterno: '',
         apellidoMaterno: '',
         correo: '',
-        cp: '',
+        cp: 0,
         numero: '',
         calle: '',
         sangre: '',
-        estatura: 0
+        estatura: 0,
+        telefono: 0
     };
     $scope.Enviar = function () {
         console.log("entre");
         console.log(JSON.stringify($scope.valores));
         //http://143.110.233.84/user/add-user
-        $http.post("http://143.110.233.84/user/add-user",
+        $http.post("http://localhost:8080/user/add-user",
             $scope.valores
         )
             .then(function (respuesta) {
@@ -212,9 +213,7 @@ app.controller('clientesCtrl', function ($scope, $http, $location) {
             .catch(function (error) {
                 console.log(error.data);
             });
-
     }
-
 });
 app.controller('expedienteCtrl', function ($scope, $http, $location) {
     $scope.m = "Expediente";
@@ -228,31 +227,29 @@ app.controller('expedienteCtrl', function ($scope, $http, $location) {
         actividadFisica: 0,
         estres: 0,
         medicamentoDC: 0,
-        nombreMedicamentoDC: "",
-        finMedicamentoDC: "",
-        anticonceptivo: "",
-        sobrepeso: "",
+        nombreMedicamentoDC: '',
+        finMedicamentoDC: '',
+        anticonceptivo: '',
+        sobrepeso: 0,
         diabetes: 0,
         cancer: 0,
         hipertension: 0,
         cardiovascular: 0,
-        tipoAF: "",
-        frecuenciaAF: "",
+        tipoAF: '',
+        frecuenciaAF: '',
         tiempoAF: '',
         adiccion: '',
         comida: 0,
-        formaAlimentacion: "",
-        edadSobrepeso: 0,
-        eventoRelacionado: "",
-        motivoReduccion: "",
+        formaAlimentacion: '',
+        edadSobrepeso: '',
+        eventoRelacionado: '',
+        motivoReduccion: '',
         familia: 0,
-        pesoDeseado: 0
-
-
+        pesoDeseado: 0.0
     }
     $scope.EnviarExp = function () {
         console.log(JSON.stringify($scope.datos));
-        $http.post("http://143.110.233.84/user/add-expediente",
+        $http.post("http://localhost:8080/user/add-expediente",
             $scope.datos
         )
             .then(function (respuesta) {
