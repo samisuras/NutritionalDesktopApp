@@ -365,7 +365,7 @@ app.controller('detallesCteCtrl', function ($scope, $http, $location, $routePara
     $scope.m = "Información de Cliente";
     $scope.cte = $routeParams.idcte;
     $scope.exito = false;
-    var ruta = "http://143.110.233.84/user/cliente/" + $scope.cte;
+    var ruta = "http://localhost:8080/user/cliente/" + $scope.cte;
 
     $scope.actualizarDatos = function () {
         $scope.exitoD = false;
@@ -501,6 +501,7 @@ app.controller('detallesCteCtrl', function ($scope, $http, $location, $routePara
         .then(function (respuesta) {
             console.log(respuesta.data);
             $scope.Cliente = respuesta.data.usuario[0];
+            $scope.ventas = respuesta.data.ventas;
             console.log($scope.Cliente);
         });
 
@@ -1204,7 +1205,10 @@ app.controller('ventasCtrl', function ($scope, $http, $location) {
     $scope.listavacia = false;
     $scope.ventaAgregada = false;
     $scope.total = 0;
-
+    $http.get("http://143.110.233.84/user/clientes")
+    .then(function (respuesta) {
+        $scope.clientes = respuesta.data.usuarios;
+    });
     $http.get("http://localhost:8080/inventario/allProducts", {
     })
         .then(function (respuesta) {
@@ -1271,14 +1275,16 @@ app.controller('ventasCtrl', function ($scope, $http, $location) {
         return false;
     }
 
-    $scope.Enviar = function (){
+    $scope.Enviar = function (data){
         if($scope.lista != ""){
+            console.log(data);
+            const cliente = data.search1.split('|')[0];
             $scope.listavacia = false;
             $scope.filtrarProducto();
             console.log($scope.lista);
             const products = $scope.products;
             const total = $scope.total;
-            $http.post("http://localhost:8080/inventario/sellProduct",{products, total })
+            $http.post("http://localhost:8080/inventario/sellProduct",{products, total,  cliente })
             .then(function (respuesta) {
                 console.log(respuesta.data);
                 if(respuesta.data.status == 1){
