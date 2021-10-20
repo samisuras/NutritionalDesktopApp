@@ -197,7 +197,7 @@ app.controller('clientesCtrl', function ($scope, $http, $location) {
         console.log("entre");
         console.log(JSON.stringify($scope.valores));
         //http://143.110.233.84/user/add-user
-        $http.post("http://localhost:8080/user/add-user",
+        $http.post("http://143.110.233.84/user/add-user",
             $scope.valores
         )
             .then(function (respuesta) {
@@ -249,7 +249,7 @@ app.controller('expedienteCtrl', function ($scope, $http, $location) {
     }
     $scope.EnviarExp = function () {
         console.log(JSON.stringify($scope.datos));
-        $http.post("http://localhost:8080/user/add-expediente",
+        $http.post("http://143.110.233.84/user/add-expediente",
             $scope.datos
         )
             .then(function (respuesta) {
@@ -362,7 +362,7 @@ app.controller('detallesCteCtrl', function ($scope, $http, $location, $routePara
     $scope.m = "Información de Cliente";
     $scope.cte = $routeParams.idcte;
     $scope.exito = false;
-    var ruta = "http://localhost:8080/user/cliente/" + $scope.cte;
+    var ruta = "http://143.110.233.84/user/cliente/" + $scope.cte;
 
     $scope.actualizarDatos = function () {
         $scope.exitoD = false;
@@ -1092,7 +1092,7 @@ app.controller('reporteCtrl', function ($scope, $http) {
             fecha: fecha
             
         }
-        $http.post("http://localhost:8080/reportes/reporteVentasDia", data)
+        $http.post("http://143.110.233.84/reportes/reporteVentasDia", data)
         .then(function (respuesta) {
             console.log(respuesta.data);
             $scope.total1 = 0;
@@ -1117,7 +1117,7 @@ app.controller('reporteCtrl', function ($scope, $http) {
             fecha: fecha
         }
         $http.post(
-            "http://localhost:8080/reportes/reporteConsultasDia",
+            "http://143.110.233.84/reportes/reporteConsultasDia",
             data
         )
         .then(function (respuesta) {
@@ -1152,7 +1152,7 @@ app.controller('reporteCtrl', function ($scope, $http) {
             fecha2: fecha2
         }
         $http.post(
-            "http://localhost:8080/reportes/reporteConsultas",
+            "http://143.110.233.84/reportes/reporteConsultas",
             data
         )
         .then(function (respuesta) {
@@ -1176,7 +1176,7 @@ app.controller('reporteCtrl', function ($scope, $http) {
             fecha: fecha,
             fecha2: fecha2
         }
-        $http.post("http://localhost:8080/reportes/reporteVentas", data)
+        $http.post("http://143.110.233.84/reportes/reporteVentas", data)
         .then(function (respuesta) {
             console.log(respuesta.data);
             $scope.total1 = 0;
@@ -1206,7 +1206,7 @@ app.controller('ventasCtrl', function ($scope, $http, $location) {
     .then(function (respuesta) {
         $scope.clientes = respuesta.data.usuarios;
     });
-    $http.get("http://localhost:8080/inventario/allProducts", {
+    $http.get("http://143.110.233.84/inventario/allProducts", {
     })
         .then(function (respuesta) {
             $scope.productos = respuesta.data.productos;
@@ -1281,7 +1281,7 @@ app.controller('ventasCtrl', function ($scope, $http, $location) {
             console.log($scope.lista);
             const products = $scope.products;
             const total = $scope.total;
-            $http.post("http://localhost:8080/inventario/sellProduct",{products, total,  cliente })
+            $http.post("http://143.110.233.84/inventario/sellProduct",{products, total,  cliente })
             .then(function (respuesta) {
                 console.log(respuesta.data);
                 if(respuesta.data.status == 1){
@@ -1346,7 +1346,7 @@ app.controller('altasCtrl', function ($scope, $http, $location) {
         }
 
         console.log(data)
-        $http.post("http://localhost:8080/inventario/addProduct",data)
+        $http.post("http://143.110.233.84/inventario/addProduct",data)
         .then(function (respuesta) {
             console.log(respuesta.data);
             if (respuesta.data.status == 1) {
@@ -1369,7 +1369,7 @@ app.controller('verproductosCtrl', function ($scope, $http, $location) {
     $scope.m = "Productos";
     $scope.correcto = false;
     $scope.error = false;
-    $http.get("http://localhost:8080/inventario/allProducts", {
+    $http.get("http://143.110.233.84/inventario/allProducts", {
     })
         .then(function (respuesta) {
             $scope.productos = respuesta.data.productos;
