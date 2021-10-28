@@ -15,8 +15,8 @@
             <div class="col-xl-4">
                 <div class="form-group">
                     <label class="control-label">Nombre de Cliente:</label>
-                    <input class="form-control" type="text" ng-model="search1" list="nombresCTE" id="clean" required>
-                    <datalist id="nombresCTE">
+                    <input class="form-control" type="text" ng-change="cambio(search1)" ng-model="search1" list="nombresCTE" id="clean" required>
+                    <datalist id="nombresCTE" >
                         <option ng-repeat="x in clientes | filter:search1"
                             value="{{x.idCliente}}|{{x.nombre + ' '+ x.apellidoPaterno+' '+ x.apellidoMaterno}}">
                         </option>
@@ -91,4 +91,41 @@
             </div>
         </div>
     </form>
+    <h3>Consultas anteriores</h3>
+    <table class="table text-center table-striped table-hover">
+        <thead class="thead bg-info text-white">
+            <tr>
+                <th scope="col">Peso</th>
+                <th scope="col">Cadera</th>
+                <th scope="col">Cintura</th>
+                <th scope="col">Estatura</th>
+                <th scope="col">Observaciones</th>
+                <th scope="col">Fecha de Cita</th>
+                <th scope="col">Hora</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="x in consultas">
+                <form class="well form-horizontal pt-4 pb-4" ng-show="RegistrarConsultas">
+                    <td scope="col">
+                        <spam ng-hide="input">{{x.peso}}</spam>
+                        <input class="form-control" type="text"  maxlength="3" ng-model="x.peso" value="{{x.peso}}" ng-show="input"> 
+                    </td>
+                    <td scope="col">
+                        <spam ng-hide="input">{{x.cadera}}</spam> 
+                        <input class="form-control" type="text"  maxlength="3" ng-model="x.cadera" value={{x.cadera}} ng-show="input"> 
+                    </td>
+                    <td scope="col">
+                        <spam ng-hide="input">{{x.cintura}}</spam>
+                        <input class="form-control" type="text"  maxlength="3" ng-model="x.cintura" value={{x.cintura}} ng-show="input"> 
+                    </td>
+                    <td scope="col">{{x.talla}}</td>
+                    <td scope="col">{{x.observaciones}}</td>
+                    <td scope="col">{{x.fecha}}</td>
+                    <td scope="col">{{x.hora}}</td>
+                    <td hidden>{{x.idDatos_consulta}}</td>
+                </form>
+            </tr>
+        </tbody>
+    </table>
 </div>
