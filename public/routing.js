@@ -147,6 +147,17 @@ app.controller("verCteCtrl", function ($scope, $http, $location) {
     $location.url("/detallesCTE/" + data.x.idCliente);
   };
 
+  $scope.borrar = function (data) {
+    if(confirm(`Desea borrar el usuario: ${data.x.nombre} ${data.x.apellidoPaterno} ${data.x.apellidoMaterno}`)){
+      $http
+    .delete(`http://143.110.233.84/user/borrar/${data.x.idUsuario}`)
+    .then(function (respuesta) {
+      alert(`El usuario: ${data.x.nombre} ${data.x.apellidoPaterno} ${data.x.apellidoMaterno} fue borrado`);
+      window.location.reload();
+    })
+    }
+  };
+
   $scope.return = function () {
     $location.path("cte");
   };

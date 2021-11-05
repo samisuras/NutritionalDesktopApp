@@ -28,9 +28,8 @@
                 <th scope="col">ID Usuario</th>
                 <th scope="col">Nombre Completo</th>
                 <th scope="col">Correo Electrónico</th>
-                <th scope="col">ID Dirección</th>
-                <th scope="col">ID Cliente</th>
                 <th scope="col">Ver más</th>
+                <th scope="col">Borrar</th>
 
             </tr>
         </thead>
@@ -39,9 +38,8 @@
                 <th scope="row">{{x.idUsuario}}</th>
                 <td>{{x.nombre + ' '+ x.apellidoPaterno+' '+ x.apellidoMaterno}}</td>
                 <td>{{x.correo}}</td>
-                <td scope="row">{{x.idDireccion}}</td>
-                <td scope="row">{{x.idCliente}}</td>
                 <td><button class="btn btn-primary" ng-click="Detalles(this)">Detalles</button></td>
+                <td><button class="btn btn-danger" ng-click="borrar(this)">Borrar</button></td>
             </tr>
 
         </tbody>
