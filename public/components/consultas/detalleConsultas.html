@@ -20,6 +20,8 @@
                     <th scope="col">Observaciones</th>
                     <th scope="col">Fecha de Cita</th>
                     <th scope="col">Hora</th>
+                    <th scope="col">Editar</th>
+                    <th scope="col">Borrar</th>
                     <th scope="col" ng-show="input"></th>
                     <th scope="col" ng-hide="input"></th>
                 </tr>
@@ -50,6 +52,7 @@
                         <td scope="col" ng-hide="input">
                             <button type="button" class="btn btn-info" ng-click="mostrarForm()"><i class="fas fa-pen"></i></button>
                         </td>
+                        <td><button class="btn btn-danger" ng-click="borrar(this)">Borrar</button></td>
                     </form>
                 </tr>
             </tbody>

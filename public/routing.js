@@ -148,13 +148,19 @@ app.controller("verCteCtrl", function ($scope, $http, $location) {
   };
 
   $scope.borrar = function (data) {
-    if(confirm(`Desea borrar el usuario: ${data.x.nombre} ${data.x.apellidoPaterno} ${data.x.apellidoMaterno}`)){
+    if (
+      confirm(
+        `Desea borrar el usuario: ${data.x.nombre} ${data.x.apellidoPaterno} ${data.x.apellidoMaterno}`
+      )
+    ) {
       $http
-    .delete(`http://143.110.233.84/user/borrar/${data.x.idUsuario}`)
-    .then(function (respuesta) {
-      alert(`El usuario: ${data.x.nombre} ${data.x.apellidoPaterno} ${data.x.apellidoMaterno} fue borrado`);
-      window.location.reload();
-    })
+        .delete(`http://143.110.233.84/user/borrar/${data.x.idUsuario}`)
+        .then(function (respuesta) {
+          alert(
+            `El usuario: ${data.x.nombre} ${data.x.apellidoPaterno} ${data.x.apellidoMaterno} fue borrado`
+          );
+          window.location.reload();
+        });
     }
   };
 
@@ -568,6 +574,19 @@ app.controller(
         respuesta.data.consultas[i].fecha = fecha[0];
       }
     });
+
+    $scope.borrar = function (data) {
+      if (confirm(`Desea borrar la consulta?`)) {
+        $http
+          .delete(`http://143.110.233.84/consultas/borrar/${data.x.idDatos_consulta}`)
+          .then(function (respuesta) {
+            alert(
+              `La cita fue borrada`
+            );
+            window.location.reload();
+          });
+      }
+    };
 
     $scope.mostrarForm = function () {
       $scope.input = true;
